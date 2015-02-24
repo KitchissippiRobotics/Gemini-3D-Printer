@@ -12,6 +12,16 @@ Initial object models were designed to minimize initial print time; test the und
 This makes the parts more fragile than a production model, however the initial K02.2 prototype successfully made several prints of decent quality.
 Most print failures may have been explained by early bed mounting and filament pusher mounting - these were done mostly as hacks to test the electronics and basic mechanism.
 
+<h2>History Notes</h2>
+
+This project is the developers second CoreXY design and 5th original 3D printer design.
+
+- The first version - several revisions of the K02.1 - was based around an experimental carriage for movement using low cost materials
+- The first version was abandoned due to required materials being made of steel; while fully functional, the machine was heavier than ideal
+- Carriages formed the basis of the successful K03.1 and K03.2 prototype delta machines, intended as outlets for recycling initial K02 materials, fully functional but incomplete at this writing.
+- Cost analysis revealed that the original K02 (and perhaps K03) was not providing significant savings in cost vs production effort 
+- production of the K02/K03 machines accurately requires machinery exceeding any savings - they can be built with simple tools like a punch/hand-drill/hacksaw, but great care must be taken (mass replication would be difficult)
+
 <h2>Work Notes</h2>
 
 *23/Feb/2015* This is the Hotend-Assembly-Concept-HAC.03 fork. It is the current fork for development work.
@@ -80,3 +90,9 @@ _ (150?) M4x10mm allen head steel bolts
 12v in - fans in Hotend assembly / X Carriage / Electronics Assembly (keep under 2 amp)
 5v  in - USB/ethernet/CPU power (USB equivalent draw) (keep under 1 amp)
 
+<h2>About the Developer</h2>
+
+"I am not a mechanical engineer, but I play one on the Internet"
+I have played many roles in my life, I am a software developer, an artist, an animator, a musician, a labourer, a technical analyst, a network engineer, an electronics engineer, an educator, a lover, a fighter.
+I am a jack of all trades, a traveller of life and today - I am a roboticist.
+I can be found on #reprap IRC as "novakane"
