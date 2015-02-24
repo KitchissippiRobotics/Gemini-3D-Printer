@@ -1,9 +1,9 @@
 # Gemini-3D-Printer
-CoreXY RepRap Style 3D Printer
+<h1>CoreXY RepRap Style 3D Printer</h1>
 
 This is a test bed for experiments aiming for a large 300mm X 300mm X 400+mm print area FFF (layered filament) 3D printer.
 
-Project Status and Description
+<h2>Project Status and Description</h2>
 
 This is an in-progress design for the machine - the source may change frequently and is not currently stable.
 Any questions can be directed to novakane on the freenode IRC channel #reprap 
@@ -12,12 +12,44 @@ Initial object models were designed to minimize initial print time; test the und
 This makes the parts more fragile than a production model, however the initial K02.2 prototype successfully made several prints of decent quality.
 Most print failures may have been explained by early bed mounting and filament pusher mounting - these were done mostly as hacks to test the electronics and basic mechanism.
 
-Work Notes
+<h2>Work Notes</h2>
 
-*23/Feb/2015* For current models, check in the Hotend-Assembly-Concept-HAC.03 fork 
+*23/Feb/2015* This is the Hotend-Assembly-Concept-HAC.03 fork. It is the current fork for development work.
+
+<h3>Mission Statement of Fork</h3>
+
+The focus is to come up with a clear design for:
+
+- Dual hotends - hotends.com official jhead 0.4mm/1.75mm based hotends 
+-- it is the developers experienced observation that these are the finest PLA/ABS/PETT/Nylon extruding hotends available and most commonly available as well as recommended
+-- newer all-metal hotends may handle more experimental filaments but perform poorly on the common ones, experimental filaments also perform poorly in general
+-- design goal is a reliable machine, reliable hotends are key to this
+-- the jhead is a proven design that has been personally tested by the developer for several years, newer designs offer more problems than solutions, reliability and availability is core to functionality
+
+- Z Sensor in Hotend Assembly
+-- Simplicity in the motion of the switch vs the hotend
+-- linearity: switch triggering with the minimum of play in the mechanism, repeatability in Z axis detection with level print bed
+
+- Cooling
+-- hotends need active cooling through vents to ensure reliable operation
+-- PLA and similar plastics require rapid cooling to achieve optimal quality
+-- ABS usually does not warrant cooling but can benefit on small details
+-- cooling needs to be high velocity and specifically channelled to avoid cooling heating blocks
+
+- Style
+-- The Hotend Assembly will be a key focus of the machine - most observation of the mechanism will be directed to the active print
+-- Style and design notes for the rest of the machine will be derivative of and complimentary to the Hotend Assembly
+
+- Functionality
+-- Easy to release hotends for swapping
+--- This could be done with a modularized format?
+-- This is a design also with intent of hacking and testing - easy access to wiring screw terminals
+-- Easy to detach modules from machine
 
 
-Incomplete BOM
+<h2>Incomplete BOM</h2>
+
+<h3>Hardware and Electronics</h3>
 
 - (5) 20mm X 20mm x 500mm aluminum slotted extrusions (20x20 at half meter lengths) for horizontal dimensions
 - (4) 1000mm for vertical segments {(4) 250mm length cut from ends to form part of the base
@@ -38,8 +70,11 @@ _ (150?) M4x10mm allen head steel bolts
 - (3) micro switches for endstops
 - (1) 24v 15A 360W power supply
 - (1) Smoothieboard for controller
+- (2) 12v 0.1A 25mm DC fan for bent cooling on hotends
+- (2) jhead hotends 0.4mm nozzle
+- (1) 12v 0.06A blower fan
 
-Voltage converters for inputs to controller from 24v PSU
+<h2>Voltage converters for inputs to controller from 24v PSU</h2>
 
 24v in - heatbed, hotends, motors
 12v in - fans in Hotend assembly / X Carriage / Electronics Assembly (keep under 2 amp)
