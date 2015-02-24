@@ -1,9 +1,9 @@
 # Gemini-3D-Printer
-CoreXY RepRap Style 3D Printer
+<h1>CoreXY RepRap Style 3D Printer</h1>
 
 This is a test bed for experiments aiming for a large 300mm X 300mm X 400+mm print area FFF (layered filament) 3D printer.
 
-Project Status and Description
+<h2>Project Status and Description</h2>
 
 This is an in-progress design for the machine - the source may change frequently and is not currently stable.
 Any questions can be directed to novakane on the freenode IRC channel #reprap 
@@ -12,12 +12,12 @@ Initial object models were designed to minimize initial print time; test the und
 This makes the parts more fragile than a production model, however the initial K02.2 prototype successfully made several prints of decent quality.
 Most print failures may have been explained by early bed mounting and filament pusher mounting - these were done mostly as hacks to test the electronics and basic mechanism.
 
-Work Notes
+<h2>Work Notes</h2>
 
 *23/Feb/2015* For current models, check in the Hotend-Assembly-Concept-HAC.03 fork 
 
 
-Incomplete BOM
+<h2>Incomplete BOM</h2>
 
 - (5) 20mm X 20mm x 500mm aluminum slotted extrusions (20x20 at half meter lengths) for horizontal dimensions
 - (4) 1000mm for vertical segments {(4) 250mm length cut from ends to form part of the base
@@ -39,7 +39,7 @@ _ (150?) M4x10mm allen head steel bolts
 - (1) 24v 15A 360W power supply
 - (1) Smoothieboard for controller
 
-Voltage converters for inputs to controller from 24v PSU
+<h2>Voltage converters for inputs to controller from 24v PSU</h2>
 
 24v in - heatbed, hotends, motors
 12v in - fans in Hotend assembly / X Carriage / Electronics Assembly (keep under 2 amp)
