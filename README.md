@@ -92,7 +92,8 @@ _ (150?) M4x10mm allen head steel bolts
 
 <h2>About the Developer</h2>
 
-"I am not a mechanical engineer, but I play one on the Internet"
-I have played many roles in my life, I am a software developer, an artist, an animator, a musician, a labourer, a technical analyst, a network engineer, an electronics engineer, an educator, a lover, a fighter.
-I am a jack of all trades, a traveller of life and today - I am a roboticist.
-I can be found on #reprap IRC as "novakane"
+- "I am not an engineer, but I play one on the Internet"
+- I have played many roles in my life, I am a software developer, an artist, an animator, a musician, a labourer, a technical analyst, a network engineer, an electronics engineer, an educator, a lover, a fighter.
+- I am a jack of all trades, a traveller of life and today - I am a roboticist.
+- I can be found on #reprap IRC as "novakane"
+- I am attempting to bring together what little I know of mechanics, assembly, and avionics into a cohesive 3D printing platform
