@@ -13,6 +13,8 @@ This makes the parts more fragile than a production model, however the initial K
 Most print failures may have been explained by early bed mounting and filament pusher mounting - these were done mostly as hacks to test the electronics and basic mechanism.
 
 <h2>History Notes</h2>
+<<<<<<< HEAD
+=======
 
 This project is the developers second CoreXY design and 5th original 3D printer design.
 
@@ -22,6 +24,19 @@ This project is the developers second CoreXY design and 5th original 3D printer 
 - Cost analysis revealed that the original K02 (and perhaps K03) was not providing significant savings in cost vs production effort 
 - production of the K02/K03 machines accurately requires machinery exceeding any savings - they can be built with simple tools like a punch/hand-drill/hacksaw, but great care must be taken (mass replication would be difficult)
 
+
+<h2>Work Notes</h2>
+>>>>>>> master
+
+This project is the developers second CoreXY design and 5th original 3D printer design.
+
+- The first version - several revisions of the K02.1 - was based around an experimental carriage for movement using low cost materials
+- The first version was abandoned due to required materials being made of steel; while fully functional, the machine was heavier than ideal
+- Carriages formed the basis of the successful K03.1 and K03.2 prototype delta machines, intended as outlets for recycling initial K02 materials, fully functional but incomplete at this writing.
+- Cost analysis revealed that the original K02 (and perhaps K03) was not providing significant savings in cost vs production effort 
+- production of the K02/K03 machines accurately requires machinery exceeding any savings - they can be built with simple tools like a punch/hand-drill/hacksaw, but great care must be taken (mass replication would be difficult)
+
+<<<<<<< HEAD
 <h2>Work Notes</h2>
 
 *23/Feb/2015* This is the Hotend-Assembly-Concept-HAC.03 fork. It is the current fork for development work.
@@ -60,6 +75,9 @@ The focus is to come up with a clear design for:
 <h2>Incomplete BOM</h2>
 
 <h3>Hardware and Electronics</h3>
+=======
+<h2>Incomplete BOM</h2>
+>>>>>>> master
 
 - (5) 20mm X 20mm x 500mm aluminum slotted extrusions (20x20 at half meter lengths) for horizontal dimensions
 - (4) 1000mm for vertical segments {(4) 250mm length cut from ends to form part of the base
@@ -92,8 +110,14 @@ _ (150?) M4x10mm allen head steel bolts
 
 <h2>About the Developer</h2>
 
+<<<<<<< HEAD
 - "I am not an engineer, but I play one on the Internet"
 - I have played many roles in my life, I am a software developer, an artist, an animator, a musician, a labourer, a technical analyst, a network engineer, an electronics engineer, an educator, a lover, a fighter.
 - I am a jack of all trades, a traveller of life and today - I am a roboticist.
 - I can be found on #reprap IRC as "novakane"
 - I am attempting to bring together what little I know of mechanics, assembly, and avionics into a cohesive 3D printing platform
+=======
+"I am not a mechanical engineer, but I play one on the Internet"
+I have played many roles in my life, I am a software developer, an artist, an animator, a musician, a labourer, a technical analyst, a network engineer, an electronics engineer, an educator, a lover, a fighter.
+I am a jack of all trades, a traveller of life and today - I am a roboticist.
+>>>>>>> master
