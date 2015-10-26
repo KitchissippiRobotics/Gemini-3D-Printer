@@ -53,9 +53,9 @@ include <CommonHardware.scad>
 // Related Carriage Bolt Dimensions - This is the interface for attaching things
 // to the linear slide on the HiWin style rail system
 
-hwLR_Carriage_BoltWidth = 10.0			// see above reference diagram
-hwLR_Carriage_BoltLength = 15.0			// see above reference diagram
-hwLR_Carriage_BoltDepth = 3.5			// depth the bolt screws within the carriage
+hwLR_Carriage_BoltWidth = 10.0;			// see above reference diagram
+hwLR_Carriage_BoltLength = 15.0;			// see above reference diagram
+hwLR_Carriage_BoltDepth = 3.5;			// depth the bolt screws within the carriage
 hwLR_Carriage_BoltDiameter = hwM3_Bolt_ShaftDiameter;
 
 hwLR_Guide_BoltSpacing = 20;			// spacing between guide rail mounting holes
@@ -72,6 +72,15 @@ hwLR_Guide_BoltDiameter = hwM3_Bolt_ShaftDiameter;
 
 rpXC_BeltMount_BoltSpacing = 38.3;		// as measured Rv2
 rpXC_BeltMount_BoltOffset  = 10.1;		// as measured Rv2
+
+rpXC_BeltMount_BoltSize = hwM4_Bolt_AllenHeadSize;
+
+// Carriage mounting onto the linear rail carriage
+
+rpXC_CarriageMount_BoltLength = 10;		// M3x10 mounting bolts
+rpXC_CarriageMount_BoltSize = hwM3_Bolt_AllenHeadSize;
+rpXC_CarriageMount_BlockHeight = 9.5;
+
 
 // Global Constants
 // =============================================================================
