@@ -48,16 +48,30 @@ hwLR_Guide_BoltDiameter = hwM3_Bolt_ShaftDiameter;
 // Spacing between the two bolts and vertical offset relative to the top face of the hwLR_Carriage
 // These measurements are taken from the Rv2 SketchUp design document
 
+// Belt Clamp Bolts
+
 rpXC_BeltMount_BoltSpacing = 38.3;		// as measured Rv2
 rpXC_BeltMount_BoltOffset  = 10.1;		// as measured Rv2
-
+rpXC_BeltMount_BoltDepth = - 21;
 rpXC_BeltMount_BoltSize = hwM4_Bolt_AllenHeadSize;
+rpXC_BeltMount_BoltLength = 40;
 
-// Carriage mounting onto the linear rail carriage
+rpXC_BeltMount_BoltHolderDiameter = 13; 	// Rv2
+
+
+// Carriage Mounting Bolts
 
 rpXC_CarriageMount_BoltLength = 10;		// M3x10 mounting bolts
 rpXC_CarriageMount_BoltSize = hwM3_Bolt_AllenHeadSize;
-rpXC_CarriageMount_BlockHeight = 9.5;
+
+// Carriage Mounting Base
+
+rpXC_CarriageMount_BaseHeight = 9.5;		// Rv2
+rpXC_CarriageMount_BaseLength = 39.0;		// Rv2
+rpXC_CarriageMount_BaseWidth = 20.8;		// Rv2
+
+rpXC_CarriageMount_BaseBevelDepth = 3;
+rpXC_CarriageMount_BaseBevelHeight = 3;
 
 
 // Global Constants
