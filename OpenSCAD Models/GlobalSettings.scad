@@ -14,7 +14,7 @@
 // Global Settings - Edit These
 // =============================================================================
 
-gRender_Hardware = true;	// render the hardware within the OpenSCAD model
+gRender_Hardware = false;	// render the hardware within the OpenSCAD model
 gRender_Resolution = 1;		// resolution of curves - 1 is default
 
 
