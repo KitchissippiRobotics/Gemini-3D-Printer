@@ -58,11 +58,13 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 // Render: XC_CarriageBeltClamp
 // =============================================================================
 
-// include <XC_CarriageBase.scad>
+include <XC_BeltClamp.scad>
 
 // ~~ Part No. XB-CB-ABS02 ~~ (XC_BeltClamp.stl)
-//color("Snow")
-//	Part_XC_BeltClamp();
+color("Snow")
+	translate([0 - (17.2),0,rpXC_BeltMount_BoltOffset])
+	rotate([0,-90,0])
+	Part_XC_BeltClamp();
 	
 // Mount Bolts for belt clamp and hotend assembly
 

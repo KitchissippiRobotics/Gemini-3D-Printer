@@ -58,6 +58,10 @@ rpXC_BeltMount_BoltLength = 40;
 
 rpXC_BeltMount_BoltHolderDiameter = 13; 	// Rv2
 
+rpXC_BeltMount_BaseThickness = 4;			// Rv2
+rpXC_BeltMount_BaseWidth = 20.2;			// Rv2
+rpXC_BeltMount_BaseLength = 30; 			// Rv2
+
 
 // Carriage Mounting Bolts
 
