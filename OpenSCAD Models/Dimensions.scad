@@ -60,8 +60,21 @@ rpXC_BeltMount_BoltHolderDiameter = 13; 	// Rv2
 
 rpXC_BeltMount_BaseThickness = 4;			// Rv2
 rpXC_BeltMount_BaseWidth = 20.2;			// Rv2
-rpXC_BeltMount_BaseLength = 30; 			// Rv2
+// rpXC_BeltMount_BaseLength = 30; 			// Rv2
+rpXC_BeltMount_BaseLength = 39.0; 			// new
 
+
+rpXC_BeltMount_ChannelEdgeHeight = 6;		// Rv2
+rpXC_BeltMount_ChannelEdgeWidth = 2;		// Rv2
+rpXC_BeltMount_ChannelEdgeLength = rpXC_BeltMount_BaseLength;
+
+rpXC_BeltMount_ChannelCenterHeight = 8;		// Rv2
+rpXC_BeltMount_ChannelCenterWidth = 4.2;	// Rv2
+rpXC_BeltMount_ChannelCenterLength = 30;	// Rv2
+
+rpXC_BeltMount_ClampBoltSpacing = 16;		// Rv2
+rpXC_BeltMount_ClampBoltLength = 10;		// Rv2
+rpXC_BeltMount_ClampBoltSize = hwM3_Bolt_AllenHeadSize;
 
 // Carriage Mounting Bolts
 

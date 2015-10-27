@@ -14,7 +14,7 @@
 include <Dimensions.scad>
 
 // Default Usage:
-//Part_XC_BeltClamp();
+// Part_XC_BeltClamp();
 
 
 // -----------------------------------------------------------------------------
@@ -29,35 +29,67 @@ module Part_XC_BeltClamp() {
 
 module _XC_BeltClamp_Left() {
 
+	
 	difference() {
-		hull() {
-			translate([0, rpXC_BeltMount_BoltSpacing /2, 0])
-				cylinder(h = rpXC_BeltMount_BaseThickness, 
-						 d = rpXC_BeltMount_BoltHolderDiameter);
-			color("red")
-			translate([0 - (rpXC_BeltMount_BaseWidth / 2),0,0])
-				cube(size = [rpXC_CarriageMount_BaseWidth, 
-							 rpXC_BeltMount_BaseLength / 2, 
-							 rpXC_BeltMount_BaseThickness],
+		// base piece with belt clamp troughs
+		union() {
+			difference() {
+		
+				// This builds the base portion of the part
+				hull() {
+					translate([0, rpXC_BeltMount_BoltSpacing /2, 0])
+						cylinder(h = rpXC_BeltMount_BaseThickness, 
+								 d = rpXC_BeltMount_BoltHolderDiameter);
+
+					translate([0 - (rpXC_BeltMount_BaseWidth / 2),0,0])
+						cube(size = [rpXC_BeltMount_BaseWidth, 
+									 rpXC_BeltMount_BaseLength / 2, 
+									 rpXC_BeltMount_BaseThickness],
+							center = false);
+				}
+			
+				// carve out bolt hole
+				translate([0, 0 + (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltDepth])
+					rotate([0,0,0])
+						Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 
+												rpXC_BeltMount_BoltLength);
+											
+				// carve out nut trap
+				// TODO: XB-CB-ABS02
+			}
+	
+			// edge grooves to hold belts inline
+			translate([- 2 + (rpXC_BeltMount_BaseWidth /2), 0 , 0])
+				cube(size = [rpXC_BeltMount_ChannelEdgeWidth, 
+							rpXC_BeltMount_BaseLength / 2,
+							rpXC_BeltMount_ChannelEdgeHeight],
 					center = false);
-					
-					
-					
+	
+			translate([0 - ((rpXC_BeltMount_BaseWidth /2)), 0 , 0])
+				cube(size = [rpXC_BeltMount_ChannelEdgeWidth,
+							 rpXC_BeltMount_BaseLength / 2, 
+							 rpXC_BeltMount_ChannelEdgeHeight],
+					center = false);
+			
+			// centre groove to hold belts inline as well as bolt clamp covers to
+			translate([0 - (rpXC_BeltMount_ChannelCenterWidth /2 ), 0 , 0])
+				cube(size = [rpXC_BeltMount_ChannelCenterWidth,
+							 rpXC_BeltMount_ChannelCenterLength / 2, 
+							 rpXC_BeltMount_ChannelCenterHeight],
+					center = false);
+			
+			// need module for belt teeth	
+			// TODO: XB-CB-ABS02
 		}
-	
-		translate([0, 0 + (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltDepth])
+		// hole for clamp covers
+		
+		translate([0, 0 + (rpXC_BeltMount_ClampBoltSpacing / 2), 0])
 			rotate([0,0,0])
-				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 
-										rpXC_BeltMount_BoltLength);
+				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, 
+										rpXC_BeltMount_ClampBoltLength);
 	}
+		
+				
 	
-	translate([0 + ((rpXC_BeltMount_BaseWidth /2) -1.4), 0 , 0])
-	cube(size = [2, rpXC_BeltMount_BaseLength / 2, 6], center = false);
-	
-	translate([0 - ((rpXC_BeltMount_BaseWidth /2)), 0 , 0])
-	cube(size = [2, rpXC_BeltMount_BaseLength / 2, 6], center = false);
 		 
 }
-
-
-		
