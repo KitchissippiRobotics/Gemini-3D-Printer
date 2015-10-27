@@ -21,8 +21,11 @@ include <Dimensions.scad>
 // Carve out Bolt Holes
 
 difference() { 
+	// main box
 	translate([0,0,rpXC_CarriageMount_BlockHeight/2])
 		cube(size = [20, 25, rpXC_CarriageMount_BlockHeight], center = true);
+		
+	// carve holes out of box for mounting bolts
 	union() {
 		translate([0 - (hwLR_Carriage_BoltLength / 2), 0 - (hwLR_Carriage_BoltWidth / 2), 0 - hwLR_Carriage_BoltDepth])
 			Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 5);
@@ -37,6 +40,9 @@ difference() {
 			Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 5);
 	}
 }
+	
+	
+	
 	
 	
 // Draw Four Bolt Positions

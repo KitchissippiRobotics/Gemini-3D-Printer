@@ -6,24 +6,31 @@
 // Written by bcantin@kitchissippi-robotics.com
 // Copyright (c) 2015 Kitchissippi Robotics
 // -----------------------------------------------------------------------------
-// Gemini 3D Printer - Dimensions
+// GlobalSettings.scad
+//
+// This file contains settings that affect how the functions will generate parts 
+// in both CommonHardware.scad as well as other parts within the project.
 // *****************************************************************************
 
 
-// =============================================================================
 // Global Settings - Edit These
 // =============================================================================
 
-gRender_Hardware = false;	// render the hardware within the OpenSCAD model
-gRender_Resolution = 1;		// resolution of curves - 1 is default
-
+gRender_Resolution = 1;		// resolution of curves 		- default = 1
+gRender_Clearance = 0.2;	// mm of clearance around bolts - default = 0.2
 
 gNozzle_Size = 0.4;			// nozzle size the parts will be printed on
 
 
-// =============================================================================
+
 // Global Calculations - Do NOT Edit These
 // =============================================================================
+// These variables are calculated based on the global settings before them.
+// The math is being tested as well as possible to get the compensation values to 
+// be correct for a reasonably well tuned home 3D printer.
+// It is not recommended for novice users to modify these formulas. 
+// Beware, there be dragons.
+// -----------------------------------------------------------------------------
 
 // Offset of dimensions for creating the plastic printable parts - this allows 
 // for direct metric values within the design and automatic material compensation.
@@ -31,7 +38,7 @@ gNozzle_Size = 0.4;			// nozzle size the parts will be printed on
 // if necessary.
 // Initial design uses 60% of the nozzle size.
 
-gcMachineOffset = gNozzle_Size * 0.60;	
+gcMachineOffset = gNozzle_Size * 0.75;	
 
 // Calculate the number of facets per curve for small, medium and large curves.
 

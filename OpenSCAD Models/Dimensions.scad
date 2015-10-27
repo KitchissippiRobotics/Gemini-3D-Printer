@@ -13,28 +13,6 @@
 include <CommonHardware.scad>
 
 // *****************************************************************************
-// Suffix Concepts - In Development
-// baseCOMPONENT_Part_Description = value in millimetres;
-
-// Base Suffix:
-// -----------------------------------------------------------------------------
-// hw : Hardware - pieces that are not printable
-// rp : Reproducible Part - pieces that are 3D printable
-
-// Hardware Component Suffix:
-// -----------------------------------------------------------------------------
-// LR : Linear Rail
-// M3 : M3 assembly hardware (see CommonHardware.scad)
-// M4 : M4 assembly hardware (see CommonHardware.scad)
-
-// Assembly Components
-// -----------------------------------------------------------------------------
-// XC : X-Carriage
-// YC : Y-Carriage
-// HA : Hotend-Assembly
-// CM : CoreXY Mechanism
-
-// *****************************************************************************
 
 
 // HiWin Style Linear Rail Dimensions [LR]
