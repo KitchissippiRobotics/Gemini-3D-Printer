@@ -52,7 +52,7 @@ hwLR_Guide_BoltDiameter = hwM3_Bolt_ShaftDiameter;
 
 rpXC_BeltMount_BoltSpacing = 38.3;		// as measured Rv2
 rpXC_BeltMount_BoltOffset  = 10.1;		// as measured Rv2
-rpXC_BeltMount_BoltDepth = - 21;
+rpXC_BeltMount_BoltDepth = -21;
 rpXC_BeltMount_BoltSize = hwM4_Bolt_AllenHeadSize;
 rpXC_BeltMount_BoltLength = 40;
 
@@ -62,7 +62,7 @@ rpXC_BeltMount_BaseThickness = 4;			// Rv2
 rpXC_BeltMount_BaseWidth = 20.2;			// Rv2
 // rpXC_BeltMount_BaseLength = 30; 			// Rv2
 rpXC_BeltMount_BaseLength = 39.0; 			// new
-
+rpXC_BeltMount_BaseOffset = 17.2;			// Rv2
 
 rpXC_BeltMount_ChannelEdgeHeight = 6;		// Rv2
 rpXC_BeltMount_ChannelEdgeWidth = 2;		// Rv2
@@ -73,6 +73,8 @@ rpXC_BeltMount_ChannelCenterWidth = 4.2;	// Rv2
 rpXC_BeltMount_ChannelCenterLength = 30;	// Rv2
 
 rpXC_BeltMount_ClampBoltSpacing = 16;		// Rv2
+rpXC_BeltMount_ClampBoltDepth = -rpXC_BeltMount_BaseOffset;
+rpXC_BeltMount_ClampBoltOffset = rpXC_BeltMount_BoltOffset; // Rv2
 rpXC_BeltMount_ClampBoltLength = 10;		// Rv2
 rpXC_BeltMount_ClampBoltSize = hwM3_Bolt_AllenHeadSize;
 

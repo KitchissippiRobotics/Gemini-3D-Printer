@@ -22,6 +22,8 @@ include <Dimensions.scad>
 // ~~ Part No. XB-CB-ABS02 ~~ (XC_BeltClamp.stl)
 // ~~ Part No. XC_BM-MB05 ~~ (M4x40)
 // ~~ Part No. XC_BM-MB06 ~~ (M4x40)
+// ~~ Part No. XC_BM-MB06 ~~ (M3x10)
+// ~~ Part No. XC_BM-MB07 ~~ (M3x10)
 
 
 // =============================================================================
@@ -62,7 +64,7 @@ include <XC_BeltClamp.scad>
 
 // ~~ Part No. XB-CB-ABS02 ~~ (XC_BeltClamp.stl)
 color("Snow")
-	translate([0 - (17.2),0,rpXC_BeltMount_BoltOffset])
+	translate([0 - (rpXC_BeltMount_BaseOffset),0,rpXC_BeltMount_BoltOffset])
 	rotate([0,-90,0])
 	Part_XC_BeltClamp();
 	
@@ -77,5 +79,17 @@ translate([rpXC_BeltMount_BoltDepth, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_
 translate([rpXC_BeltMount_BoltDepth, 0 + (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
 	rotate([0,90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
+		
+// Mount bolts for the belt clamp covers
+		
+// ~~ Part No. XC_BM-MB06 ~~ (M3x10)
+translate([rpXC_BeltMount_ClampBoltDepth, 0 - (rpXC_BeltMount_ClampBoltSpacing / 2), rpXC_BeltMount_ClampBoltOffset])
+	rotate([0,-90,0])
+		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, rpXC_BeltMount_ClampBoltLength);
+		
+// ~~ Part No. XC_BM-MB07 ~~ (M3x10)
+translate([rpXC_BeltMount_ClampBoltDepth, 0 + (rpXC_BeltMount_ClampBoltSpacing / 2), rpXC_BeltMount_ClampBoltOffset])
+	rotate([0,-90,0])
+		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, rpXC_BeltMount_ClampBoltLength);
 		
 		
