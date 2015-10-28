@@ -56,6 +56,8 @@ rpXC_BeltMount_BoltDepth = -11.2;
 rpXC_BeltMount_BoltSize = hwM3_Bolt_AllenHeadSize;
 rpXC_BeltMount_BoltLength = 10;
 
+rpXC_BeltMount_BoltHolderWidth = 5;
+rpXC_BeltMount_BoltHolderOffset = 5;
 rpXC_BeltMount_BoltHolderDiameter = 13; 	// Rv2
 
 rpXC_BeltMount_BaseThickness = 4;			// Rv2
@@ -86,8 +88,8 @@ rpXC_CarriageMount_BoltSize = hwM3_Bolt_AllenHeadSize;
 // Carriage Mounting Base
 
 rpXC_CarriageMount_BaseHeight = 9.5;		// Rv2
-rpXC_CarriageMount_BaseLength = 39.0;		// Rv2
-rpXC_CarriageMount_BaseWidth = 20.8;		// Rv2
+rpXC_CarriageMount_BaseLength = 30;			// Rv2 = 39.0
+rpXC_CarriageMount_BaseWidth = 20.8;		// Rv2 = 28.5
 rpXC_CarriageMount_BaseOffset = 17.2;
 
 rpXC_CarriageMount_BaseBevelDepth = 3;

@@ -14,15 +14,18 @@
 include <Dimensions.scad>
 
 // Default Usage:
- Part_XC_CarriageBase();
+// Part_XC_CarriageBase();
 
 
 // -----------------------------------------------------------------------------
 
 module Part_XC_CarriageBase() {
+	translate([0,0,rpXC_CarriageMount_BaseWidth /2])
+	rotate([0,-90,0]) {
 	_XC_CarriageBase_Left();
 	mirror([0,1,0])
 		_XC_CarriageBase_Left();
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -30,9 +33,9 @@ module Part_XC_CarriageBase() {
 module _XC_CarriageBase_Left() {
 	difference() { 
 		// main box
-		union() {
+		union() { // union()
 		
-			hull() {
+			hull() { // hull()
 				// base portion of the design
 				translate([0 - (rpXC_CarriageMount_BaseWidth / 2),
 						   0 - (rpXC_CarriageMount_BaseLength /2) ,
@@ -44,27 +47,38 @@ module _XC_CarriageBase_Left() {
 
 				// this cube is the top portion of the design
 				translate([0 - (rpXC_CarriageMount_BaseWidth / 2),
-						   0 - (rpXC_CarriageMount_BaseLength /2),
+						   0 - (rpXC_CarriageMount_BaseLength /2)+ rpXC_CarriageMount_BaseBevelDepth,
 						   rpXC_CarriageMount_BaseHeight - rpXC_CarriageMount_BaseBevelHeight])
 					cube(size = [rpXC_CarriageMount_BaseWidth - rpXC_CarriageMount_BaseBevelDepth,
-								 rpXC_CarriageMount_BaseLength / 2,
+								 rpXC_CarriageMount_BaseLength / 2 - rpXC_CarriageMount_BaseBevelDepth,
 								 rpXC_CarriageMount_BaseBevelHeight], 
 						 center = false);
 			}
 			
 			
-			hull() {
+			hull() { // hull()
 				// this cube is for creating the fill-in angles from the bolt holder
-				translate([0 - (rpXC_CarriageMount_BaseWidth / 2),0 - (rpXC_CarriageMount_BaseLength / 2),0])
-					cube(size = [rpXC_CarriageMount_BaseWidth,
-								 rpXC_CarriageMount_BaseLength / 2, 
-								 0.1], 
+				translate([0 - (rpXC_CarriageMount_BaseWidth / 2)  - rpXC_BeltMount_BoltHolderWidth,
+						   0 - (rpXC_BeltMount_BoltSpacing / 2) - (rpXC_BeltMount_BoltHolderDiameter /2),
+						   0])
+					cube(size = [rpXC_BeltMount_BoltHolderWidth,
+								 (rpXC_BeltMount_BoltSpacing / 2) + (rpXC_BeltMount_BoltHolderDiameter /2), 
+								 rpXC_BeltMount_BoltHolderWidth], 
+						 center = false);
+						 
+				// this cube is for creating the fill-in angles from the bolt holder
+				translate([0 - (rpXC_CarriageMount_BaseWidth / 2)  - rpXC_BeltMount_BoltHolderWidth,
+						   0 - (rpXC_BeltMount_BoltSpacing / 2),
+						   0])
+					cube(size = [rpXC_BeltMount_BoltHolderWidth,
+								 rpXC_BeltMount_BoltSpacing / 2, 
+								 rpXC_BeltMount_BaseWidth], 
 						 center = false);
 		
 				// bolt holder
-				translate([0 - (rpXC_CarriageMount_BaseWidth / 2), 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
+				translate([0 - (rpXC_CarriageMount_BaseWidth / 2) - rpXC_BeltMount_BoltHolderWidth, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
 					rotate([0,90,0])	
-						cylinder(h = rpXC_CarriageMount_BaseWidth, d = rpXC_BeltMount_BoltHolderDiameter);
+						cylinder(h = rpXC_BeltMount_BoltHolderWidth, d = rpXC_BeltMount_BoltHolderDiameter);
 			}
 		
 		}

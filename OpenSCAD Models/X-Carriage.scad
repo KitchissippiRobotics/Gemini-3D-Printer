@@ -34,6 +34,8 @@ include <XC_CarriageBase.scad>
 
 // ~~ Part No. XB-CB-ABS01 ~~ (XC_CarriageBase.stl)
 color("Snow")
+	translate([0 - (rpXC_CarriageMount_BaseWidth / 2),0,0])
+	rotate([0,90,0])
 	Part_XC_CarriageBase();
 
 // Four Mounting Bolts
@@ -62,7 +64,7 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 include <XC_BeltClamp.scad>
 
 // ~~ Part No. XB-CB-ABS02 ~~ (XC_BeltClamp.stl)
-//color("Snow")
+color("DarkSlateGray")
 	translate([0 - (rpXC_BeltMount_BaseOffset),0,rpXC_BeltMount_BoltOffset])
 	rotate([0,-90,0])
 	Part_XC_BeltClamp();
