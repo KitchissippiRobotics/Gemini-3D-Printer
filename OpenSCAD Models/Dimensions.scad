@@ -52,9 +52,9 @@ hwLR_Guide_BoltDiameter = hwM3_Bolt_ShaftDiameter;
 
 rpXC_BeltMount_BoltSpacing = 38.3;		// as measured Rv2
 rpXC_BeltMount_BoltOffset  = 10.1;		// as measured Rv2
-rpXC_BeltMount_BoltDepth = -21;
-rpXC_BeltMount_BoltSize = hwM4_Bolt_AllenHeadSize;
-rpXC_BeltMount_BoltLength = 40;
+rpXC_BeltMount_BoltDepth = -11.2;
+rpXC_BeltMount_BoltSize = hwM3_Bolt_AllenHeadSize;
+rpXC_BeltMount_BoltLength = 10;
 
 rpXC_BeltMount_BoltHolderDiameter = 13; 	// Rv2
 
@@ -88,6 +88,7 @@ rpXC_CarriageMount_BoltSize = hwM3_Bolt_AllenHeadSize;
 rpXC_CarriageMount_BaseHeight = 9.5;		// Rv2
 rpXC_CarriageMount_BaseLength = 39.0;		// Rv2
 rpXC_CarriageMount_BaseWidth = 20.8;		// Rv2
+rpXC_CarriageMount_BaseOffset = 17.2;
 
 rpXC_CarriageMount_BaseBevelDepth = 3;
 rpXC_CarriageMount_BaseBevelHeight = 3;

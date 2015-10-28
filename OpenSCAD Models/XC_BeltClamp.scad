@@ -33,7 +33,7 @@ module _XC_BeltClamp_Left() {
 	difference() {
 		// base piece with belt clamp troughs
 		union() {
-			difference() {
+			difference() { // difference
 		
 				// This builds the base portion of the part
 				hull() {
@@ -48,11 +48,7 @@ module _XC_BeltClamp_Left() {
 							center = false);
 				}
 			
-				// carve out bolt hole
-				translate([0, 0 + (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltDepth])
-					rotate([0,0,0])
-						Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 
-												rpXC_BeltMount_BoltLength);
+
 											
 				// carve out nut trap
 				// TODO: XB-CB-ABS02
@@ -83,10 +79,17 @@ module _XC_BeltClamp_Left() {
 		}
 		// hole for clamp covers
 		
+		union() {
 		translate([0, 0 + (rpXC_BeltMount_ClampBoltSpacing / 2), 0])
 			rotate([0,0,0])
 				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, 
 										rpXC_BeltMount_ClampBoltLength);
+										
+														// carve out bolt hole
+				translate([0, 0 + (rpXC_BeltMount_BoltSpacing / 2), -6])
+						Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 
+												rpXC_BeltMount_BoltLength);
+		}
 	}
 		
 				
