@@ -36,7 +36,7 @@ module _XC_BeltClamp_Left() {
 			difference() { // difference
 		
 				// This builds the base portion of the part
-				hull() {
+				hull() { // hull()
 					translate([0, rpXC_BeltMount_BoltSpacing /2, 0])
 						cylinder(h = rpXC_BeltMount_BaseThickness, 
 								 d = rpXC_BeltMount_BoltHolderDiameter);
@@ -88,7 +88,7 @@ module _XC_BeltClamp_Left() {
 														// carve out bolt hole
 				translate([0, 0 + (rpXC_BeltMount_BoltSpacing / 2), -6])
 						Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 
-												rpXC_BeltMount_BoltLength);
+												rpXC_BeltMount_BoltLength, 10);
 		}
 	}
 		
