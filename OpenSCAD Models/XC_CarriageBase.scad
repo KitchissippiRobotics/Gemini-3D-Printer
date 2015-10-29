@@ -12,6 +12,7 @@
 // *****************************************************************************
 
 include <Dimensions.scad>
+//include <arb_bevel.scad>
 
 // Default Usage:
 // Part_XC_CarriageBase();
@@ -20,7 +21,7 @@ include <Dimensions.scad>
 // -----------------------------------------------------------------------------
 
 module Part_XC_CarriageBase() {
-	translate([0,0,rpXC_CarriageMount_BaseWidth /2])
+	translate([0,0,rpXC_CarriageMount_BaseWidth - rpXC_BeltMount_BoltHolderWidth])
 	rotate([0,-90,0]) {
 		_XC_CarriageBase_Left();
 	mirror([0,1,0])
@@ -30,23 +31,23 @@ module Part_XC_CarriageBase() {
 
 // -----------------------------------------------------------------------------
 module _XC_BoltPost(_flareDiameter, _postDiamter, _postLength) {
-	
+
 	hull() {	// hull()
 		cylinder(h = 0.1,
-				 d = _flareDiameter + 2,
+				 d = _flareDiameter + 3,
 				 $fn = gcFacetMedium);
 
-		cylinder(h = 2.5,
-				 d = _flareDiameter,
+		cylinder(h = 2,
+				 d = _flareDiameter + 1,
 				 $fn = gcFacetMedium);
 	}
 	
 	hull() {	// hull()	 
-		cylinder(h = 5,
-				 d = _flareDiameter,
+		cylinder(h = 2,
+				 d = _flareDiameter +1,
 				 $fn = gcFacetMedium);	
 	
-		cylinder(h = rpXC_CarriageMount_BaseWidth,
+		cylinder(h = rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth,
 				 d = _postDiamter + 4,
 				 $fn = gcFacetSmall);
 	}
@@ -79,21 +80,31 @@ module _XC_CarriageBase_Left() {
 						 center = false);
 			}
 			
-		translate([0 - (rpXC_CarriageMount_BaseWidth / 2),
-				   0 - (rpXC_BeltMount_BoltSpacing / 2), 
-				   rpXC_BeltMount_BoltOffset])
-		rotate([0,90,0])
-			_XC_BoltPost(rpXC_BeltMount_InnerBoltHolderDiameter, rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter], rpXC_CarriageMount_BaseWidth);
+			// bolt holder post (upper)
+			translate([	0 - (rpXC_CarriageMount_BaseWidth / 2),
+					   	0 - (rpXC_BeltMount_BoltSpacing / 2), 
+					   	rpXC_BeltMount_BoltOffset])
+			rotate([0,90,0]) _XC_BoltPost(	rpXC_BeltMount_InnerBoltHolderDiameter,
+											rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter],
+											rpXC_CarriageMount_BaseWidth);
+											
+			// bolt holder post (lower)
+			*translate([	0 - (rpXC_CarriageMount_BaseWidth / 2),
+					   	0 - (rpXC_BeltMount_BoltSpacing / 2), 
+					   	-rpXC_BeltMount_BoltOffset])
+			rotate([0,90,0]) _XC_BoltPost(	rpXC_BeltMount_InnerBoltHolderDiameter,
+											rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter],
+											rpXC_CarriageMount_BaseWidth);
 			
 			
 			hull() { // hull()
 				// this cube is for creating the fill-in angles from the bolt holder - lower
 				translate([0 - (rpXC_CarriageMount_BaseWidth / 2)  - rpXC_BeltMount_BoltHolderWidth,
-						   0 - (rpXC_BeltMount_BoltSpacing / 2) - (rpXC_BeltMount_BoltHolderDiameter /2),
-						   0])
+						    0 - (rpXC_BeltMount_BoltSpacing / 2) - (rpXC_BeltMount_BoltHolderDiameter /2),
+						    0 - (rpXC_BeltMount_BoltHolderWidth + 25)])
 					cube(size = [rpXC_BeltMount_BoltHolderWidth,
 								 (rpXC_BeltMount_BoltSpacing / 2) + (rpXC_BeltMount_BoltHolderDiameter /2), 
-								 rpXC_BeltMount_BoltHolderWidth], 
+								 rpXC_BeltMount_BoltHolderWidth + 25], 
 						 center = false);
 						 
 				// this cube is for creating the fill-in angles from the bolt holder - upper
@@ -106,18 +117,37 @@ module _XC_CarriageBase_Left() {
 						 center = false);
 				
 				
-				
+				// slightly raised face for bolt hole (upper)
+				translate([	0 - (rpXC_CarriageMount_BaseWidth / 2),
+					   		0 - (rpXC_BeltMount_BoltSpacing / 2), 
+					   		rpXC_BeltMount_BoltOffset])
+				rotate([0,90,0]) cylinder(	h = 1,
+					 						d = rpXC_BeltMount_InnerBoltHolderDiameter + 2,
+					 						$fn = gcFacetMedium);
+					 
+				// slightly raised face for bolt hole (lower)
+				translate([ 0 - (rpXC_CarriageMount_BaseWidth / 2),
+					   		0 - (rpXC_BeltMount_BoltSpacing / 2), 
+					   		0 - rpXC_BeltMount_BoltOffset])
+				rotate([0,90,0]) cylinder(	h = 1,
+					 						d = rpXC_BeltMount_InnerBoltHolderDiameter + 2,
+					 						$fn = gcFacetMedium);
 
 		
 				// bolt holder
-				translate([0 - (rpXC_CarriageMount_BaseWidth / 2) - rpXC_BeltMount_BoltHolderWidth, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
+				translate([-(rpXC_CarriageMount_BaseWidth / 2) - rpXC_BeltMount_BoltHolderWidth, -(rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
 				rotate([0,90,0])	
 					cylinder(h = rpXC_BeltMount_BoltHolderWidth,
 							 d = rpXC_BeltMount_BoltHolderDiameter,
 							 $fn = gcFacetMedium);
+							 
 			}
+			
+
 		
 		}
+		
+		
 		
 		// carve holes out of box for mounting bolts
 		union() {
