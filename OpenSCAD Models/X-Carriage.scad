@@ -24,7 +24,8 @@ include <Dimensions.scad>
 // ~~ Part No. XC_BM-MB06 ~~ (M4x40)
 // ~~ Part No. XC_BM-MB06 ~~ (M3x10)
 // ~~ Part No. XC_BM-MB07 ~~ (M3x10)
-
+// ~~~ Part No. XC-HA-HOTENDS.COM-01 ~~~ (J-Head from hotends.com)
+// ~~~ Part No. XC-HA-HOTENDS.COM-02 ~~~ (J-Head from hotends.com)
 
 
 // =============================================================================
@@ -34,7 +35,7 @@ include <Dimensions.scad>
 include <XC_CarriageBase.scad>
 
 // ~~ Part No. XB-CB-ABS01 ~~ (XC_CarriageBase.stl)
-color("FireBrick")
+color("SlateGray")
 	translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 	rotate([0,90,0])
 	Part_XC_CarriageBase();
@@ -99,5 +100,41 @@ translate([rpXC_BeltMount_ClampBoltDepth, 0 - (rpXC_BeltMount_ClampBoltSpacing /
 translate([rpXC_BeltMount_ClampBoltDepth, 0 + (rpXC_BeltMount_ClampBoltSpacing / 2), rpXC_BeltMount_ClampBoltOffset])
 	rotate([0,-90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, rpXC_BeltMount_ClampBoltLength);
-		
-		
+
+// =============================================================================
+// Placement: J Head Hotend
+// ============================================================================
+	
+include <./Vitamins/hotend-jhead.scad>
+
+// ~~~ Part No. XC-HA-HOTENDS.COM-01 ~~~ (J-Head from hotends.com)
+%translate([hwHA_Hotend_Offset,
+			-(hwHA_Hotend_Spacing /2),
+			-2])
+rotate([0,180,90])
+	hotend_jhead();
+	
+// ~~~ Part No. XC-HA-HOTENDS.COM-02 ~~~ (J-Head from hotends.com)
+
+%translate([hwHA_Hotend_Offset,
+			(hwHA_Hotend_Spacing /2),
+			-2])
+rotate([0,180,90])
+	hotend_jhead();
+	
+	
+include <./Vitamins/parametric-fan.scad>
+
+%translate([hwHA_Fan_Offset,
+			0,
+			-20])	// 50% of the fan size
+rotate([0,90,0])
+	fan(40, 10, 32);
+
+%translate([0,
+			0,
+			-20])
+import("./Vitamins/hiwin12-carriage.stl", convexity=3);	
+
+
+

@@ -13,7 +13,7 @@
 
 include <Dimensions.scad>
 
-// Default Usage:
+// Default Usage:	*** comment out this call when not editing the object solo
 // Part_XC_BeltClamp();
 
 
@@ -52,35 +52,43 @@ module _XC_BeltClamp_Left() {
 		
 				// This builds the base portion of the part
 				hull() { // hull()
-					translate([0, rpXC_BeltMount_BoltSpacing /2, 0])
+					translate([	0,
+								rpXC_BeltMount_BoltSpacing /2,
+								0])
 						cylinder(	h = rpXC_BeltMount_BaseThickness, 
 								 	d1 = rpXC_BeltMount_BoltHolderDiameter + rpXC_BeltMount_CoverOffset,
 								 	d2 = rpXC_BeltMount_BoltHolderDiameter);
 
 					translate([0 - (rpXC_BeltMount_BaseWidth / 2) - (rpXC_BeltMount_CoverOffset/2),0,0])
 						cube(size = [	rpXC_BeltMount_BaseWidth  + rpXC_BeltMount_CoverOffset, 
-									 	rpXC_BeltMount_BaseLength / 2, 
+									 	rpXC_BeltMount_BaseLength /2, 
 									 	rpXC_BeltMount_BaseThickness],
 							center = false);
 							
 					// edge grooves to hold belts inline
-					translate([- 2 + (rpXC_BeltMount_BaseWidth /2), 0 , 0])
+					translate([	-2 +(rpXC_BeltMount_BaseWidth /2),
+								0, 
+								0])
 						cube(size = [	rpXC_BeltMount_ChannelEdgeWidth, 
-										rpXC_BeltMount_BaseLength / 2,
+										rpXC_BeltMount_BaseLength /2,
 										rpXC_BeltMount_ChannelEdgeHeight],
 					center = false);
 					
-					translate([0 - ((rpXC_BeltMount_BaseWidth /2)), 0 , 0])
-						cube(size = [rpXC_BeltMount_ChannelEdgeWidth,
-									 rpXC_BeltMount_BaseLength / 2, 
-									 rpXC_BeltMount_ChannelEdgeHeight],
+					translate([	0 - ((rpXC_BeltMount_BaseWidth /2)),
+								0,
+								0])
+						cube(size = [	rpXC_BeltMount_ChannelEdgeWidth,
+									 	rpXC_BeltMount_BaseLength /2, 
+									 	rpXC_BeltMount_ChannelEdgeHeight],
 							center = false);
 							
-					// centre groove to hold belts inline as well as bolt clamp covers to
-					translate([0 - (rpXC_BeltMount_ChannelCenterWidth /2 ), 0 , 0])
-						cube(size = [rpXC_BeltMount_ChannelCenterWidth,
-									 rpXC_BeltMount_ChannelCenterLength / 2, 
-									 rpXC_BeltMount_ChannelCenterHeight],
+					// centre groove to hold belts inline as well as to bolt clamp covers to
+					translate([	0 - (rpXC_BeltMount_ChannelCenterWidth /2 ),
+								0, 
+								0])
+						cube(size = [	rpXC_BeltMount_ChannelCenterWidth,
+									 	rpXC_BeltMount_ChannelCenterLength /2, 
+									 	rpXC_BeltMount_ChannelCenterHeight],
 							center = false);
 				}
 			
@@ -92,7 +100,9 @@ module _XC_BeltClamp_Left() {
 	
 			// edge grooves to hold belts inline
 
-			translate([-(rpXC_BeltMount_BaseWidth /2), 0 , 0])
+			*translate([	-(rpXC_BeltMount_BaseWidth /2),
+							0, 
+							0])
 				cube(size = [rpXC_BeltMount_BoltHolderDiameter,
 							 rpXC_BeltMount_BaseLength / 2, 
 							 rpXC_BeltMount_ChannelEdgeHeight],
@@ -112,14 +122,16 @@ module _XC_BeltClamp_Left() {
 		// carve outs for hardware		
 		union() { // union()
 		
+			_centerSpace = 5;
+		
 			// carve teeth to hold belts inline (upper)
-			translate([(rpXC_BeltMount_BoltHolderDiameter / 4) - 3.1,
-						4,
+			translate([(rpXC_BeltMount_BaseWidth / 4) - 3.1,
+						_centerSpace,
 						rpXC_BeltMount_BaseThickness])
 				_GT2_BeltTeeth(30, 5);
 				
-			translate([(rpXC_BeltMount_BoltHolderDiameter / 4) - 3.1,
-						3.8,
+			translate([(rpXC_BeltMount_BaseWidth / 4) - 3.1,
+						_centerSpace - 0.2,
 						rpXC_BeltMount_BaseThickness +2])
 			rotate([0,90,0])
 				cylinder( h = 6.2,
@@ -127,28 +139,67 @@ module _XC_BeltClamp_Left() {
 						  $fn = gcFacetSmall);
 				
 			// carve teeth to hold belts inline (lower)
-			translate([-(rpXC_BeltMount_BoltHolderDiameter / 4) - 3.1,
-						4,
+			translate([-(rpXC_BeltMount_BaseWidth / 4) - 3.1,
+						_centerSpace,
 						rpXC_BeltMount_BaseThickness])
 				_GT2_BeltTeeth(30, 5);
 				
-			translate([-(rpXC_BeltMount_BoltHolderDiameter / 4) - 3.1,
-						3.8,
+			translate([-(rpXC_BeltMount_BaseWidth / 4) - 3.1,
+						_centerSpace - 0.2,
 						rpXC_BeltMount_BaseThickness +2])
 			rotate([0,90,0])
 				cylinder( h = 6.2,
 						  d = 4,
 						  $fn = gcFacetSmall);
+						  
+			// groove for fitting clamps (lower)
+			translate([- (rpXC_BeltMount_BaseWidth/2 + rpXC_BeltMount_CoverOffset /2), _centerSpace , rpXC_BeltMount_BaseThickness - rpXC_BeltMount_CoverOffset])
+				cube(size = [rpXC_BeltMount_CoverOffset,
+							 rpXC_BeltMount_ChannelCenterLength / 4, 
+							 rpXC_BeltMount_CoverOffset],
+					center = false);
+					
+			// groove for fitting clamps (upper)	
+			translate([(rpXC_BeltMount_BaseWidth/2 - rpXC_BeltMount_CoverOffset/2), _centerSpace , rpXC_BeltMount_BaseThickness - rpXC_BeltMount_CoverOffset])
+				cube(size = [rpXC_BeltMount_CoverOffset,
+							 rpXC_BeltMount_ChannelCenterLength / 4, 
+							 rpXC_BeltMount_CoverOffset],
+					center = false);
+					
+			// slot for fitting clamps (upper)
+			translate([(rpXC_BeltMount_BaseWidth/2 - rpXC_BeltMount_CoverOffset/2) + 2, 0 , rpXC_BeltMount_BaseThickness - rpXC_BeltMount_CoverOffset +2])
+				cube(size = [rpXC_BeltMount_CoverOffset,
+							 rpXC_BeltMount_ChannelCenterLength / 4 + _centerSpace, 
+							 rpXC_BeltMount_BaseThickness],
+					center = false);
+			
+			// slot for fitting cover (upper)
+			translate([(rpXC_BeltMount_BaseWidth/2 - rpXC_BeltMount_CoverOffset/2) + 2, 0 , -rpXC_BeltMount_BaseThickness + rpXC_BeltMount_CoverOffset ])
+				cube(size = [rpXC_BeltMount_CoverOffset,
+							 rpXC_BeltMount_ChannelCenterLength / 2 + _centerSpace, 
+							 rpXC_BeltMount_BaseThickness * 2],
+					center = false);
+					
+			// slot for fitting clamps (lower)
+			translate([- (rpXC_BeltMount_BaseWidth/2 + rpXC_BeltMount_CoverOffset /2) - 2, 0 , rpXC_BeltMount_BaseThickness - rpXC_BeltMount_CoverOffset +2])
+				cube(size = [rpXC_BeltMount_CoverOffset,
+							 rpXC_BeltMount_ChannelCenterLength /4 + _centerSpace, 
+							 rpXC_BeltMount_BaseThickness],
+					center = false);
 		
+			// bolt holder for clamping to base
 			translate([0, 0 + (rpXC_BeltMount_ClampBoltSpacing / 2), 0])
 			rotate([0,0,0])
 				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, 
 										rpXC_BeltMount_ClampBoltLength);
 										
 			// carve out bolt hole
-			translate([0, 0 + (rpXC_BeltMount_BoltSpacing / 2), -rpXC_BeltMount_BoltDepth])
-					Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 
-											rpXC_BeltMount_BoltLength, 10);
+			translate([0, 
+						0 + (rpXC_BeltMount_BoltSpacing / 2), 
+						-rpXC_BeltMount_BoltDepth])
+				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 
+										rpXC_BeltMount_BoltLength,
+										10);
 		}
 	}
 		
