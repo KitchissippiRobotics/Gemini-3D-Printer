@@ -16,7 +16,7 @@
 
 include <Dimensions.scad>
 
-// Default Usage:
+// Default Usage:	*** comment out this call when not editing the object solo
 // Part_XC_CarriageBase();
 
 
@@ -31,7 +31,7 @@ module Part_XC_CarriageBase() {translate([0,0,rpXC_CarriageMount_BaseWidth - rpX
 }
 
 // -----------------------------------------------------------------------------
-module _XC_BoltPost(_flareDiameter, _postDiamter, _postLength) {
+module _XC_BoltPost(_flareDiameter, _postDiameter, _postLength) {
 
 	hull() {	// hull()
 		cylinder(h = 0.1,
@@ -48,8 +48,8 @@ module _XC_BoltPost(_flareDiameter, _postDiamter, _postLength) {
 				 d = _flareDiameter +1,
 				 $fn = gcFacetMedium);	
 	
-		cylinder(h = rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth,
-				 d = _postDiamter + 4,
+		cylinder(h = _postLength,
+				 d = _postDiameter + 4,
 				 $fn = gcFacetSmall);
 	}
 }
@@ -61,7 +61,7 @@ module _XC_CarriageBase_Left() {
 		// main box
 		union() { // union()
 		
-			union() { // hull()
+			hull() { // hull()
 				// base portion of the design
 				translate([0 - (rpXC_CarriageMount_BaseWidth / 2),
 						   0 - (rpXC_CarriageMount_BaseLength /2) ,
@@ -81,13 +81,38 @@ module _XC_CarriageBase_Left() {
 						 center = false);
 			}
 			
+			hull() { // hull 
+			
+				// base portion of the design - split
+				translate([0 - (rpXC_CarriageMount_BaseWidth / 2),
+						   0 - (rpXC_CarriageMount_BaseLength /2) ,
+						   0])
+					cube(size = [rpXC_CarriageMount_BaseWidth,
+								 rpXC_CarriageMount_BaseLength /4,
+								 rpXC_CarriageMount_BaseHeight - rpXC_CarriageMount_BaseBevelHeight],
+						 center = false);
+						 
+				translate([	0 - (rpXC_CarriageMount_BaseWidth / 2),
+							0 - (rpXC_BeltMount_BoltSpacing / 2), 
+							rpXC_BeltMount_BoltOffset])						 
+				rotate([0,90,0]) 
+					cylinder(	h = rpXC_CarriageMount_BaseWidth,
+								d = rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter] + 3,
+								$fn = gcFacetMedium);
+								
+					*_XC_BoltPost(	rpXC_BeltMount_InnerBoltHolderDiameter,
+									rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter],
+									rpXC_CarriageMount_BaseWidth);
+			}
+			
 			// bolt holder post (upper)
 			translate([	0 - (rpXC_CarriageMount_BaseWidth / 2),
 					   	0 - (rpXC_BeltMount_BoltSpacing / 2), 
 					   	rpXC_BeltMount_BoltOffset])
-			rotate([0,90,0]) _XC_BoltPost(	rpXC_BeltMount_InnerBoltHolderDiameter,
-											rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter],
-											rpXC_CarriageMount_BaseWidth);
+			rotate([0,90,0]) 
+				_XC_BoltPost(	rpXC_BeltMount_InnerBoltHolderDiameter,
+								rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter],
+								rpXC_CarriageMount_BaseWidth);
 											
 			// bolt holder post (lower)
 			translate([	-(rpXC_CarriageMount_BaseWidth / 2),
@@ -167,7 +192,16 @@ module _XC_CarriageBase_Left() {
 			translate([0 + (hwLR_Carriage_BoltLength / 2), 0 - (hwLR_Carriage_BoltWidth / 2),  0 - hwLR_Carriage_BoltDepth])
 				Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 20);
 
-			translate([rpXC_BeltMount_BoltDepth, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
+			// [rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset]
+			translate([rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset,
+						0 - (rpXC_BeltMount_BoltSpacing / 2),
+						rpXC_BeltMount_BoltOffset])
+			rotate([0,-90,0])
+				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
+					
+			translate([rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset,
+						0,
+						-rpXC_CarriageMount_LowerPointSpacing])
 				rotate([0,-90,0])
 					Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		}

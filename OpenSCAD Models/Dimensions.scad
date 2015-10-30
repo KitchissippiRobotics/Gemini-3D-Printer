@@ -79,7 +79,7 @@ rpXC_CarriageMount_LowerClearance = 20;
 
 // The lower mount point on the X-Carriage must clear the bolt tip described above
 
-rpXC_CarriageMount_LowerPointSpacing = rpXC_CarriageMount_LowerClearance;
+rpXC_CarriageMount_LowerPointSpacing = rpXC_CarriageMount_LowerClearance + rpXC_CarriageMount_BoltHolderDiameter / 3;
 
 
 // XC_BeltClamp ~~~ Part No. XB-CB-ABS02
@@ -135,10 +135,10 @@ rpXC_BeltMount_ClampBoltSize = hwM3_Bolt_AllenHeadSize;
 // -----------------------------------------------------------------------------
 
 // spacing for the hotends
-hwHA_Hotend_Spacing = 25;	// Rv2 = 25
+hwHA_Hotend_Spacing = 24;	// Rv2 = 25
 
 // forward offset from zero point on X-Carriage
-hwHA_Hotend_Offset = 27.5;	// Rv2 = 27.4
+hwHA_Hotend_Offset = 24;	// Rv2 = 27.4
 
 hwHA_Fan_Offset = 45;		// Rv2 = 45
 hwHA_Fan_VertOffset = 0;

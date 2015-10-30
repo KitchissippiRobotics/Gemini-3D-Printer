@@ -35,7 +35,7 @@ include <Dimensions.scad>
 include <XC_CarriageBase.scad>
 
 // ~~ Part No. XB-CB-ABS01 ~~ (XC_CarriageBase.stl)
-color("SlateGray")
+color("FireBrick")
 	translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 	rotate([0,90,0])
 	Part_XC_CarriageBase();
