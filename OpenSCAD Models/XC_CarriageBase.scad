@@ -22,11 +22,28 @@ include <Dimensions.scad>
 
 // -----------------------------------------------------------------------------
 
-module Part_XC_CarriageBase() {translate([0,0,rpXC_CarriageMount_BaseWidth - rpXC_BeltMount_BoltHolderWidth])
-	rotate([0,-90,0]) {
-		_XC_CarriageBase_Left();
-	mirror([0,1,0])
-		_XC_CarriageBase_Left();
+module Part_XC_CarriageBase() {
+
+	difference() {
+		translate([0,0,rpXC_CarriageMount_BaseWidth - rpXC_BeltMount_BoltHolderWidth]) {
+			union() {
+				rotate([0,-90,0]) {
+					_XC_CarriageBase_Left();
+				mirror([0,1,0])
+					_XC_CarriageBase_Left();
+				}
+			}
+		}
+		
+		// cut out space for Hiwin carriage and clearance of the bar
+		translate([(rpXC_BeltMount_BoltHolderDiameter / 2 + 1),
+					0,
+					(rpXC_CarriageMount_LowerClearance - (rpXC_BeltMount_BoltHolderDiameter / 2)) +1])
+			cube(size= [rpXC_CarriageMount_LowerClearance + 1,
+						80,
+						(rpXC_CarriageMount_LowerClearance - (rpXC_BeltMount_BoltHolderDiameter / 2))],
+				center = true);
+		
 	}
 }
 
@@ -100,9 +117,6 @@ module _XC_CarriageBase_Left() {
 								d = rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter] + 3,
 								$fn = gcFacetMedium);
 								
-					*_XC_BoltPost(	rpXC_BeltMount_InnerBoltHolderDiameter,
-									rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter],
-									rpXC_CarriageMount_BaseWidth);
 			}
 			
 			// bolt holder post (upper)
@@ -137,7 +151,7 @@ module _XC_CarriageBase_Left() {
 				translate([0 - (rpXC_CarriageMount_BaseWidth / 2)  - rpXC_BeltMount_BoltHolderWidth,
 						   0 - (rpXC_BeltMount_BoltSpacing / 2),
 						   0])
-					cube(size = [rpXC_BeltMount_BoltHolderWidth + 1,
+					cube(size = [rpXC_BeltMount_BoltHolderWidth,
 								 rpXC_BeltMount_BoltSpacing / 2, 
 								 rpXC_BeltMount_BaseWidth], 
 						 center = false);
@@ -186,6 +200,8 @@ module _XC_CarriageBase_Left() {
 		
 		// carve holes out of box for mounting bolts
 		union() {
+
+		
 			translate([0 - (hwLR_Carriage_BoltLength / 2), 0 - (hwLR_Carriage_BoltWidth / 2), 0 - hwLR_Carriage_BoltDepth])
 				Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 20);
 		
@@ -204,6 +220,8 @@ module _XC_CarriageBase_Left() {
 						-rpXC_CarriageMount_LowerPointSpacing])
 				rotate([0,-90,0])
 					Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
+					
+			
 		}
 	}
 }

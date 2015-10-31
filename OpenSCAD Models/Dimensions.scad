@@ -75,7 +75,7 @@ rpXC_CarriageMount_BoltHolderDiameter = 16;
 // This measurement is taken from the top face of the HiWin carriage to a few mm
 // below the M3 bolt protruding from the bottom of the Y axis brace.
 
-rpXC_CarriageMount_LowerClearance = 20;
+rpXC_CarriageMount_LowerClearance = 17;
 
 // The lower mount point on the X-Carriage must clear the bolt tip described above
 

@@ -62,8 +62,11 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 // Render: X-Endstop Microswitch
 // =============================================================================
 
-%translate([0,0,0])
-	import("./Vitamins/microswitch.stl", convexity = 10);
+%translate([0 - (rpXC_BeltMount_BaseOffset) - 4,
+			rpXC_BeltMount_BoltOffset + 6,
+			-12])
+rotate([-90,0,0])
+	import("./Vitamins/microswitch.stl", convexity = 3);
 	
 // =============================================================================
 // Render: XC_CarriageBeltClamp
@@ -131,10 +134,25 @@ include <./Vitamins/parametric-fan.scad>
 rotate([0,90,0])
 	fan(40, 10, 32);
 
+// hiwin rail
 %translate([0,
 			0,
-			-20])
+			-7])
+rotate([0,0,90])
+import("./Vitamins/hiwin12-rail.stl", convexity=3);	
+
+// hiwin carriage
+%translate([0,
+			0,
+			-4])
+rotate([0,0,90])
 import("./Vitamins/hiwin12-carriage.stl", convexity=3);	
+
+// flat bar
+%translate([-(19.1/2),
+			-(540/2),
+			-13.2])
+cube(size=[	19.1, 540, 3.2]);
 
 
 

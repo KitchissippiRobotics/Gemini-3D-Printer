@@ -14,7 +14,7 @@
 include <Dimensions.scad>
 
 // Default Usage:	*** comment out this call when not editing the object solo
- Part_XC_BeltClamp();
+// Part_XC_BeltClamp();
 
 
 // -----------------------------------------------------------------------------
