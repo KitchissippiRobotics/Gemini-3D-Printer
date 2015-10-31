@@ -24,8 +24,9 @@ include <Dimensions.scad>
 // ~~ Part No. XC_BM-MB06 ~~ (M4x40)
 // ~~ Part No. XC_BM-MB06 ~~ (M3x10)
 // ~~ Part No. XC_BM-MB07 ~~ (M3x10)
-// ~~~ Part No. XC-HA-HOTENDS.COM-01 ~~~ (J-Head from hotends.com)
-// ~~~ Part No. XC-HA-HOTENDS.COM-02 ~~~ (J-Head from hotends.com)
+// ~~ Part No. XC-HA-HOTENDS.COM-01 ~~ (J-Head from hotends.com)
+// ~~ Part No. XC-HA-HOTENDS.COM-02 ~~ (J-Head from hotends.com)
+// ~~ Part No. XC_CB-FAN01 ~~ (40mm fan)
 
 
 // =============================================================================
@@ -106,7 +107,7 @@ translate([rpXC_BeltMount_ClampBoltDepth, 0 + (rpXC_BeltMount_ClampBoltSpacing /
 
 // =============================================================================
 // Placement: J Head Hotend
-// ============================================================================
+// =============================================================================
 	
 include <./Vitamins/hotend-jhead.scad>
 
@@ -125,14 +126,49 @@ rotate([0,180,90])
 rotate([0,180,90])
 	hotend_jhead();
 	
-	
+// =============================================================================
+// Placement: 40mm J Head Cooling Fan
+// =============================================================================
+
 include <./Vitamins/parametric-fan.scad>
 
+// ~~ Part No. XC_CB-FAN01 ~~ (40mm fan)
 %translate([hwHA_Fan_Offset,
 			0,
 			-20])	// 50% of the fan size
 rotate([0,90,0])
 	fan(40, 10, 32);
+	
+// mount bolts for fan
+	
+
+translate([	hwHA_Fan_Offset - 7.8, 
+			16, 
+			-4])
+	rotate([0, 90,0])
+		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
+		
+translate([	hwHA_Fan_Offset - 7.8, 
+			-16, 
+			-4])
+	rotate([0, 90,0])
+		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
+		
+translate([	hwHA_Fan_Offset - 7.8, 
+			16, 
+			-36])
+	rotate([0, 90,0])
+		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
+		
+translate([	hwHA_Fan_Offset - 7.8, 
+			-16, 
+			-36])
+	rotate([0, 90,0])
+		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
+
+// =============================================================================
+// Placement: HiWin Linear Rail System
+// =============================================================================
 
 // hiwin rail
 %translate([0,
