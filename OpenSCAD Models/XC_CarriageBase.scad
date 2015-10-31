@@ -36,14 +36,45 @@ module Part_XC_CarriageBase() {
 		}
 		
 		// cut out space for Hiwin carriage and clearance of the bar
-		translate([(rpXC_BeltMount_BoltHolderDiameter / 2 + 1),
-					0,
-					(rpXC_CarriageMount_LowerClearance - (rpXC_BeltMount_BoltHolderDiameter / 2)) +1])
-			cube(size= [rpXC_CarriageMount_LowerClearance + 1,
-						80,
-						(rpXC_CarriageMount_LowerClearance - (rpXC_BeltMount_BoltHolderDiameter / 2))],
-				center = true);
-		
+		hull() {
+			// carriage carve out
+			translate([	0,
+						-rpXC_CarriageMount_BaseLength /2,
+						rpXC_CarriageMount_BaseWidth /2 - rpXC_BeltMount_BoltHolderWidth])
+				cube(size= [9,
+							rpXC_CarriageMount_BaseLength,
+							rpXC_CarriageMount_BaseWidth],
+					center = false);
+					
+			// bar carve out
+			hull() { // hull()
+	
+				translate([11.5,
+							0,
+							rpXC_CarriageMount_BaseWidth /2 + 5.5])
+					cube(size= [3.2,
+								32,
+								rpXC_CarriageMount_BaseWidth + 1],
+						center = true);
+				
+				translate([11.5,
+							0,
+							rpXC_CarriageMount_BaseWidth /2 + 5.5])
+					cube(size= [5,
+								32,
+								rpXC_CarriageMount_BaseWidth],
+						center = true);
+				
+				// clearance for bar/rail mounting bolts	
+				translate([16.5,
+							0,
+							rpXC_CarriageMount_BaseWidth /2 + 5.5])
+					cube(size= [5,
+								32,
+								3],
+						center = true);
+			}
+		}
 	}
 }
 

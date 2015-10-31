@@ -68,7 +68,7 @@ rpXC_CarriageMount_BaseOffset = 17.2;
 rpXC_CarriageMount_BaseBevelDepth = 3;
 rpXC_CarriageMount_BaseBevelHeight = 3;
 
-rpXC_CarriageMount_BoltHolderDiameter = 16;
+rpXC_CarriageMount_BoltHolderDiameter = 12;
 
 // Measurement of vertical clearance required for the X-Carriage to travel 
 // safely along the Y axis.
@@ -91,7 +91,7 @@ rpXC_BeltMount_CoverOffset = 3;	// 3mm thick cover?
 
 // Bolts for attaching XC_BeltClamp to XC_CarriageBase
 
-rpXC_BeltMount_BoltSpacing = 32;		// Rv2 = 38.3
+rpXC_BeltMount_BoltSpacing = 40;		// Rv2 = 38.3
 rpXC_BeltMount_BoltOffset  = 10.1;		// Rv2 = 10.1
 rpXC_BeltMount_BoltDepth = 38;
 rpXC_BeltMount_BoltSize = hwM4_Bolt_AllenHeadSize;

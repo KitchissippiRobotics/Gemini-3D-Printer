@@ -64,7 +64,7 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 // =============================================================================
 
 %translate([0 - (rpXC_BeltMount_BaseOffset) - 4,
-			rpXC_BeltMount_BoltOffset + 6,
+			rpXC_BeltMount_BoltOffset + 12,
 			-12])
 rotate([-90,0,0])
 	import("./Vitamins/microswitch.stl", convexity = 3);
@@ -83,6 +83,7 @@ color("DarkSlateGray")
 	
 // Mount Bolts for belt clamp and hotend assembly
 
+// upper bolts
 // ~~ Part No. XC_BM-MB05 ~~ (M4x40)
 translate([rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
 	rotate([0,-90,0])
@@ -90,6 +91,11 @@ translate([rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltM
 		
 // ~~ Part No. XC_BM-MB06 ~~ (M4x40)
 translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset, 0 + (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
+	rotate([0,-90,0])
+		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
+		
+// lower bolt
+translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset, 0, -rpXC_CarriageMount_LowerPointSpacing])
 	rotate([0,-90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		
@@ -104,6 +110,12 @@ translate([rpXC_BeltMount_ClampBoltDepth, 0 - (rpXC_BeltMount_ClampBoltSpacing /
 translate([rpXC_BeltMount_ClampBoltDepth, 0 + (rpXC_BeltMount_ClampBoltSpacing / 2), rpXC_BeltMount_ClampBoltOffset])
 	rotate([0,-90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, rpXC_BeltMount_ClampBoltLength);
+		
+// cover type bolts - experimental
+
+translate([24, 0, 4])
+	rotate([0,90,0])
+		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 10);
 
 // =============================================================================
 // Placement: J Head Hotend
@@ -125,6 +137,19 @@ rotate([0,180,90])
 			-2])
 rotate([0,180,90])
 	hotend_jhead();
+	
+// pushfit
+%translate([hwHA_Hotend_Offset,
+			(hwHA_Hotend_Spacing /2),
+			6])
+rotate([0,0,0])
+import("./Vitamins/pushfit.stl", convexity=3);
+
+%translate([hwHA_Hotend_Offset,
+			-(hwHA_Hotend_Spacing /2),
+			6])
+rotate([0,0,0])
+import("./Vitamins/pushfit.stl", convexity=3);
 	
 // =============================================================================
 // Placement: 40mm J Head Cooling Fan
