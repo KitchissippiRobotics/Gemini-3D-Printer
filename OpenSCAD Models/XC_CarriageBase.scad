@@ -111,19 +111,19 @@ module _XC_CarriageBase_Left() {
 		
 			hull() { // hull()
 				// base portion of the design
-				translate([0 - (rpXC_CarriageMount_BaseWidth / 2),
+				translate([0 - (rpXC_CarriageMount_BaseWidth / 2) - rpXC_BeltMount_BoltHolderWidth,
 						   0 - (rpXC_CarriageMount_BaseLength /2) ,
 						   0])
-					cube(size = [rpXC_CarriageMount_BaseWidth,
+					cube(size = [rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth,
 								 rpXC_CarriageMount_BaseLength /2,
 								 rpXC_CarriageMount_BaseHeight - rpXC_CarriageMount_BaseBevelHeight],
 						 center = false);
 
 				// this cube is the top portion of the design
-				translate([0 - (rpXC_CarriageMount_BaseWidth / 2),
+				translate([0 - (rpXC_CarriageMount_BaseWidth / 2) + rpXC_CarriageMount_BaseBevelDepth,
 						   0 - (rpXC_CarriageMount_BaseLength /2)+ rpXC_CarriageMount_BaseBevelDepth,
 						   rpXC_CarriageMount_BaseHeight - rpXC_CarriageMount_BaseBevelHeight])
-					cube(size = [rpXC_CarriageMount_BaseWidth - rpXC_CarriageMount_BaseBevelDepth,
+					cube(size = [rpXC_CarriageMount_BaseWidth - rpXC_CarriageMount_BaseBevelDepth * 2,
 								 rpXC_CarriageMount_BaseLength / 2 - rpXC_CarriageMount_BaseBevelDepth,
 								 rpXC_CarriageMount_BaseBevelHeight], 
 						 center = false);
@@ -133,10 +133,10 @@ module _XC_CarriageBase_Left() {
 			
 				// base portion of the design - split
 				translate([0 - (rpXC_CarriageMount_BaseWidth / 2),
-						   0 - (rpXC_CarriageMount_BaseLength /2) ,
+						   0 - (rpXC_CarriageMount_BaseLength /2),
 						   0])
 					cube(size = [rpXC_CarriageMount_BaseWidth,
-								 rpXC_CarriageMount_BaseLength /4,
+								 rpXC_CarriageMount_BaseLength /5 - 0.5,
 								 rpXC_CarriageMount_BaseHeight - rpXC_CarriageMount_BaseBevelHeight],
 						 center = false);
 						 
@@ -179,7 +179,7 @@ module _XC_CarriageBase_Left() {
 						 center = false);
 						 
 				// this cube is for creating the fill-in angles from the bolt holder - upper
-				translate([0 - (rpXC_CarriageMount_BaseWidth / 2)  - rpXC_BeltMount_BoltHolderWidth,
+				*translate([0 - (rpXC_CarriageMount_BaseWidth / 2)  - rpXC_BeltMount_BoltHolderWidth,
 						   0 - (rpXC_BeltMount_BoltSpacing / 2),
 						   0])
 					cube(size = [rpXC_BeltMount_BoltHolderWidth,
