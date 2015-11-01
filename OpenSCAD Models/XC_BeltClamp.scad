@@ -13,9 +13,20 @@
 
 include <Dimensions.scad>
 
-// Default Usage:	*** comment out this call when not editing the object solo
+// Default Usage:	
 // Part_XC_BeltClamp();
 
+// Determine if MultiPartMode is enabled - if not, render the part automatically
+// and enable support material (if it is defined)
+
+if (MultiPartMode == undef) {
+	MultiPartMode = false;
+	EnableSupport = true;
+	
+	Part_XC_BeltClamp();
+} else {
+	EnableSupport = false;
+}
 
 // -----------------------------------------------------------------------------
 

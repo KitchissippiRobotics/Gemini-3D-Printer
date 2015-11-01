@@ -16,8 +16,20 @@
 
 include <Dimensions.scad>
 
-// Default Usage:	*** comment out this call when not editing the object solo
+// Default Usage:	
 // Part_XC_CarriageBase();
+
+// Determine if MultiPartMode is enabled - if not, render the part automatically
+// and enable support material (if it is defined)
+
+if (MultiPartMode == undef) {
+	MultiPartMode = false;
+	EnableSupport = true;
+	
+	Part_XC_CarriageBase();
+} else {
+	EnableSupport = false;
+}
 
 
 // -----------------------------------------------------------------------------
@@ -25,30 +37,29 @@ include <Dimensions.scad>
 module Part_XC_CarriageBase() {
 
 	difference() {
-		translate([0,0,rpXC_CarriageMount_BaseWidth - rpXC_BeltMount_BoltHolderWidth]) {
-			union() {
-				rotate([0,-90,0]) {
-					_XC_CarriageBase_Left();
-				mirror([0,1,0])
-					_XC_CarriageBase_Left();
-				}
+		translate([0,0,rpXC_CarriageMount_BaseWidth - rpXC_BeltMount_BoltHolderWidth])
+		union() {
+			rotate([0,-90,0]) {
+				_XC_CarriageBase_Left();
+			mirror([0,1,0])
+				_XC_CarriageBase_Left();
 			}
 		}
 		
-		// cut out space for Hiwin carriage and clearance of the bar
-		hull() {
-			// carriage carve out
-			translate([	0,
-						-rpXC_CarriageMount_BaseLength /2,
-						rpXC_CarriageMount_BaseWidth /2 - rpXC_BeltMount_BoltHolderWidth])
-				cube(size= [9,
-							rpXC_CarriageMount_BaseLength,
-							rpXC_CarriageMount_BaseWidth],
-					center = false);
+		union() {
+			// cut out space for Hiwin carriage, clearance of the bar and mount bolts
+			hull() {
+				// carriage carve out
+				translate([	0,
+							-rpXC_CarriageMount_BaseLength /2,
+							rpXC_CarriageMount_BaseWidth /2 - rpXC_BeltMount_BoltHolderWidth])
+					cube(size= [9,
+								rpXC_CarriageMount_BaseLength,
+								rpXC_CarriageMount_BaseWidth],
+						center = false);
 					
-			// bar carve out
-			hull() { // hull()
-	
+				// bar carve out
+
 				translate([11.5,
 							0,
 							rpXC_CarriageMount_BaseWidth /2 + 5.5])
@@ -56,7 +67,7 @@ module Part_XC_CarriageBase() {
 								32,
 								rpXC_CarriageMount_BaseWidth + 1],
 						center = true);
-				
+			
 				translate([11.5,
 							0,
 							rpXC_CarriageMount_BaseWidth /2 + 5.5])
@@ -64,7 +75,7 @@ module Part_XC_CarriageBase() {
 								32,
 								rpXC_CarriageMount_BaseWidth],
 						center = true);
-				
+			
 				// clearance for bar/rail mounting bolts	
 				translate([16.5,
 							0,
@@ -73,7 +84,34 @@ module Part_XC_CarriageBase() {
 								32,
 								3],
 						center = true);
+
 			}
+			
+			translate([0,0,-0.1])
+			hull() { // hull()
+			
+				translate([10, 0, 0])
+				cylinder(h = rpXC_BeltMount_BoltHolderWidth + 0.5,
+						 d = 4,
+						 $fn = gcFacetSmall);
+						 
+				translate([+2, 8, 0])
+				cylinder(h = rpXC_BeltMount_BoltHolderWidth + 0.5,
+						 d = 4,
+						 $fn = gcFacetSmall);
+						 
+				translate([+2, -8, 0])
+				cylinder(h = rpXC_BeltMount_BoltHolderWidth + 0.5,
+						 d = 4,
+						 $fn = gcFacetSmall);
+			}
+			
+			translate([-10,0,0])
+			rotate([0,90,0])
+				cylinder(h = 10,
+						 d = rpXC_BeltMount_BoltHolderWidth * 2,
+						 $fn = gcFacetSmall);
+			
 		}
 	}
 }

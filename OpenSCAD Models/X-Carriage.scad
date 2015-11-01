@@ -11,6 +11,11 @@
 
 include <Dimensions.scad>
 
+// Enable multipart mode - this disables built in support material and automatic 
+// rendering of the parts
+
+MultiPartMode = true;
+
 // Parts List for XC Assembly
 // -----------------------------------------------------------------------------
 
