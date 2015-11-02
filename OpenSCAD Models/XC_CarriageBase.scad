@@ -127,19 +127,22 @@ module Part_XC_CarriageBase() {
 			translate([0,0,-0.1])
 			hull() { // hull()
 			
-				translate([10, 0, 0])
+				translate([9, 0, 0])
 				cylinder(h = rpXC_BeltMount_BoltHolderWidth + 0.5,
-						 d = 4,
+						 d1 = 4,
+						 d2 = 3,
 						 $fn = gcFacetSmall);
 						 
-				translate([3, 5, 0])
+				translate([1.2, 6, 0])
 				cylinder(h = rpXC_BeltMount_BoltHolderWidth + 0.5,
-						 d = 4,
+						 d1 = 4,
+						 d2 = 2.4,
 						 $fn = gcFacetSmall);
 						 
-				translate([3, -5, 0])
+				translate([1.2, -6, 0])
 				cylinder(h = rpXC_BeltMount_BoltHolderWidth + 0.5,
-						 d = 4,
+						 d1 = 4,
+						 d2 = 2.4,
 						 $fn = gcFacetSmall);
 			}
 			
@@ -235,10 +238,10 @@ module _XC_CB_CarriageMount() {
 		$fn = gcFacetMedium;
 	
 		// base portion of the design
-		translate([0 - (rpXC_CarriageMount_BaseWidth / 2),
+		translate([0 - (rpXC_CarriageMount_BaseWidth / 2) -2,
 				   0 - (rpXC_CarriageMount_BaseLength /2) ,
 				   0])
-			cube(size = [rpXC_CarriageMount_BaseWidth,
+			cube(size = [rpXC_CarriageMount_BaseWidth +2,
 						 rpXC_CarriageMount_BaseLength /2,
 						 rpXC_CarriageMount_BaseHeight - rpXC_CarriageMount_BaseBevelHeight],
 				 center = false);
@@ -257,7 +260,17 @@ module _XC_CB_CarriageMount() {
 				   rpXC_CarriageMount_BaseBevelHeight])
 		rotate([0,90,0])
 			cylinder(	h = rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth,
-						d = (rpXC_CarriageMount_BaseHeight - rpXC_CarriageMount_BaseBevelHeight) /2);
+						d1 = rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter] +3,
+						d2 = rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter] +3);
+						
+		*translate([-(rpXC_CarriageMount_BaseWidth / 2) -5,
+				   -(rpXC_CarriageMount_BaseLength /2) +7,
+				   rpXC_CarriageMount_BaseBevelHeight +1])
+		rotate([0,90,0])
+			cylinder(	h = rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth,
+						d1 = rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter] +3,
+						d2 = rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter]);
+						
 	}
 	
 	// joining parts where the upper posts meet the carriage base
@@ -270,7 +283,7 @@ module _XC_CB_CarriageMount() {
 				   rpXC_CarriageMount_BaseBevelHeight -1.3])
 		rotate([0,90,0])
 			cylinder(	h = rpXC_CarriageMount_BaseWidth,
-						d = (rpXC_CarriageMount_BaseHeight - rpXC_CarriageMount_BaseBevelHeight) /2);
+						d = rpXC_BeltMount_BoltSize[iBolt_ShaftDiameter] + 3);
 					
 						 
 				translate([	0 - (rpXC_CarriageMount_BaseWidth / 2),
