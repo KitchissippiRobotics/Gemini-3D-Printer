@@ -45,3 +45,5 @@ gcMachineOffset = gNozzle_Size * 0.75;
 gcFacetSmall = 16 * gRender_Resolution;
 gcFacetMedium = 32 * gRender_Resolution;
 gcFacetLarge = 64 * gRender_Resolution;
+
+$fn = gcFacetMedium;	// default?

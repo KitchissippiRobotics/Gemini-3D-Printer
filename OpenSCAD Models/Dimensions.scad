@@ -63,6 +63,8 @@ rpXC_CarriageMount_BaseLength = 30;			// Rv2 = 39.0
 rpXC_CarriageMount_BaseWidth = 20.8;		// Rv2 = 28.5
 rpXC_CarriageMount_BaseOffset = 17.2;
 
+rpXC_CarriageMount_BaseSpacing = 1;		// extra width for HA attachement to clear the LR
+
 // Bevel design on mounting base
 
 rpXC_CarriageMount_BaseBevelDepth = 3;
@@ -139,6 +141,7 @@ hwHA_Hotend_Spacing = 24;	// Rv2 = 25
 
 // forward offset from zero point on X-Carriage
 hwHA_Hotend_Offset = 24;	// Rv2 = 27.4
+hwHA_Hotend_VerticalOffset = 2;
 
 hwHA_Fan_Offset = 45;		// Rv2 = 45
 hwHA_Fan_VertOffset = 0;

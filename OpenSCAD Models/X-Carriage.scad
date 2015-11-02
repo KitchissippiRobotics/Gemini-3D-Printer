@@ -42,8 +42,8 @@ include <XC_CarriageBase.scad>
 
 // ~~ Part No. XB-CB-ABS01 ~~ (XC_CarriageBase.stl)
 color("FireBrick")
-	translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
-	rotate([0,90,0])
+translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
+rotate([0,90,0])
 	Part_XC_CarriageBase();
 
 // Four Mounting Bolts
@@ -64,6 +64,18 @@ translate([0 - (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2),  0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
 	
+// =============================================================================
+// Render: HA_CarriageBase
+// =============================================================================	
+
+include <Hotend-Assembly.scad>
+
+
+color("FireBrick")
+translate([rpXC_CarriageMount_BaseWidth /2 + rpXC_CarriageMount_BaseSpacing,0,1])
+rotate([0,90,0])
+	Part_HA_CarriageBase();
+
 // =============================================================================
 // Render: X-Endstop Microswitch
 // =============================================================================
@@ -131,7 +143,7 @@ include <./Vitamins/hotend-jhead.scad>
 // ~~~ Part No. XC-HA-HOTENDS.COM-01 ~~~ (J-Head from hotends.com)
 %translate([hwHA_Hotend_Offset,
 			-(hwHA_Hotend_Spacing /2),
-			-2])
+			-hwHA_Hotend_VerticalOffset])
 rotate([0,180,90])
 	hotend_jhead();
 	
@@ -139,7 +151,7 @@ rotate([0,180,90])
 
 %translate([hwHA_Hotend_Offset,
 			(hwHA_Hotend_Spacing /2),
-			-2])
+			-hwHA_Hotend_VerticalOffset])
 rotate([0,180,90])
 	hotend_jhead();
 	
