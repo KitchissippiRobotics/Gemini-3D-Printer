@@ -68,7 +68,7 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 // Render: HA_CarriageBase
 // =============================================================================	
 
-include <Hotend-Assembly.scad>
+include <HA_CarriageBase.scad>
 
 
 color("FireBrick")
