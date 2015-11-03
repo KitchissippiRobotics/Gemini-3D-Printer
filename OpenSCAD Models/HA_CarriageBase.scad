@@ -26,6 +26,32 @@ if (MultiPartMode == undef) {
 	EnableSupport = false;
 }
 
+module _strutBase() {
+	a = rpXC_BeltMount_BoltSpacing/2;
+	b = rpXC_CarriageMount_LowerClearance + rpXC_CarriageMount_BoltHolderDiameter + rpXC_BeltMount_BoltHolderWidth /2 -1;
+	c = sqrt(a * a + b * b) ;
+	
+	difference() {
+		hull() {
+			_PostBase(rpXC_BeltMount_BoltHolderWidth, 10, 2);
+
+			translate([-5,0,0])
+					cube ([10, c, rpXC_BeltMount_BoltHolderWidth], center = false);
+
+			translate([0,c,0])	
+				_PostBase(rpXC_BeltMount_BoltHolderWidth, 10, 2);
+		}
+		
+		translate([-3,0,3])
+					#cube ([6, c, rpXC_BeltMount_BoltHolderWidth - 3], center = false);
+		
+	}
+	
+	hull() _PostBase(rpXC_BeltMount_BoltHolderWidth, 10, 2);
+	hull() translate([0,c,0])	
+				_PostBase(rpXC_BeltMount_BoltHolderWidth, 10, 2);
+}
+
 module _topStrut() {
 
 /*
@@ -46,8 +72,8 @@ module _topStrut() {
 	/_____90|
 	A	a	C
 	
-	A = tan(a/b)					{ solve for a }
-	B = tan(b/a)					{ solve for b }
+	A = atan(a/b)					{ solve for a }
+	B = atan(b/a)					{ solve for b }
 	C = 90
 	
 	A + B + C = 180					{ all three angles total 180 degrees }
@@ -58,31 +84,27 @@ module _topStrut() {
 		
 */
 	
-	a = rpXC_BeltMount_BoltSpacing /2;
-	b = rpXC_CarriageMount_LowerPointSpacing;
-	c = sqrt(a * a + b * b);
+	a = rpXC_BeltMount_BoltSpacing/2;
+	b = rpXC_CarriageMount_LowerClearance + rpXC_CarriageMount_BoltHolderDiameter + rpXC_BeltMount_BoltHolderWidth /2 -1;
+	c = sqrt(a * a + b * b) ;
 	
-	A = tan(a/b);
-	B = tan(b/a);
+	A = atan(a/b);
+	B = atan(b/a);
+
+
+	translate([rpXC_CarriageMount_LowerPointSpacing,0,0])
+	rotate([0,0,B])
+		_strutBase();
+	translate([rpXC_CarriageMount_LowerPointSpacing,0,0])
+	rotate([0,0,180 - B])
+		_strutBase();	
 	
-	rotate([0,0,A])
-		cube ([10, c, rpXC_CarriageMount_BaseHeight]);
 	
-	// top left post location
-	translate([	-rpXC_CarriageMount_BaseHeight,
-				rpXC_BeltMount_BoltSpacing /2,
-				0])
-	_PostBase(5, 10, 2);
-	
-	// bottom post location	
-	translate([	rpXC_CarriageMount_LowerPointSpacing +1,
-				0,
-				0])
-		_PostBase(5, 10, 2);
 }
 
 module Part_HA_CarriageBase() {
-	_topStrut();
+	
+	_HA_Strut();
 	
 	*union() {
 		_HA_Strut();
@@ -95,8 +117,9 @@ module Part_HA_CarriageBase() {
 
 module _HA_Strut() {
 	difference() {
-		union() { 											// union()
-			hull() { 											// hull()
+		union() { 
+			_topStrut();											// union()
+			*hull() { 											// hull()
 			// top left post location
 			translate([	-rpXC_CarriageMount_BaseHeight,
 						rpXC_BeltMount_BoltSpacing /2,
@@ -122,7 +145,7 @@ module _HA_Strut() {
 								d = 3);
 			}
 			
-			hull() {											// hull()
+			*hull() {											// hull()
 			translate([	hwHA_Hotend_VerticalOffset + 4.67,
 						0,
 						0])
@@ -135,7 +158,7 @@ module _HA_Strut() {
 								d = 4.67);
 			}
 			
-			*hull() {
+			hull() {
 			
 			translate([	-rpXC_CarriageMount_BaseHeight,
 						rpXC_BeltMount_BoltSpacing /2 + rpXC_BeltMount_BoltHolderDiameter /4,
