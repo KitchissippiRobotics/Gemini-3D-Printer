@@ -26,9 +26,65 @@ if (MultiPartMode == undef) {
 	EnableSupport = false;
 }
 
-module Part_HA_CarriageBase() {
+module _topStrut() {
 
-	union() {
+/*
+	D'oh ... this diagram is upside down... no worries
+	
+	The purpose is to create a shape which can be rotated into place rather than create
+	the shape at an angle to start with.
+	This allows for more control over and detail over the initial shape.
+	Bear with me for a basic geometry refresher...
+
+			B
+		  /	|
+  		 /	|
+	  c /	|
+	   /	|	b
+	  /		|	
+	 /		|
+	/_____90|
+	A	a	C
+	
+	A = tan(a/b)					{ solve for a }
+	B = tan(b/a)					{ solve for b }
+	C = 90
+	
+	A + B + C = 180					{ all three angles total 180 degrees }
+	
+	a = rpXC_BeltMount_BoltSpacing /2
+	b = rpXC_CarriageMount_LowerPointSpacing
+	c = sqrt(a * a + b * b)			{ solve for length of c, to determine shape size}
+		
+*/
+	
+	a = rpXC_BeltMount_BoltSpacing /2;
+	b = rpXC_CarriageMount_LowerPointSpacing;
+	c = sqrt(a * a + b * b);
+	
+	A = tan(a/b);
+	B = tan(b/a);
+	
+	rotate([0,0,A])
+		cube ([10, c, rpXC_CarriageMount_BaseHeight]);
+	
+	// top left post location
+	translate([	-rpXC_CarriageMount_BaseHeight,
+				rpXC_BeltMount_BoltSpacing /2,
+				0])
+	_PostBase(5, 10, 2);
+	
+	// bottom post location	
+	translate([	rpXC_CarriageMount_LowerPointSpacing +1,
+				0,
+				0])
+		_PostBase(5, 10, 2);
+}
+
+module Part_HA_CarriageBase() {
+	_topStrut();
+	
+	*union() {
 		_HA_Strut();
 		mirror([0,1,0]) _HA_Strut();
 	}
