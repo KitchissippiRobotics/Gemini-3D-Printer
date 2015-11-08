@@ -77,11 +77,11 @@ rpXC_CarriageMount_BoltHolderDiameter = 12;
 // This measurement is taken from the top face of the HiWin carriage to a few mm
 // below the M3 bolt protruding from the bottom of the Y axis brace.
 
-rpXC_CarriageMount_LowerClearance = 17;
+rpXC_CarriageMount_LowerClearance = 15;
 
 // The lower mount point on the X-Carriage must clear the bolt tip described above
 
-rpXC_CarriageMount_LowerPointSpacing = rpXC_CarriageMount_LowerClearance + rpXC_CarriageMount_BoltHolderDiameter / 3;
+rpXC_CarriageMount_LowerPointSpacing = rpXC_CarriageMount_LowerClearance + rpXC_CarriageMount_BoltHolderDiameter / 2;
 
 
 // XC_BeltClamp ~~~ Part No. XB-CB-ABS02
@@ -89,7 +89,7 @@ rpXC_CarriageMount_LowerPointSpacing = rpXC_CarriageMount_LowerClearance + rpXC_
 
 // Experimental: BeltClamp matches in size and shape to cover part?
 
-rpXC_BeltMount_CoverOffset = 3;	// 3mm thick cover?
+rpXC_BeltMount_CoverOffset = 0;	// 3mm thick cover?
 
 // Bolts for attaching XC_BeltClamp to XC_CarriageBase
 
@@ -108,7 +108,7 @@ rpXC_BeltMount_InnerBoltHolderDiameter = 8;
 
 // Belt Mount Piece Base Dimensions
 
-rpXC_BeltMount_BaseThickness = 7;			// Rv2 = 6
+rpXC_BeltMount_BaseThickness = 4;			// Rv2 = 6
 rpXC_BeltMount_BaseWidth = 20;			// Rv2 = 20.2
 rpXC_BeltMount_BaseLength = rpXC_BeltMount_BoltSpacing; 			// Rv2 = 30
 rpXC_BeltMount_BaseOffset = 16.0;			// Rv2 = 17.2
@@ -146,6 +146,31 @@ hwHA_Hotend_VerticalOffset = 2;
 hwHA_Fan_Offset = 45;		// Rv2 = 45
 hwHA_Fan_VertOffset = 0;
 
+// =============================================================================
+
+// Maths for the XC_CarriageBase Struts
+// This uses some basic trig to figure out what length and angle that the
+// struts for the triangular 3-point bolt mount should be at, given the spacing 
+// of the bolts
+
+calc_boltSpacing = rpXC_BeltMount_BoltSpacing /2;
+calc_boltHeight = rpXC_CarriageMount_LowerClearance + rpXC_BeltMount_BoltOffset + (rpXC_BeltMount_BoltHolderDiameter / 2);
+
+rpXC_CarriageBase_StrutLength = sqrt(calc_boltSpacing * calc_boltSpacing + calc_boltHeight * calc_boltHeight) ;
+rpXC_CarriageBase_StrutAngle = atan(calc_boltHeight / calc_boltSpacing);
+
+rpDefaultBevel = 2;
+rpDefaultWallThickness = rpDefaultBevel + 2;
+rpDefaultBaseThickness = 2;
 
 // Global Constants
 // =============================================================================
+
+
+hwMicroSwitch_Length = 20;
+hwMicroSwitch_Width = 10;
+hwMicroSwitch_Depth = 6;
+hwMicroSwitch_HoleSpacing = 9.5;
+hwMicroSwitch_HoleSize = 2.2;
+hwMicroSwitch_HoleOffset = 7;
+
