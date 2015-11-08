@@ -171,6 +171,6 @@ hwMicroSwitch_Length = 20;
 hwMicroSwitch_Width = 10;
 hwMicroSwitch_Depth = 6;
 hwMicroSwitch_HoleSpacing = 9.5;
-hwMicroSwitch_HoleSize = 2.2;
+hwMicroSwitch_HoleSize = 3;
 hwMicroSwitch_HoleOffset = 7;
 
