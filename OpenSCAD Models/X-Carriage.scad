@@ -83,11 +83,21 @@ rotate([0,90,0])
 // Render: X-Endstop Microswitch
 // =============================================================================
 
-%translate([0 - (rpXC_BeltMount_BaseOffset) - 4,
-			rpXC_BeltMount_BoltOffset + 12,
-			-12])
+%translate([0 - (rpXC_BeltMount_BaseOffset) - 3,
+			rpXC_BeltMount_BoltOffset + 14,
+			-9.5])
 rotate([-90,0,0])
 	import("./Vitamins/microswitch.stl", convexity = 3);
+	
+// =============================================================================
+// Render: Print Cooling Fan
+// =============================================================================
+
+%translate([-14,
+			0,
+			-35])
+rotate([0,0,90])
+	import("./Vitamins/blower.stl", convexity = 3);
 	
 // =============================================================================
 // Render: XC_CarriageBeltClamp
