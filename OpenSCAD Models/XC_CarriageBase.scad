@@ -32,18 +32,19 @@ if (MultiPartMode == undef) {
 }
 
 // -----------------------------------------------------------------------------
+// Bring it all together and create the main components of the part and carve
+// out clearances for the linear rail, etc.
+// -----------------------------------------------------------------------------
+
 module Part_XC_CarriageBase() {
 
 	difference() {
 		union() {
 			
-			
-		
+			// three point mounting struts
 			rotate([0,0,180 -rpXC_CarriageBase_StrutAngle])
 				_XC_CB_Strut();
 		
-			
-			
 			rotate([0,0,rpXC_CarriageBase_StrutAngle])
 				_XC_CB_Strut();
 	
@@ -52,7 +53,12 @@ module Part_XC_CarriageBase() {
 			translate([-rpXC_CarriageMount_LowerPointSpacing + rpDefaultBevel /2, rpXC_BeltMount_BoltSpacing /2 - rpXC_BeltMount_BoltHolderWidth/2, 0])
 				_XC_CB_Switch();
 				
+			// blower fan holder
 			
+			translate([0,0,0])
+				_BlowerHolder();
+				
+			// mounting block to attach to the HIWIN carriage
 			
 			translate([-rpXC_CarriageMount_LowerPointSpacing,0,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8])
 			rotate([0,-90,0]) {
@@ -60,6 +66,8 @@ module Part_XC_CarriageBase() {
 				mirror([0,1,0])
 				_XC_CB_CarriageMount();
 			}
+			
+			
 		}
 		
 		translate([-rpXC_CarriageMount_LowerPointSpacing,0,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8]) 
@@ -78,8 +86,56 @@ module Part_XC_CarriageBase() {
 	
 }
 
+
+// -----------------------------------------------------------------------------
+// This makes the blower fan holder portion
+// -----------------------------------------------------------------------------
+
+module _BlowerHolder() {
+	xOffset = 5;
+	yOffset = 6;
+
+	hull() {	// hull()
+		translate([xOffset,-21,22])
+		rotate([0,-90,0])
+			_XC_CB_PostBase(rpXC_BeltMount_BaseThickness, rpXC_CarriageMount_BoltHolderDiameter -2, rpDefaultBevel);
+		
+		*translate([xOffset,-11 - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
+		rotate([0,-90,0])
+			cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter, rpXC_BeltMount_BaseThickness],
+				 centre = false);
+				 
+		translate([xOffset, -yOffset - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
+		rotate([0,-90,0])
+			cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter, rpXC_BeltMount_BaseThickness],
+				 centre = false);
+				 
+		translate([xOffset, -yOffset - (rpXC_CarriageMount_BoltHolderDiameter /2),14])
+		rotate([0,-90,0])
+			cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter, rpXC_BeltMount_BaseThickness],
+				 centre = false);
+	}
+		
+	hull() {	// hull()
+		translate([- (rpXC_CarriageMount_BoltHolderDiameter /2)  - rpDefaultBevel, -yOffset - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
+		rotate([0,0,0])
+			cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter, rpXC_BeltMount_BaseThickness],
+				 centre = false);
+		
+		rotate([0,0,180-rpXC_CarriageBase_StrutAngle]) 
+		translate([	0, rpXC_CarriageBase_StrutLength, 0])
+		_XC_CB_PostBase(rpXC_BeltMount_BaseThickness, rpXC_CarriageMount_BoltHolderDiameter, rpDefaultBevel);
+		
+		*translate([-20, -12 - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
+		rotate([0,0,0])
+			cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter, rpXC_BeltMount_BaseThickness],
+				 centre = false);
+	}
+}
+
 // -----------------------------------------------------------------------------
 // This makes the switch holder portion
+// -----------------------------------------------------------------------------
 
 module _XC_CB_Switch() {
 	difference() {
@@ -109,6 +165,7 @@ module _XC_CB_Switch() {
 
 // -----------------------------------------------------------------------------
 // This makes one strut of the three-point-mount
+// -----------------------------------------------------------------------------
 
 module _XC_CB_Strut() {
 	
@@ -162,6 +219,10 @@ module _XC_CB_Strut() {
 	
 }
 
+// -----------------------------------------------------------------------------
+// creates a shape for clearance of the linear rail to be carved out of the part
+// -----------------------------------------------------------------------------
+
 module _HIWINClearance() {
 	union() {
 			// cut out space for Hiwin carriage, clearance of the bar and mount bolts
@@ -209,6 +270,7 @@ module _HIWINClearance() {
 // -----------------------------------------------------------------------------
 // WARNING: Be very careful modifying this - the values are from the original 
 // 			version which is all sorts of a different orientation
+// -----------------------------------------------------------------------------
 
 module _XC_CB_BoltCarveouts() {
 
@@ -233,111 +295,7 @@ module _XC_CB_BoltCarveouts() {
 						
 }
 
-// -----------------------------------------------------------------------------
 
-module Part_XC_CarriageBase_OLD() {
-
-	// find the hypotenuse of the three bolt mount points
-	//a = rpXC_BeltMount_BoltSpacing /2;
-	//b = rpXC_CarriageMount_LowerClearance;
-	//c = sqrt(a * a + b * b);
-
-	difference() {
-		translate([0,0,rpXC_CarriageMount_BaseWidth - rpXC_BeltMount_BoltHolderWidth])
-		rotate([0,-90,0])
-		{
-			difference() {
-				union() {
-					_XC_CB_MountBase();
-					_XC_CB_CarriageMount();
-				
-					mirror([0,1,0])  {
-						_XC_CB_MountBase();
-						_XC_CB_CarriageMount();
-					}
-				}
-				
-				// carve holes out of box for mounting bolts
-		
-				_XC_CB_BoltCarveouts();
-				mirror([0,1,0]) _XC_CB_BoltCarveouts();	
-			}
-		}
-			
-		
-		
-		union() {
-			// cut out space for Hiwin carriage, clearance of the bar and mount bolts
-			hull() {
-				// carriage carve out
-				translate([	0,
-							-rpXC_CarriageMount_BaseLength /2,
-							rpXC_CarriageMount_BaseWidth /2 - rpXC_BeltMount_BoltHolderWidth])
-					cube(size= [9,
-								rpXC_CarriageMount_BaseLength,
-								rpXC_CarriageMount_BaseWidth],
-						center = false);
-					
-				// bar carve out
-
-				translate([11.5,
-							0,
-							rpXC_CarriageMount_BaseWidth /2 + 5.5])
-					cube(size= [3.2,
-								32,
-								rpXC_CarriageMount_BaseWidth + 1],
-						center = true);
-			
-				translate([11.5,
-							0,
-							rpXC_CarriageMount_BaseWidth /2 + 5.5])
-					cube(size= [5,
-								32,
-								rpXC_CarriageMount_BaseWidth],
-						center = true);
-			
-				// clearance for bar/rail mounting bolts	
-				translate([16.5,
-							0,
-							rpXC_CarriageMount_BaseWidth /2 + 5.5])
-					cube(size= [5,
-								32,
-								3],
-						center = true);
-
-			}
-			
-			translate([0,0,-0.1])
-			hull() { // hull()
-			
-				translate([9, 0, 0])
-				cylinder(h = rpXC_BeltMount_BoltHolderWidth + 0.5,
-						 d1 = 4,
-						 d2 = 3,
-						 $fn = gcFacetSmall);
-						 
-				translate([1.2, 6, 0])
-				cylinder(h = rpXC_BeltMount_BoltHolderWidth + 0.5,
-						 d1 = 4,
-						 d2 = 2.4,
-						 $fn = gcFacetSmall);
-						 
-				translate([1.2, -6, 0])
-				cylinder(h = rpXC_BeltMount_BoltHolderWidth + 0.5,
-						 d1 = 4,
-						 d2 = 2.4,
-						 $fn = gcFacetSmall);
-			}
-			
-			*translate([-10,0,0])
-			rotate([0,90,0])
-				cylinder(h = 10,
-						 d = rpXC_BeltMount_BoltHolderWidth * 2,
-						 $fn = gcFacetSmall);
-			
-		}
-	}
-}
 
 // -----------------------------------------------------------------------------
 module _XC_BoltPost(_flareDiameter, _postDiameter, _postLength) {
