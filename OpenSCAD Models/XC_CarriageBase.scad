@@ -14,6 +14,17 @@
 // it's design with a different print orientation than it currently has.
 // *****************************************************************************
 
+// Revision & Design Notes
+// v3.0.1: Initial 3-point test
+// v3.0.2: Alternate design, automatic angle calculation, switch and fan holder test
+// v3.0.3: Not started - this version will be more complete
+//		- lay down base components, switch mount, bolt mount points, base of fan mount and then combine those
+//		- place bolt posts and fan mount components onto this base
+//		- carve out bolt holes from this part
+//		- airflow and wire routing considerations?
+//		- revise belt clamp component to match
+//		- revise hotend mount to match
+
 include <Dimensions.scad>
 
 // Default Usage:	
