@@ -52,22 +52,74 @@ module Part_XC_CarriageBase() {
 	difference() {
 		union() {
 			
-			// three point mounting struts
-			rotate([0,0,180 -rpXC_CarriageBase_StrutAngle])
-				_XC_CB_Strut();
-		
-			rotate([0,0,rpXC_CarriageBase_StrutAngle])
-				_XC_CB_Strut();
-	
-			// x-endstop switch holder
-		
-			translate([-rpXC_CarriageMount_LowerPointSpacing + rpDefaultBevel /2, rpXC_BeltMount_BoltSpacing /2 - rpXC_BeltMount_BoltHolderWidth/2, 0])
-				_XC_CB_Switch();
-				
-			// blower fan holder
 			
+			rotate([0,0,rpXC_CarriageBase_StrutAngle])
+					_XC_CB_StrutPosts();
+					
+			rotate([0,0,180 -rpXC_CarriageBase_StrutAngle])
+					_XC_CB_StrutPosts();
+					
 			translate([0,0,0])
-				_BlowerHolder();
+					_BlowerHolder();
+					
+			hull() {		
+					
+			rotate([0,0,180 -rpXC_CarriageBase_StrutAngle])
+					_XC_CB_Strut();
+					
+			// base of bolt point
+				#translate([xOffset, -10 - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
+				rotate([0,-90,0])
+					cube(size=[rpXC_BeltMount_BaseThickness, rpXC_CarriageMount_BoltHolderDiameter - 4, rpXC_BeltMount_BaseThickness],
+						 centre = false);
+					
+			*translate([0,0,0])
+					_BlowerHolder();
+					
+			*mirror([0,1,0])
+				translate([xOffset, 0, 0])
+				rotate([0,-90,0])
+				cube(size=[rpXC_BeltMount_BaseThickness, 20, rpXC_BeltMount_BaseThickness], centre = false);
+					
+			}
+			
+			// three point mounting struts
+			hull() { // hull()
+		
+				rotate([0,0,rpXC_CarriageBase_StrutAngle])
+					_XC_CB_Strut();
+	
+				// x-endstop switch holder
+		
+				translate([-rpXC_CarriageMount_LowerPointSpacing + rpDefaultBevel /2, rpXC_BeltMount_BoltSpacing /2 - rpXC_BeltMount_BoltHolderWidth/2, 0])
+					_XC_CB_Switch();
+					
+				// mirror switch holder shape to create symmetry
+				
+				*mirror([0,1,0])
+				translate([-rpXC_CarriageMount_LowerPointSpacing + rpDefaultBevel /2, rpXC_BeltMount_BoltSpacing /2 - rpXC_BeltMount_BoltHolderWidth/2, 0])
+					_XC_CB_Switch();
+			
+				// blower fan holder
+			
+				*translate([0,0,0])
+					_BlowerHolder();
+					
+				// mirror for symmetry
+				
+				*mirror([0,1,0])
+				translate([0,0,0])
+					_BlowerHolder();
+			
+				*rotate([0,0,180 -rpXC_CarriageBase_StrutAngle])
+					_XC_CB_Strut();
+			
+				translate([xOffset, 0, 0])
+				rotate([0,-90,0])
+				cube(size=[rpXC_BeltMount_BaseThickness, 20, rpXC_BeltMount_BaseThickness], centre = false);
+				
+				
+			}
 				
 			// mounting block to attach to the HIWIN carriage
 			
@@ -80,6 +132,11 @@ module Part_XC_CarriageBase() {
 			
 			
 		}
+		
+		_XC_CB_BlowerHole();
+		
+		translate([-rpXC_CarriageMount_LowerPointSpacing + rpDefaultBevel /2, rpXC_BeltMount_BoltSpacing /2 - rpXC_BeltMount_BoltHolderWidth/2, 0])
+			_XC_CB_SwitchHoles();
 		
 		translate([-rpXC_CarriageMount_LowerPointSpacing,0,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8]) 
 		rotate([0,-90,0]) {
@@ -102,35 +159,72 @@ module Part_XC_CarriageBase() {
 // This makes the blower fan holder portion
 // -----------------------------------------------------------------------------
 
+	xOffset = 6;
+	yOffset = 10;
+	zOffset = 15;
+
 module _BlowerHolder() {
-	xOffset = 5;
-	yOffset = 6;
 
 	difference() {
 	
 		union() {
-			hull() {	// hull()
-				translate([xOffset,-21,22])
+		
+			hull() {
+			// blower output edge bit		 
+				translate([xOffset, 6,6])
+				rotate([0,-90,0])
+					cube(size=[15, 20, rpXC_BeltMount_BaseThickness],
+						 centre = false);
+						 
+				translate([xOffset, 0, 0])
+				rotate([0,-90,0])
+				cube(size=[rpXC_BeltMount_BaseThickness, 20, rpXC_BeltMount_BaseThickness], centre = false);
+			//}
+		
+			//hull() {	// hull()
+			
+				// point to bolt fan to
+				translate([xOffset,-21,zOffset])
 				rotate([0,-90,0])
 					_XC_CB_PostBase(rpXC_BeltMount_BaseThickness, rpXC_CarriageMount_BoltHolderDiameter -2, rpDefaultBevel);
+					
+				// base of bolt point
+				translate([xOffset, -10 - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
+				rotate([0,-90,0])
+					cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter - 4, rpXC_BeltMount_BaseThickness],
+						 centre = false);
+						 
+				// rectangle to form the printable base portion
+				*translate([xOffset, -20, 0])
+				rotate([0,-90,0])
+				cube(size=[rpXC_BeltMount_BaseThickness, 40, rpXC_BeltMount_BaseThickness], centre = false);
+				
+				*mirror([0,1,0])
+				translate([xOffset, -5, 0])
+				rotate([0,-90,0])
+				cube(size=[rpXC_BeltMount_BaseThickness, 20, rpXC_BeltMount_BaseThickness], centre = false);
+				
+				translate([xOffset, 0, 0])
+				rotate([0,-90,0])
+				cube(size=[rpXC_BeltMount_BaseThickness, 20, rpXC_BeltMount_BaseThickness], centre = false);
 		
 				*translate([xOffset,-11 - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
 				rotate([0,-90,0])
 					cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter, rpXC_BeltMount_BaseThickness],
 						 centre = false);
 				 
-				translate([xOffset, -yOffset - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
+				*translate([xOffset, -yOffset - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
 				rotate([0,-90,0])
 					cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter, rpXC_BeltMount_BaseThickness],
 						 centre = false);
 				 
-				translate([xOffset, -yOffset - (rpXC_CarriageMount_BoltHolderDiameter /2),14])
+				*translate([xOffset, -yOffset - (rpXC_CarriageMount_BoltHolderDiameter /2) + 8,0])
 				rotate([0,-90,0])
-					cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter, rpXC_BeltMount_BaseThickness],
+					cube(size=[rpXC_CarriageMount_BoltHolderDiameter, 1, rpXC_BeltMount_BaseThickness],
 						 centre = false);
 			}
 		
-			hull() {	// hull()
+			*hull() {	// hull()
 				translate([- (rpXC_CarriageMount_BoltHolderDiameter /2)  - rpDefaultBevel, -yOffset - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
 				rotate([0,0,0])
 					cube(size=[rpXC_CarriageMount_BoltHolderDiameter, rpXC_CarriageMount_BoltHolderDiameter, rpXC_BeltMount_BaseThickness],
@@ -148,10 +242,19 @@ module _BlowerHolder() {
 		}
 		
 		// bolt hole
-		translate([xOffset + 10,-21,22])
+		translate([xOffset + 10,-21,zOffset])
 		rotate([0,-90,0])
 		Carve_hw_Bolt_AllenHead(hwM4_Bolt_AllenHeadSize, 20, 0);
 	}
+}
+
+// just the mount hole(s) - copied from above
+
+module _XC_CB_BlowerHole() {
+		// bolt hole
+		translate([xOffset + 15,-21,zOffset])
+		rotate([0,-90,0])
+		Carve_hw_Bolt_AllenHead(hwM4_Bolt_AllenHeadSize, 20, 10);
 }
 
 // -----------------------------------------------------------------------------
@@ -183,6 +286,30 @@ module _XC_CB_Switch() {
 		}
 	}
 	
+}
+
+// just the holes - code copied from above
+
+module _XC_CB_SwitchHoles() {
+	translate([hwMicroSwitch_Length /2, 0, 0]) {
+	
+		// hole for clearance of the screw head
+		translate([hwMicroSwitch_HoleSpacing / 2, hwMicroSwitch_Width - hwMicroSwitch_HoleOffset, rpXC_BeltMount_BaseThickness])
+			cylinder(d = hwMicroSwitch_HoleSize + 4, h = 20);
+	
+		// hole for the shaft of the small screw used to mount switch
+		translate([hwMicroSwitch_HoleSpacing / 2, hwMicroSwitch_Width - hwMicroSwitch_HoleOffset, 0])
+			cylinder(d = hwMicroSwitch_HoleSize, h = rpXC_BeltMount_BaseThickness);
+			
+			
+		// hole for clearance of the screw head
+		translate([-hwMicroSwitch_HoleSpacing / 2, hwMicroSwitch_Width - hwMicroSwitch_HoleOffset, rpXC_BeltMount_BaseThickness])
+			cylinder(d = hwMicroSwitch_HoleSize + 4, h = 20);
+	
+		// hole for the shaft of the small screw used to mount switch
+		translate([-hwMicroSwitch_HoleSpacing / 2, hwMicroSwitch_Width - hwMicroSwitch_HoleOffset, 0])
+			cylinder(d = hwMicroSwitch_HoleSize, h = rpXC_BeltMount_BaseThickness);
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -222,6 +349,31 @@ module _XC_CB_Strut() {
 	//}
 	
 	// lower bolt mount
+	
+	hull()
+	_XC_CB_PostBase(rpXC_BeltMount_BaseThickness, rpXC_CarriageMount_BoltHolderDiameter, rpDefaultBevel);
+	
+	*translate([	0, 0, rpXC_BeltMount_BaseThickness])
+	cylinder(h = rpXC_CarriageMount_BaseWidth + rpXC_CarriageMount_BaseSpacing *2, d1 = rpXC_CarriageMount_BoltHolderDiameter - (rpDefaultBevel /2), d2 = rpXC_CarriageMount_BoltHolderDiameter - rpDefaultBevel);
+
+	// upper bolt mount
+	translate([	0, rpXC_CarriageBase_StrutLength, 0])
+	hull() 
+	_XC_CB_PostBase(rpXC_BeltMount_BaseThickness, rpXC_CarriageMount_BoltHolderDiameter, rpDefaultBevel);
+	
+
+	*translate([	0, rpXC_CarriageBase_StrutLength, rpXC_BeltMount_BaseThickness])
+	cylinder(h = rpXC_CarriageMount_BaseWidth + rpXC_CarriageMount_BaseSpacing *2, d1 = rpXC_CarriageMount_BoltHolderDiameter  - (rpDefaultBevel /2), d2 = rpXC_CarriageMount_BoltHolderDiameter - rpDefaultBevel);
+	
+	
+}
+
+
+// just the posts - copied from above
+
+module _XC_CB_StrutPosts() {
+	
+	
 	
 	hull()
 	_XC_CB_PostBase(rpXC_BeltMount_BaseThickness, rpXC_CarriageMount_BoltHolderDiameter, rpDefaultBevel);
