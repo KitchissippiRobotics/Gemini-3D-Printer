@@ -44,7 +44,7 @@ include <XC_CarriageBase.scad>
 
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
-color("FireBrick")
+//color("FireBrick")
 translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,- rpXC_CarriageMount_LowerPointSpacing])
 rotate([0,90,0])
 	Part_XC_CarriageBase();
@@ -74,17 +74,17 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 include <HA_CarriageBase.scad>
 
 
-color("FireBrick")
-translate([rpXC_CarriageMount_BaseWidth /2 + rpXC_CarriageMount_BaseSpacing,0,1])
+//color("FireBrick")
+/*translate([rpXC_CarriageMount_BaseWidth /2 + rpXC_CarriageMount_BaseSpacing,0,1])
 rotate([0,90,0])
-	Part_HA_CarriageBase();
+	Part_HA_CarriageBase();*/
 
 // =============================================================================
 // Render: X-Endstop Microswitch
 // =============================================================================
 
 %translate([0 - (rpXC_BeltMount_BaseOffset) - 3,
-			rpXC_BeltMount_BoltOffset + 14,
+			rpXC_BeltMount_BoltOffset + 16,
 			-9.5])
 rotate([-90,0,0])
 	import("./Vitamins/microswitch.stl", convexity = 3);
@@ -93,7 +93,7 @@ rotate([-90,0,0])
 // Render: Print Cooling Fan
 // =============================================================================
 
-%translate([-20,
+%translate([-19,
 			-17,
 			-35])
 rotate([0,0,90])
@@ -169,16 +169,16 @@ rotate([0,180,90])
 	hotend_jhead();
 	
 // pushfit
-%translate([hwHA_Hotend_Offset,
+%translate([hwHA_Hotend_Offset -5,
 			(hwHA_Hotend_Spacing /2),
-			6])
-rotate([0,0,0])
+			24])
+rotate([0,-15,0])
 import("./Vitamins/pushfit.stl", convexity=3);
 
-%translate([hwHA_Hotend_Offset,
+%translate([hwHA_Hotend_Offset -5,
 			-(hwHA_Hotend_Spacing /2),
-			6])
-rotate([0,0,0])
+			24])
+rotate([0,-15,0])
 import("./Vitamins/pushfit.stl", convexity=3);
 	
 // =============================================================================
@@ -190,7 +190,7 @@ include <./Vitamins/parametric-fan.scad>
 // ~~ Part No. XC_CB-FAN01 ~~ (40mm fan)
 %translate([hwHA_Fan_Offset,
 			0,
-			-20])	// 50% of the fan size
+			-23])	// 50% of the fan size
 rotate([0,90,0])
 	fan(40, 10, 32);
 	
@@ -199,25 +199,25 @@ rotate([0,90,0])
 
 translate([	hwHA_Fan_Offset - 7.8, 
 			16, 
-			-4])
+			-7])
 	rotate([0, 90,0])
 		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
 		
 translate([	hwHA_Fan_Offset - 7.8, 
 			-16, 
-			-4])
+			-7])
 	rotate([0, 90,0])
 		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
 		
 translate([	hwHA_Fan_Offset - 7.8, 
 			16, 
-			-36])
+			-39])
 	rotate([0, 90,0])
 		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
 		
 translate([	hwHA_Fan_Offset - 7.8, 
 			-16, 
-			-36])
+			-39])
 	rotate([0, 90,0])
 		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
 

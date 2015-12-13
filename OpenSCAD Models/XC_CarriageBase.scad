@@ -167,17 +167,56 @@ module _BlowerHolder() {
 	
 		union() {
 		
-			// edge to hold blower straight
-			translate([xOffset + rpXC_BeltMount_BaseThickness , 10,0])
-				rotate([0,-90,0])
-					cube(size=[22, rpXC_BeltMount_BaseThickness, rpXC_BeltMount_BaseThickness + (rpXC_BeltMount_BaseThickness /2)],
-						 centre = false);
-					
+			hull() {
+			
 			// curve for where this meets the output edge bit	 
 			translate([xOffset - (rpXC_BeltMount_BaseThickness /2), 12,0])
 				rotate([0,0,0])
 				cylinder(h = 22, d = rpXC_BeltMount_BaseThickness);
-		
+			
+			
+				
+			// edge to hold blower straight
+			// cube size x = height of protrusion
+			//		size y = thickness of protrusion
+			//		size z = distance it protrudes
+			translate([22, 10,0])
+				rotate([0,-90,0])
+					cube(size=[	22, 
+								rpXC_BeltMount_BaseThickness, 
+								17],
+						 centre = false);
+				
+			// blower output edge bit	
+				 
+			translate([25, -12,0])
+			rotate([0,-90,0])
+				cube(size=[20, 24, rpXC_BeltMount_BaseThickness],
+					centre = false);
+					
+			#translate([30, 2,20])
+			rotate([0,-90,0])
+				cube(size=[8, 18, 8],
+					centre = false);
+					
+			#translate([30, -20,20])
+			rotate([0,-90,0])
+				cube(size=[8, 18, 8],
+					centre = false);
+					
+			translate([xOffset, -10,2])
+				rotate([0,-90,0])
+					cube(size=[20, 20  + (rpXC_BeltMount_BaseThickness /2), rpXC_BeltMount_BaseThickness],
+						 centre = false);
+						 
+				
+				// base of bolt point
+				translate([xOffset, -25 - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
+				rotate([0,-90,0])
+					cube(size=[rpXC_BeltMount_BaseThickness, rpXC_CarriageMount_BoltHolderDiameter - 4, rpXC_BeltMount_BaseThickness],
+						 centre = false);
+			}
+			
 			hull() {
 			// blower output edge bit		 
 				translate([xOffset, -10,2])
