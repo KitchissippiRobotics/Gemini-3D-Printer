@@ -159,7 +159,7 @@ calc_boltHeight = rpXC_CarriageMount_LowerClearance + rpXC_BeltMount_BoltOffset 
 rpXC_CarriageBase_StrutLength = sqrt(calc_boltSpacing * calc_boltSpacing + calc_boltHeight * calc_boltHeight) ;
 rpXC_CarriageBase_StrutAngle = atan(calc_boltHeight / calc_boltSpacing);
 
-rpDefaultBevel = 2;
+rpDefaultBevel = 1;
 rpDefaultWallThickness = rpDefaultBevel + 2;
 rpDefaultBaseThickness = 2;
 
@@ -173,4 +173,4 @@ hwMicroSwitch_Depth = 6;
 hwMicroSwitch_HoleSpacing = 9.5;
 hwMicroSwitch_HoleSize = 3;
 hwMicroSwitch_HoleOffset = 7;
-
+hwMicroSwitch_ScrewHeadDiameter = 7;	// mm

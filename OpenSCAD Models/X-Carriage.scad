@@ -45,8 +45,8 @@ include <XC_CarriageBase.scad>
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
 //color("FireBrick")
-translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,- rpXC_CarriageMount_LowerPointSpacing])
-rotate([0,90,0])
+translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10])
+rotate([90,0,90])
 	Part_XC_CarriageBase();
 
 // Four Mounting Bolts

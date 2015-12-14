@@ -16,17 +16,46 @@
 
 // Revision & Design Notes
 // v3.0.1: Initial 3-point test
-// v3.0.2: Alternate design, automatic angle calculation, switch and fan holder test
-// v3.0.3: Not started - this version will be more complete
+// v3.1.0: Alternate design, automatic angle calculation, switch and fan holder test
+// v3.1.1: Built on alternative design
 //		- lay down base components, switch mount, bolt mount points, base of fan mount and then combine those
 //		- place bolt posts and fan mount components onto this base
 //		- carve out bolt holes from this part
 //		- airflow and wire routing considerations?
-//		- revise belt clamp component to match
-//		- revise hotend mount to match
+//		x revise belt clamp component to match
+//		x revise hotend mount to match
+// v3.1.2: Based on above build concepts the shape has changed - triangle math is obselete
+// v3.2.0: Yet another rewrite:
+//		- Revert to original 3-point locating scheme
+//		- blower fan holder and output vents included
+//		- 
 
 include <Dimensions.scad>
 
+// -----------------------------------------------------------------------------
+// Some internal switch values:
+// -----------------------------------------------------------------------------
+
+BBStyle_Simple = 0;
+BBStyle_Bevel = 1;
+BBStyle_Round = 2;
+BBStyle_Taper = 3;
+
+// -----------------------------------------------------------------------------
+// Some internal used values:
+// -----------------------------------------------------------------------------
+
+_baseThickness = rpDefaultBaseThickness + rpDefaultBevel * 2;		// mm
+minimumThickness = 1.2; // mm
+boltSpacing = 40;		// mm
+boltDiameter = hwM4_Bolt_AllenHeadSize[0];
+lowerBoltOffset = rpXC_BeltMount_BoltOffset + rpXC_CarriageMount_LowerPointSpacing;	// mm
+bevelSize = rpDefaultBevel;	// mm
+
+switchXOffset = 25;
+switchYOffset = -10;
+
+// -----------------------------------------------------------------------------
 // Default Usage:	
 // Part_XC_CarriageBase();
 
@@ -56,7 +85,80 @@ if (MultiPartMode == undef) {
 
 module Part_XC_CarriageBase() {
 
-	difference() {
+	// start with the base elements
+	
+	union() {
+	
+		baseBBStyle = BBStyle_Bevel;
+	
+		// --------- Bolt Holders T shape
+	
+		// top left assembly bolt mount base
+		translate([-boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter, _baseThickness, baseBBStyle);
+			
+		// top right assembly bolt mount base
+		translate([boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter, _baseThickness, baseBBStyle);
+	
+		// bottom center assembly bolt mount base
+		translate([0, -lowerBoltOffset, 0])
+			_BoltBase(boltDiameter, _baseThickness, baseBBStyle);
+		
+		
+		// ---- switch holder
+		hull() {
+		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
+			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, baseBBStyle);
+			
+		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
+			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, baseBBStyle);
+		}
+		
+		hull() {
+			translate([boltSpacing/2, 0, 0])
+				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+				
+			
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
+				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		hull() {
+			translate([0, -lowerBoltOffset, 0])
+				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+				
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
+				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		hull() {
+			translate([boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+			translate([0, -lowerBoltOffset, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		hull() {
+			translate([-boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+			translate([0, -lowerBoltOffset, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		hull() {
+		// top left assembly bolt mount base
+		translate([-boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+			
+		// top right assembly bolt mount base
+		translate([boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+	}
+
+
+	*difference() {
 		union() {
 			
 			
@@ -154,6 +256,38 @@ module Part_XC_CarriageBase() {
 	
 }
 
+// -----------------------------------------------------------------------------
+// bolt base - a simple point for a bolt to go through strongly on the base
+// -----------------------------------------------------------------------------
+
+module _BoltBase(shaftSize, baseThickness, style = BBStyle_Simple) {
+	if (style == BBStyle_Simple)
+		cylinder(h = baseThickness, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+	else if (style == BBStyle_Bevel) {
+		cylinder(h = baseThickness - bevelSize, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+		translate([0,0,baseThickness - bevelSize])
+			cylinder(h = bevelSize, d2 = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness,
+									d1 = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+	}
+	else if (style == BBStyle_Round) {
+		cylinder(h = baseThickness - bevelSize, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+		translate([0,0,baseThickness - bevelSize])
+			rotate_extrude(angle = 360, covexity = 1)
+			translate([(shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize) /2 - bevelSize,0,0])
+				circle(h = bevelSize, d = bevelSize * 2);
+	}
+	else if (style == BBStyle_Taper) {
+		difference() {
+		cylinder(h = baseThickness, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+		
+		translate([0,0,baseThickness])
+			rotate_extrude(angle = 360, covexity = 1)
+			translate([(shaftSize + gcMachineOffset + gRender_Clearance + bevelSize) /2 + minimumThickness,0,0])
+				circle(h = bevelSize, d = bevelSize * 2);
+		}
+	}	
+}
+
 
 // -----------------------------------------------------------------------------
 // This makes the blower fan holder portion
@@ -211,7 +345,7 @@ module _BlowerHolder() {
 						 
 				
 				// base of bolt point
-				translate([xOffset, -25 - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
+				*translate([xOffset, -25 - (rpXC_CarriageMount_BoltHolderDiameter /2),0])
 				rotate([0,-90,0])
 					cube(size=[rpXC_BeltMount_BaseThickness, rpXC_CarriageMount_BoltHolderDiameter - 4, rpXC_BeltMount_BaseThickness],
 						 centre = false);
