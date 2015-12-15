@@ -46,14 +46,25 @@ BBStyle_Taper = 3;
 // -----------------------------------------------------------------------------
 
 _baseThickness = rpDefaultBaseThickness + rpDefaultBevel * 2;		// mm
-minimumThickness = 1.2; // mm
+minimumThickness = 2.2; // mm
 boltSpacing = 40;		// mm
-boltDiameter = hwM4_Bolt_AllenHeadSize[0];
+boltDiameter = hwM4_Bolt_ShaftDiameter;
 lowerBoltOffset = rpXC_BeltMount_BoltOffset + rpXC_CarriageMount_LowerPointSpacing;	// mm
 bevelSize = rpDefaultBevel;	// mm
 
 switchXOffset = 25;
 switchYOffset = -10;
+
+caseRightSide = switchXOffset + hwMicroSwitch_ScrewHeadDiameter;
+caseLeftSide = caseRightSide;	// symmetrical sizes
+caseTopSide = 20;
+caseBottomSide = 20;
+
+caseWallThickness = minimumThickness;
+caseHeight = 60;
+caseWidth = 2 * (switchXOffset) - 4;
+caseOffset = -20;
+caseDepth = 60;
 
 // -----------------------------------------------------------------------------
 // Default Usage:	
@@ -78,44 +89,146 @@ if (MultiPartMode == undef) {
 	
 	switchOffset  = 2;
 
+
 // -----------------------------------------------------------------------------
-// Bring it all together and create the main components of the part and carve
-// out clearances for the linear rail, etc.
+// Draw the case base outline shape (experimental)
 // -----------------------------------------------------------------------------
 
-module Part_XC_CarriageBase() {
-
-	// start with the base elements
+module _XCCB_CaseLayer() {
+	hull() {
 	
-	union() {
+		// top belt clamp area
+		
+		translate([-18, 6, 0])
+			circle(d = 8);
 	
-		baseBBStyle = BBStyle_Bevel;
-	
-		// --------- Bolt Holders T shape
-	
-		// top left assembly bolt mount base
+		translate([18, 6, 0])
+			circle(d = 8);
+			
+			
+		// bottom blower range
+		
+		translate([20, -50, 0])
+			circle(d = 8);
+			
+		translate([-20, -50, 0])
+			circle(d = 8);
+		
+		// top clamp mount right
+		
 		translate([-boltSpacing/2, 0, 0])
-			_BoltBase(boltDiameter, _baseThickness, baseBBStyle);
+			circle(d = 12);
 			
-		// top right assembly bolt mount base
+		// top clamp mount left
+		
 		translate([boltSpacing/2, 0, 0])
-			_BoltBase(boltDiameter, _baseThickness, baseBBStyle);
-	
-		// bottom center assembly bolt mount base
-		translate([0, -lowerBoltOffset, 0])
-			_BoltBase(boltDiameter, _baseThickness, baseBBStyle);
-		
-		
-		// ---- switch holder
-		hull() {
-		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
-			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, baseBBStyle);
+			circle(d = 12);
 			
-		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
-			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, baseBBStyle);
-		}
+		// switch holder
+	
+		translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
+			circle(d = 10);
+		translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
+			circle(d = 10);
+			
+		// mirror of switch holder
 		
-		hull() {
+		translate([-caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
+			circle(d = 10);
+		translate([-caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
+			circle(d = 10);
+	}	
+}
+
+// -----------------------------------------------------------------------------
+// Draw the case base outline shape (experimental)
+// -----------------------------------------------------------------------------
+
+module _XCCB_OutlineCase(outlineThickness = 1) {
+	translate([0, lowerBoltOffset /2, 0])
+	hull() {
+	
+		// top belt clamp area
+		
+		translate([-18, 6, 0])
+			circle(d = 8);
+	
+		translate([18, 6, 0])
+			circle(d = 8);
+			
+			
+		// bottom blower range
+		
+		translate([15, -40, 0])
+			circle(d = 8);
+			
+		translate([-15, -40, 0])
+			circle(d = 8);
+		
+		// top clamp mount right
+		
+		translate([-boltSpacing/2, 0, 0])
+			circle(d = 12);
+			
+		// top clamp mount left
+		
+		translate([boltSpacing/2, 0, 0])
+			circle(d = 12);
+			
+		// switch holder
+	
+		translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 5, 0])
+			circle(d = 12);
+		translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 2, 0])
+			circle(d = 12);
+			
+		// mirror of switch holder
+		
+		translate([-caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 +5, 0])
+			circle(d = 10);
+		translate([-caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 2, 0])
+			circle(d = 10);
+	}
+}
+
+// -----------------------------------------------------------------------------
+// Just Draw the bolt bases
+// -----------------------------------------------------------------------------
+
+module _XCCB_BoltBases(baseBBStyle) {
+
+
+	// top left assembly bolt mount base
+	translate([-boltSpacing/2, 0, 0])
+		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
+		
+	// top right assembly bolt mount base
+	translate([boltSpacing/2, 0, 0])
+		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
+
+	// bottom center assembly bolt mount base
+	translate([0, -lowerBoltOffset, 0])
+		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
+	
+	
+	// switch holder lower screw base
+	hull() {
+		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 2, 0])
+			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, baseBBStyle);
+	
+		// switch holder upper screw base
+		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 2, 0])
+			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, baseBBStyle);
+	}
+}
+
+// -----------------------------------------------------------------------------
+// Just Draw the skeleton frame between the bolt bases
+// -----------------------------------------------------------------------------
+
+module _XCCB_BoltSkeleton(baseBBStyle) {
+
+		*hull() {
 			translate([boltSpacing/2, 0, 0])
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
@@ -128,7 +241,15 @@ module Part_XC_CarriageBase() {
 			translate([0, -lowerBoltOffset, 0])
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
-			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset, 0])
+				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		hull() {
+			translate([0, -lowerBoltOffset, 0])
+				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+				
+			translate([-switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset, 0])
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 		
@@ -146,7 +267,7 @@ module Part_XC_CarriageBase() {
 			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 		
-		hull() {
+		*hull() {
 		// top left assembly bolt mount base
 		translate([-boltSpacing/2, 0, 0])
 			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
@@ -155,9 +276,155 @@ module Part_XC_CarriageBase() {
 		translate([boltSpacing/2, 0, 0])
 			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
+
+	
+}
+
+// -----------------------------------------------------------------------------
+// Just Draw the bolt posts
+// -----------------------------------------------------------------------------
+
+module _XCCB_BoltPosts() {
+	// top left assembly bolt mount base
+	translate([-boltSpacing/2, 0, 0])
+		cylinder(h = 20, d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+		
+		
+	// top right assembly bolt mount base
+	translate([boltSpacing/2, 0, 0])
+		cylinder(h = 20, d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+
+	// bottom center assembly bolt mount base
+	translate([0, -lowerBoltOffset, 0])
+		cylinder(h = 20, d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Put it all together and carve out the hardware clearances
+// -----------------------------------------------------------------------------
+
+module Part_XC_CarriageBase() {
+
+	// start with the base elements
+	
+	
+
+	
+	difference() {
+		union() {
+			_XCCB_BoltSkeleton(BBStyle_Bevel);
+			_XCCB_BoltBases(BBStyle_Taper);
+			_XCCB_BoltPosts();
+		
+			// case shape
+		
+			difference() {
+			
+				STYLE_SCALE = 1.06;
+				STYLE_SIZE = 4.33;
+			
+				union() {
+					translate([0, - lowerBoltOffset /2, 0])
+					scale([1 - 0.00,1 - 0.00,1])
+					linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
+						_XCCB_OutlineCase();
+			
+					translate([0, - lowerBoltOffset /2, 1 * STYLE_SIZE])
+					scale([1 + 0.02,1 + 0.00,1])
+					linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
+						_XCCB_OutlineCase();
+			
+					translate([0, - lowerBoltOffset /2, 2 * STYLE_SIZE])
+					scale([1 + 0.04,1 + 0.00,1])
+					linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
+						_XCCB_OutlineCase();
+						
+					translate([0, - lowerBoltOffset /2, 3 * STYLE_SIZE])
+					scale([1 + 0.06,1 + 0.00,1])
+					linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
+						_XCCB_OutlineCase();
+						
+					translate([0, - lowerBoltOffset /2, 4 * STYLE_SIZE])
+					scale([1 + 0.08,1 + 0.00,1])
+					linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
+						_XCCB_OutlineCase();
+						
+					translate([0, - lowerBoltOffset /2, 5 * STYLE_SIZE])
+					scale([1 + 0.1,1 + 0.00,1])
+					linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
+						_XCCB_OutlineCase();
+					
+					//rotate([-5,0,0])
+					
+					hull() {
+						translate([11,9.6,0])			
+						cylinder(h = 26, r = 2);
+						
+						translate([-11,9.6,0])			
+						cylinder(h = 26, r = 2);
+					}
+				}
+			
+				union() {
+					translate([0, - lowerBoltOffset /2, 0])
+					scale([0.90, 0.90, 1])	
+						linear_extrude(height = 2, scale=1)
+							_XCCB_OutlineCase();
+				
+				
+					translate([0, - lowerBoltOffset /2, 2])
+					scale([0.95, 0.95, 1])	
+						linear_extrude(height = 17, scale=0.97)
+							_XCCB_OutlineCase();
+							
+					*translate([0, - lowerBoltOffset /2, 17])
+					scale([0.95, 0.95, 1])	
+						linear_extrude(height = 2, scale=0.97)
+							_XCCB_OutlineCase();
+							
+					translate([0, - lowerBoltOffset /2, 19])
+					scale([0.97, 0.97, 1])	
+						linear_extrude(height = 7, scale=1)
+							_XCCB_OutlineCase();
+							
+					hull() {
+						translate([5, 13, 7])
+						rotate([90,0,0])
+						cylinder(h = 5, d = 6);
+					
+						translate([-5, 13, 7])
+						rotate([90,0,0])
+						cylinder(h = 5, d = 6);
+					
+						translate([6, 13, 27])
+						rotate([90,0,0])
+						cylinder(h = 5, d = 6);
+					
+						translate([-6, 13, 27])
+						rotate([90,0,0])
+						cylinder(h = 5, d = 6);
+					}
+				}			
+			}
+			
+			
+		}
+	
+		translate([0,-10,0])
+		rotate([0,0,-90])
+			_HIWINClearance();
+			
+		//translate([-rpXC_CarriageMount_LowerPointSpacing,0,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8]) 
+		translate([0,-10,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8])
+		rotate([0,-90,-90]) {
+			_XC_CB_BoltCarveouts();
+		
+			mirror([0,1,0])
+			_XC_CB_BoltCarveouts();
+		}
 	}
-
-
 	*difference() {
 		union() {
 			
@@ -270,20 +537,22 @@ module _BoltBase(shaftSize, baseThickness, style = BBStyle_Simple) {
 									d1 = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
 	}
 	else if (style == BBStyle_Round) {
-		cylinder(h = baseThickness - bevelSize, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
-		translate([0,0,baseThickness - bevelSize])
-			rotate_extrude(angle = 360, covexity = 1)
-			translate([(shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize) /2 - bevelSize,0,0])
-				circle(h = bevelSize, d = bevelSize * 2);
+		hull() {
+			cylinder(h = baseThickness - bevelSize, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+			translate([0,0,baseThickness - bevelSize])
+				rotate_extrude(angle = 360, covexity = 1)
+				translate([(shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize) /2 - bevelSize,0,0])
+					circle(h = bevelSize, d = bevelSize * 2);
+		}
 	}
 	else if (style == BBStyle_Taper) {
 		difference() {
-		cylinder(h = baseThickness, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
+			cylinder(h = baseThickness, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
 		
-		translate([0,0,baseThickness])
-			rotate_extrude(angle = 360, covexity = 1)
-			translate([(shaftSize + gcMachineOffset + gRender_Clearance + bevelSize) /2 + minimumThickness,0,0])
-				circle(h = bevelSize, d = bevelSize * 2);
+			translate([0,0,baseThickness])
+				rotate_extrude(angle = 360, covexity = 1)
+				translate([(shaftSize + gcMachineOffset + gRender_Clearance + bevelSize) /2 + minimumThickness/2,0,0])
+					circle(h = bevelSize, d = bevelSize * 2);
 		}
 	}	
 }
