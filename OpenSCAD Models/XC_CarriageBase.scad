@@ -46,7 +46,7 @@ BBStyle_Taper = 3;
 // -----------------------------------------------------------------------------
 
 _baseThickness = rpDefaultBaseThickness + rpDefaultBevel * 2;		// mm
-minimumThickness = 2.4; // mm
+minimumThickness = 4; // mm
 boltSpacing = 40;		// mm
 boltDiameter = hwM4_Bolt_ShaftDiameter;
 lowerBoltOffset = rpXC_BeltMount_BoltOffset + rpXC_CarriageMount_LowerPointSpacing;	// mm
@@ -196,18 +196,18 @@ module _XCCB_BoltSkeleton(baseBBStyle) {
 		
 		hull() {
 			translate([0, -lowerBoltOffset, 0])
-				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
-			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
-				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+			translate([switchXOffset + 2, -lowerBoltOffset + 5, 0])
+				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 		
 		hull() {
 			translate([0, -lowerBoltOffset, 0])
-				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
-			translate([-switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
-				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+			translate([-switchXOffset - 2, -lowerBoltOffset + 5, 0])
+				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 		
 		hull() {
@@ -266,19 +266,19 @@ module _XCCB_WiringAccessHole() {
 	hull() {
 		translate([5, 12, 7])
 		rotate([90,0,0])
-		cylinder(h = 5, d = 6);
+		cylinder(h = 10, d = 6);
 
 		translate([-5, 12, 7])
 		rotate([90,0,0])
-		cylinder(h = 5, d = 6);
+		cylinder(h = 10, d = 6);
 
 		translate([6, 12, 27])
 		rotate([90,0,0])
-		cylinder(h = 5, d = 6);
+		cylinder(h = 10, d = 6);
 
 		translate([-6, 12, 27])
 		rotate([90,0,0])
-		cylinder(h = 5, d = 6);
+		cylinder(h = 10, d = 6);
 	}
 }
 
@@ -302,6 +302,9 @@ module _XCCB_BlowerSpace() {
 	translate([-18,-40,-5])
 	rotate([90,0,0])
 	cylinder(h = 16, d = 26);
+	
+	translate([-45, -53, 0])
+	cube([20, 16, 23]);
 }
 
 // -----------------------------------------------------------------------------
@@ -346,7 +349,7 @@ module _XCCB_Shell() {
 	difference() {
 
 		STYLE_SCALE = 1.0;
-		STYLE_SIZE = 4.25;	// 4.33 for 5 stacks in 26mm
+		STYLE_SIZE = 4.33;	// 4.33 for 5 stacks in 26mm
 
 		// shaped stack of the outline design
 		union() {
@@ -396,8 +399,8 @@ module _XCCB_Shell() {
 	
 	
 			translate([0, - lowerBoltOffset /2, 2])
-			scale([0.9, 1, 1])	
-				linear_extrude(height = 30, scale=0.95)
+			scale([0.9, 0.9, 1])	
+				linear_extrude(height = 30, scale=0.9)
 					_XCCB_OutlineCase();
 				
 			*translate([0, - lowerBoltOffset /2, 19])
@@ -421,10 +424,32 @@ module _XCCB_Shell() {
 			// border around access hole with access hole cut out for wiring to exit
 			hull() {
 				translate([11,9.6,0])			
-				cylinder(h = 26, r = 2);
+				cylinder(h = 30, r = 2);
 			
 				translate([-11,9.6,0])			
-				cylinder(h = 26, r = 2);
+				cylinder(h = 30, r = 2);
+			}
+			
+			// border around access hole for hiwin rail
+			
+			hull() {
+				translate([30,-9.6,0])	
+				rotate([0,-8,0])		
+				cylinder(h = 30, r = 2);
+			
+				translate([30,-30,0])
+				rotate([0,-8,0])		
+				cylinder(h = 30, r = 2);
+			}
+			
+			hull() {
+				translate([-29,-9.6,0])	
+				rotate([0,8,0])		
+				cylinder(h = 30, r = 2);
+			
+				translate([-29,-30,0])
+				rotate([0,8,0])		
+				cylinder(h = 30, r = 2);
 			}
 		}
 			
@@ -465,6 +490,12 @@ module Part_XC_CarriageBase() {
 			mirror([0,1,0])
 			_XC_CB_BoltCarveouts();
 		}
+		
+		translate([-100,-100,26])
+			cube([200,200,20]);
+			
+		translate([-100,-100,-20])
+			cube([200,200,20]);
 	}
 	*difference() {
 		union() {
