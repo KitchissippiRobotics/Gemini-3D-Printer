@@ -194,7 +194,7 @@ module _XCCB_BoltSkeleton(baseBBStyle) {
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 		
-		hull() {
+		*hull() {
 			translate([0, -lowerBoltOffset, 0])
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
@@ -202,7 +202,7 @@ module _XCCB_BoltSkeleton(baseBBStyle) {
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 		
-		hull() {
+		*hull() {
 			translate([0, -lowerBoltOffset, 0])
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
@@ -292,19 +292,23 @@ module _XCCB_BlowerSpace() {
 	translate([-10.5, -52.5, 0])
 	cube([19, 15, 26]);
 
-	translate([-11, -53, 0])
-	cube([20, 16, 23]);
+	// main blower channel
+	translate([-12, -53.5, 0])
+	cube([22, 17, 25]);
 	
-	translate([-18,-37,-5])
+	// main blower body
+	translate([-18,-36.25,-5])
 	rotate([90,0,0])
-	cylinder(h = 16, d = 52);
+	cylinder(h = 17, d = 52);
 	
-	translate([-18,-40,-5])
+	// intake clearance
+	translate([-18,-42,-5])
 	rotate([90,0,0])
 	cylinder(h = 16, d = 26);
 	
+	// mounting clearance
 	translate([-45, -53, 0])
-	cube([20, 16, 23]);
+	cube([20, 17, 24]);
 }
 
 // -----------------------------------------------------------------------------
@@ -314,28 +318,32 @@ module _XCCB_BlowerSpace() {
 module _XCCB_BlowerCase() {
 	hull() {
 		translate([9,-37,0])
-		cylinder(h = 23, d = 4);
+		cylinder(h = 23, d = 6);
 	
 		translate([9,-53,0])
-		cylinder(h = 23, d = 4);
+		cylinder(h = 23, d = 6);
 	
-		translate([-30,-37,0])
-		cylinder(h = 18, d = 4);
+		// 
+		translate([-32,-37,0])
+		cylinder(h = 18, d = 6);
 	
-		translate([-30,-53,0])
-		cylinder(h = 18, d = 4);
+		translate([-32,-53,0])
+		cylinder(h = 18, d = 6);
 		
+		// attachement bolt point
 		translate([-38,-36,16])
 		rotate([90,0,0])
-		cylinder(h = 18, d = 8);
+		cylinder(h = 18, d = 11);
 		
-		translate([9,-37,24])
-		rotate([90,0,0])
-		cylinder(h = 16, d = 4);
 		
-		translate([-11,-37,24])
+		// top of exit portion
+		translate([9,-36,24])
 		rotate([90,0,0])
-		cylinder(h = 16, d = 4);
+		cylinder(h = 18, d = 6);
+		
+		translate([-9,-36,24])
+		rotate([90,0,0])
+		cylinder(h = 18, d = 6);
 	}
 	
 
@@ -408,9 +416,9 @@ module _XCCB_Shell() {
 				linear_extrude(height = 7.1, scale=0.99)
 					_XCCB_OutlineCase();
 				
-			_XCCB_WiringAccessHole();
+			*_XCCB_WiringAccessHole();
 			
-			#_XCCB_BlowerSpace();
+			*_XCCB_BlowerSpace();
 		} // union
 		
 	} // difference
@@ -453,11 +461,11 @@ module _XCCB_Shell() {
 			}
 		}
 			
-		union() {
+		/*union() {
 			_XCCB_BlowerSpace();	
 			
 			_XCCB_WiringAccessHole();
-		}
+		}*/
 	}
 }
 
@@ -478,25 +486,42 @@ module Part_XC_CarriageBase() {
 			_XCCB_Shell();				
 		}
 			
-		translate([0,-10,0])
-		rotate([0,0,-90])
-			_HIWINClearance();
+		union() {	
 			
-		//translate([-rpXC_CarriageMount_LowerPointSpacing,0,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8]) 
-		translate([0,-10,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8])
-		rotate([0,-90,-90]) {
-			_XC_CB_BoltCarveouts();
+			translate([0,-10,0])
+			rotate([0,0,-90])
+				_HIWINClearance();
+			
+			//translate([-rpXC_CarriageMount_LowerPointSpacing,0,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8]) 
+			translate([0,-10,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8])
+			rotate([0,-90,-90]) {
+				_XC_CB_BoltCarveouts();
 		
-			mirror([0,1,0])
-			_XC_CB_BoltCarveouts();
+				mirror([0,1,0])
+				_XC_CB_BoltCarveouts();
+			}
+		
+			_XCCB_BlowerSpace();	
+			
+			_XCCB_WiringAccessHole();
+		
+			// top flat cut
+			translate([-100,-100,35])
+				cube([200,200,20]);
+		
+			// bottom flat cut
+			translate([-100,-100,-20])
+				cube([200,200,20]);
 		}
-		
-		translate([-100,-100,26])
-			cube([200,200,20]);
-			
-		translate([-100,-100,-20])
-			cube([200,200,20]);
 	}
+}
+
+// -----------------------------------------------------------------------------
+// old code, not currently referenced
+// -----------------------------------------------------------------------------
+
+/*
+	
 	*difference() {
 		union() {
 			
@@ -593,7 +618,7 @@ module Part_XC_CarriageBase() {
 		_HIWINClearance();
 	}
 	
-}
+}*/
 
 // -----------------------------------------------------------------------------
 // bolt base - a simple point for a bolt to go through strongly on the base
