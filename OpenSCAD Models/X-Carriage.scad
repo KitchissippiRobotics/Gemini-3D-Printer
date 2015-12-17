@@ -45,7 +45,7 @@ include <XC_CarriageBase.scad>
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
 //color("FireBrick")
-translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10])
+translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBase();
 
@@ -75,9 +75,9 @@ include <HA_CarriageBase.scad>
 
 
 //color("FireBrick")
-/*translate([rpXC_CarriageMount_BaseWidth /2 + rpXC_CarriageMount_BaseSpacing,0,1])
+translate([rpXC_CarriageMount_BaseWidth /2 + rpXC_CarriageMount_BaseSpacing,0,10.1])
 rotate([0,90,0])
-	Part_HA_CarriageBase();*/
+	Part_HA_CarriageBase();
 
 // =============================================================================
 // Render: X-Endstop Microswitch
