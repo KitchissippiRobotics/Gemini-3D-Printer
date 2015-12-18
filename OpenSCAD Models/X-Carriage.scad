@@ -74,7 +74,7 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 include <HA_CarriageBase.scad>
 
 
-//color("FireBrick")
+color("FireBrick")
 translate([10.5,0,10.1])
 rotate([90,0,90])
 	Part_HA_CarriageBase();
