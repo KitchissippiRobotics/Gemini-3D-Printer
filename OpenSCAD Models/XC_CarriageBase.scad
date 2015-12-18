@@ -87,6 +87,75 @@ module _XCCB_BoltBases(baseBBStyle) {
 }
 
 // -----------------------------------------------------------------------------
+// creates a shape for clearance of the linear rail to be carved out of the part
+// -----------------------------------------------------------------------------
+
+module _HIWINClearance() {
+	
+				
+	union() {
+			// cut out space for Hiwin carriage, clearance of the bar and mount bolts
+			
+	// carriage carve out
+				translate([	0,
+							-25,
+							rpXC_CarriageMount_BaseWidth /2 - rpXC_BeltMount_BoltHolderWidth])
+					cube(size= [9,
+								50,
+								rpXC_CarriageMount_BaseWidth],
+						center = false);		
+			hull() {
+			
+	translate([2, 50,7])
+	rotate([90,0,0])
+				cylinder(h = 100, d = 4);
+				
+	translate([1, 50,35])
+	rotate([90,0,0])
+				cylinder(h = 100, d = 4);			
+				
+	translate([15,50,7])
+	rotate([90,0,0])
+				cylinder(h = 100, d = 4);
+	translate([15,50,35])
+	rotate([90,0,0])
+				cylinder(h = 100, d = 4);
+				
+			
+				
+					
+				// bar carve out
+
+				translate([11.5,
+							0,
+							rpXC_CarriageMount_BaseWidth /2 + 5.5])
+					cube(size= [3.2,
+								100,
+								rpXC_CarriageMount_BaseWidth],
+						center = true);
+			
+				translate([11.5,
+							0,
+							rpXC_CarriageMount_BaseWidth /2 + 5.5])
+					cube(size= [5,
+								100,
+								rpXC_CarriageMount_BaseWidth],
+						center = true);
+			
+				// clearance for bar/rail mounting bolts	
+				translate([16.5,
+							0,
+							rpXC_CarriageMount_BaseWidth /2 + 5.5])
+					cube(size= [5,
+								100,
+								3],
+						center = true);
+
+			}
+}
+}
+
+// -----------------------------------------------------------------------------
 // Just Draw the skeleton frame between the bolt bases
 // -----------------------------------------------------------------------------
 
@@ -314,8 +383,8 @@ module _XCCB_Shell() {
 	
 	
 			translate([0, - lowerBoltOffset /2, 2])
-			scale([0.9, 0.9, 1])	
-				linear_extrude(height = 30, scale=0.9)
+			scale([0.9, 0.98, 1])	
+				linear_extrude(height = 30, scale=0.90)
 					_XCCB_OutlineCase();
 				
 			
@@ -345,23 +414,23 @@ module _XCCB_Shell() {
 			// border around access hole for hiwin rail
 			
 			hull() {
-				translate([30,-9.6,0])	
-				rotate([0,-8,0])		
-				cylinder(h = 30, r = 2);
+				translate([30,-9.6,-1])	
+				rotate([-2,-8,0])		
+				cylinder(h = 32, r = 2);
 			
-				translate([30,-30,0])
-				rotate([0,-8,0])		
-				cylinder(h = 30, r = 2);
+				translate([30,-30,-1])
+				rotate([-1,-8,0])		
+				cylinder(h = 32, r = 2);
 			}
 			
 			hull() {
-				translate([-29,-9.6,0])	
-				rotate([0,8,0])		
-				cylinder(h = 30, r = 2);
+				translate([-29,-9.6,-1])	
+				rotate([-2,8,0])		
+				cylinder(h = 32, r = 2);
 			
-				translate([-29,-30,0])
-				rotate([0,8,0])		
-				cylinder(h = 30, r = 2);
+				translate([-29,-30,-1])
+				rotate([-1,8,0])		
+				cylinder(h = 32, r = 2);
 			}
 		}
 			
@@ -803,53 +872,7 @@ module _XC_CB_StrutPosts() {
 	
 }
 
-// -----------------------------------------------------------------------------
-// creates a shape for clearance of the linear rail to be carved out of the part
-// -----------------------------------------------------------------------------
 
-module _HIWINClearance() {
-	union() {
-			// cut out space for Hiwin carriage, clearance of the bar and mount bolts
-			hull() {
-				// carriage carve out
-				translate([	0,
-							-50,
-							rpXC_CarriageMount_BaseWidth /2 - rpXC_BeltMount_BoltHolderWidth])
-					cube(size= [9,
-								100,
-								rpXC_CarriageMount_BaseWidth],
-						center = false);
-					
-				// bar carve out
-
-				translate([11.5,
-							0,
-							rpXC_CarriageMount_BaseWidth /2 + 5.5])
-					cube(size= [3.2,
-								100,
-								rpXC_CarriageMount_BaseWidth + 1],
-						center = true);
-			
-				translate([11.5,
-							0,
-							rpXC_CarriageMount_BaseWidth /2 + 5.5])
-					cube(size= [5,
-								100,
-								rpXC_CarriageMount_BaseWidth],
-						center = true);
-			
-				// clearance for bar/rail mounting bolts	
-				translate([16.5,
-							0,
-							rpXC_CarriageMount_BaseWidth /2 + 5.5])
-					cube(size= [5,
-								100,
-								3],
-						center = true);
-
-			}
-}
-}
 
 // -----------------------------------------------------------------------------
 // WARNING: Be very careful modifying this - the values are from the original 

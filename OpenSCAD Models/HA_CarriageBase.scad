@@ -36,7 +36,7 @@ module Part_HA_CarriageBase() {
 			
 			_HACB_BoltBases(BBStyle_Taper);
 			_HACB_HotendMount();
-			
+			//_XCCB_BoltSkeleton(BBStyle_Round);
 			
 			// draw a continuation of the previous case outline pattern
 			// currently disabled, attempting an insert piece instead
@@ -117,40 +117,50 @@ module Part_HA_CarriageBase() {
 	}
 }
 
+module _HACB_BaseLeft() {
+	hull() { 
+	
+			translate([10, -lowerBoltOffset/2, 0])
+				_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+			
+			translate([boltSpacing/2, 0, 0])
+				_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+		
+			// m3 bolt mount
+			translate([20, -lowerBoltOffset/2, 0])
+				_BoltBase(4, _baseThickness - rpDefaultBevel, BBStyle_Round);
+		}
+		
+		hull() {
+		// m3 bolt mount
+	translate([26, -lowerBoltOffset/2, 0])
+		_BoltBase(5, _baseThickness - rpDefaultBevel, BBStyle_Round);
+		// m3 bolt mount
+			translate([20, -lowerBoltOffset/2, 0])
+				_BoltBase(4, _baseThickness - rpDefaultBevel, BBStyle_Round);
+				}
+				
+	// draw a cube to fit in the slots
+	translate([0, -10, 0])
+	rotate([90,0,0])
+	cube([25, 15, 10]);
+}
+
 // -----------------------------------------------------------------------------
 // Just Draw the bolt bases
 // -----------------------------------------------------------------------------
 
 module _HACB_BoltBases(baseBBStyle) {
-	
-	mirror([1,0,0])
-		hull() { 
-	
-		
-		translate([0, -lowerBoltOffset, 0])
-			_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
-			
-		translate([boltSpacing/2, 0, 0])
-			_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
-		
-		_HACB_HotendMount();
-	
 
-	}
-	
-	hull() { 
-	
-		
-		translate([0, -lowerBoltOffset, 0])
-			_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
-			
-		translate([boltSpacing/2, 0, 0])
-			_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
-		
-		_HACB_HotendMount();
-	
 
-	}
+	translate([0, -lowerBoltOffset, 0])
+			_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+	
+	mirror([1,0,0]) _HACB_BaseLeft();
+	_HACB_BaseLeft();
+	
+	mirror([1,0,0]) _HACB_HotendMount();
+	_HACB_HotendMount();
 	
 	
 
@@ -158,9 +168,67 @@ module _HACB_BoltBases(baseBBStyle) {
 
 module _HACB_HotendMount() {
 	// draw a cube to fit in the slots
-	translate([0, -17, 0])
+	translate([0, -10, 0])
 	rotate([90,0,0])
-	cube([25, 15, 4]);
+	cube([25, 15, 10]);
+}
+
+// -----------------------------------------------------------------------------
+// Just Draw the skeleton frame between the bolt bases
+// -----------------------------------------------------------------------------
+
+module _XCCB_BoltSkeleton(baseBBStyle) {
+
+		*hull() {
+			translate([boltSpacing/2, 0, 0])
+				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+				
+			
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
+				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		*hull() {
+			translate([0, -lowerBoltOffset, 0])
+				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
+				
+			translate([switchXOffset + 2, -lowerBoltOffset + 5, 0])
+				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		*hull() {
+			translate([0, -lowerBoltOffset, 0])
+				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
+				
+			translate([-switchXOffset - 2, -lowerBoltOffset + 5, 0])
+				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		hull() {
+			translate([boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+			translate([0, -lowerBoltOffset, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		hull() {
+			translate([-boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+			translate([0, -lowerBoltOffset, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+		
+		*hull() {
+		// top left assembly bolt mount base
+		translate([-boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+			
+		// top right assembly bolt mount base
+		translate([boltSpacing/2, 0, 0])
+			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
+		}
+
+	
 }
 
 // *****************************************************************************
