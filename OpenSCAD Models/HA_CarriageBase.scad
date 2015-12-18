@@ -9,7 +9,7 @@
 // Hotend-Assembly Component
 // *****************************************************************************
 
-include <Dimensions.scad>
+include <XC_Common.scad>
 
 // Default Usage:	
 // Part_HA_CarriageBase();
@@ -25,6 +25,69 @@ if (MultiPartMode == undef) {
 } else {
 	EnableSupport = false;
 }
+
+// -----------------------------------------------------------------------------
+// Put it all together and carve out the hardware clearances
+// -----------------------------------------------------------------------------
+
+module Part_HA_CarriageBase() {
+	difference() {
+		union() {	// combine the sub components that make up the parts
+			
+			_HACB_BoltBases(BBStyle_Taper);
+			
+			*difference() {
+				translate([0, - lowerBoltOffset /2, 0])
+				scale([0.87,1 + 0.00,1])
+				linear_extrude(height = 4.33, scale=1)
+					_XCCB_OutlineCase(3.5);
+				
+				union() {
+				translate([0, - lowerBoltOffset /2, -0.1])
+				scale([0.80, 0.86, 1])	
+					linear_extrude(height = 2.2, scale=1)
+						_XCCB_OutlineCase();
+				translate([0, - lowerBoltOffset /2, 2])
+				scale([0.82, 0.92, 1])	
+					linear_extrude(height = 4, scale=1)
+						_XCCB_OutlineCase();
+				}
+			}
+		}
+		
+		
+		
+		// carve things out of the shape
+	}
+}
+
+// -----------------------------------------------------------------------------
+// Just Draw the bolt bases
+// -----------------------------------------------------------------------------
+
+module _HACB_BoltBases(baseBBStyle) {
+	
+
+	// top left assembly bolt mount base
+	translate([-boltSpacing/2, 0, 0]) {
+		_BoltBase(boltDiameter - rpDefaultBevel *2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+	}
+	
+	// top right assembly bolt mount base
+	translate([boltSpacing/2, 0, 0]) {
+		_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+	}
+	
+	// bottom center assembly bolt mount base
+	translate([0, -lowerBoltOffset, 0]) {
+		_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+	}
+	
+}
+
+// *****************************************************************************
+// Old code - Beware, here be dragons
+// *****************************************************************************
 
 module _strutBase() {
 	a = rpXC_BeltMount_BoltSpacing/2;
@@ -102,18 +165,7 @@ module _topStrut() {
 	
 }
 
-module Part_HA_CarriageBase() {
-	
-	_HA_Strut();
-	
-	*union() {
-		_HA_Strut();
-		mirror([0,1,0]) _HA_Strut();
-	}
-	
 
-
-}
 
 module _HA_Strut() {
 	difference() {

@@ -28,11 +28,7 @@ if (MultiPartMode == undef) {
 
 module Part_HA_CarriageBase() {
 
-	union() {
-		_HA_Strut();
-		mirror([0,1,0]) _HA_Strut();
-	}
-	
+
 
 
 }

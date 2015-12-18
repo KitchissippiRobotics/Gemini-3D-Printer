@@ -271,37 +271,37 @@ module _XCCB_Shell() {
 			translate([0, - lowerBoltOffset /2, 0])
 			scale([1 - 0.00,1 - 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase();
+				_XCCB_OutlineCase(0);
 
 			translate([0, - lowerBoltOffset /2, 1 * STYLE_SIZE])
-			scale([1 - 0.02,1 + 0.00,1])
+			scale([0.98,1 + 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase();
+				_XCCB_OutlineCase(0.5);
 
 			translate([0, - lowerBoltOffset /2, 2 * STYLE_SIZE])
-			scale([1 - 0.04,1 + 0.00,1])
+			scale([0.96,1 + 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase();
+				_XCCB_OutlineCase(1);
 			
 			translate([0, - lowerBoltOffset /2, 3 * STYLE_SIZE])
 			scale([1 - 0.06,1 + 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase();
+				_XCCB_OutlineCase(1.5);
 			
 			translate([0, - lowerBoltOffset /2, 4 * STYLE_SIZE])
-			scale([1 - 0.08,1 + 0.00,1])
+			scale([0.92,1 + 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase();
+				_XCCB_OutlineCase(2);
 			
 			translate([0, - lowerBoltOffset /2, 5 * STYLE_SIZE])
-			scale([1 - 0.1,1 + 0.00,1])
+			scale([0.90,1 + 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase();
+				_XCCB_OutlineCase(2.5);
 				
 			translate([0, - lowerBoltOffset /2, 6 * STYLE_SIZE])
-			scale([1 - 0.12,1 + 0.00,1])
+			scale([0.88,1 + 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase();
+				_XCCB_OutlineCase(3);
 			
 		} // union
 	
@@ -318,10 +318,7 @@ module _XCCB_Shell() {
 				linear_extrude(height = 30, scale=0.9)
 					_XCCB_OutlineCase();
 				
-			*translate([0, - lowerBoltOffset /2, 19])
-			scale([0.86, 0.98, 1])	
-				linear_extrude(height = 7.1, scale=0.99)
-					_XCCB_OutlineCase();
+			
 				
 			*_XCCB_WiringAccessHole();
 			
@@ -411,9 +408,19 @@ module Part_XC_CarriageBase() {
 			_XCCB_BlowerSpace();	
 			
 			_XCCB_WiringAccessHole();
+			
+			
+			// cut out space for HA_CarriageBase to insert
+			translate([0, - lowerBoltOffset /2, 26])
+			scale([0.84, 0.96, 1])	
+				linear_extrude(height = 5, scale=1)
+					_XCCB_OutlineCase(3.5);
+				
+			
+			//translate([0, - lowerBoltOffset /2, 26])_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
 		
 			// top flat cut
-			translate([-100,-100,35])
+			translate([-100,-100,36])
 				cube([200,200,20]);
 		
 			// bottom flat cut
@@ -527,39 +534,7 @@ module Part_XC_CarriageBase() {
 	
 }*/
 
-// -----------------------------------------------------------------------------
-// bolt base - a simple point for a bolt to go through strongly on the base
-// -----------------------------------------------------------------------------
 
-module _BoltBase(shaftSize, baseThickness, style = BBStyle_Simple) {
-	if (style == BBStyle_Simple)
-		cylinder(h = baseThickness, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
-	else if (style == BBStyle_Bevel) {
-		cylinder(h = baseThickness - bevelSize, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
-		translate([0,0,baseThickness - bevelSize])
-			cylinder(h = bevelSize, d2 = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness,
-									d1 = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
-	}
-	else if (style == BBStyle_Round) {
-		hull() {
-			cylinder(h = baseThickness - bevelSize, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
-			translate([0,0,baseThickness - bevelSize])
-				rotate_extrude(angle = 360, covexity = 1)
-				translate([(shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize) /2 - bevelSize,0,0])
-					circle(h = bevelSize, d = bevelSize * 2);
-		}
-	}
-	else if (style == BBStyle_Taper) {
-		difference() {
-			cylinder(h = baseThickness, d = shaftSize + gcMachineOffset + gRender_Clearance + minimumThickness + bevelSize);
-		
-			translate([0,0,baseThickness])
-				rotate_extrude(angle = 360, covexity = 1)
-				translate([(shaftSize + gcMachineOffset + gRender_Clearance + bevelSize) /2 + minimumThickness/2,0,0])
-					circle(h = bevelSize, d = bevelSize * 2);
-		}
-	}	
-}
 
 
 // -----------------------------------------------------------------------------

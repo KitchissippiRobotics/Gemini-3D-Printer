@@ -75,8 +75,8 @@ include <HA_CarriageBase.scad>
 
 
 //color("FireBrick")
-translate([rpXC_CarriageMount_BaseWidth /2 + rpXC_CarriageMount_BaseSpacing,0,10.1])
-rotate([0,90,0])
+translate([10.5,0,10.1])
+rotate([90,0,90])
 	Part_HA_CarriageBase();
 
 // =============================================================================
