@@ -35,8 +35,8 @@ boltDiameter = hwM4_Bolt_ShaftDiameter;
 lowerBoltOffset = rpXC_BeltMount_BoltOffset + rpXC_CarriageMount_LowerPointSpacing;	// mm
 bevelSize = rpDefaultBevel;	// mm
 
-switchXOffset = 25;
-switchYOffset = -10;
+switchXOffset = 24;
+switchYOffset = -10.0;
 
 caseRightSide = switchXOffset + hwMicroSwitch_ScrewHeadDiameter;
 caseLeftSide = caseRightSide;	// symmetrical sizes
@@ -85,16 +85,16 @@ module _XCCB_OutlineCase(postMod = 0) {
 			
 		// switch holder
 	
-		translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 5, 0])
+		translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
 			circle(d = 12);
-		translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 5, 0])
+		translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
 			circle(d = 12);
 			
 		// mirror of switch holder
 		
-		translate([-caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 +5, 0])
+		translate([-caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 +3, 0])
 			circle(d = 10);
-		translate([-caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 5, 0])
+		translate([-caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
 			circle(d = 10);	
 			
 		// bottom blower range

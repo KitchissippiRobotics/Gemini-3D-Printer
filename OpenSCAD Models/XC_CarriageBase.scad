@@ -77,11 +77,11 @@ module _XCCB_BoltBases(baseBBStyle) {
 	
 	// switch holder lower screw base
 	hull() {
-		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 2, 0])
+		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
 			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, BBStyle_Round);
 	
 		// switch holder upper screw base
-		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 2, 0])
+		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
 			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, BBStyle_Round);
 	}
 }
@@ -414,22 +414,22 @@ module _XCCB_Shell() {
 			// border around access hole for hiwin rail
 			
 			hull() {
-				translate([30,-9.6,-1])	
-				rotate([-2,-8,0])		
+				translate([29,-9.6,-1])	
+				rotate([-2,-7,0])		
 				cylinder(h = 32, r = 2);
 			
-				translate([30,-30,-1])
-				rotate([-1,-8,0])		
+				translate([29,-30,-1])
+				rotate([-1,-7,0])		
 				cylinder(h = 32, r = 2);
 			}
 			
 			hull() {
-				translate([-29,-9.6,-1])	
-				rotate([-2,8,0])		
+				translate([-28,-9.6,-1])	
+				rotate([-2,7,0])		
 				cylinder(h = 32, r = 2);
 			
-				translate([-29,-30,-1])
-				rotate([-1,8,0])		
+				translate([-28,-30,-1])
+				rotate([-1,7,0])		
 				cylinder(h = 32, r = 2);
 			}
 		}
@@ -459,7 +459,32 @@ module Part_XC_CarriageBase() {
 			_XCCB_Shell();				
 		}
 			
-		union() {	
+		union() {
+		
+			// switch screw carve out
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
+				cylinder(h=2, d= 3);
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
+				cylinder(h=2, d= 3);
+			
+			// switch screw access carve out
+			hull() {
+				translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 2])
+				cylinder(h=30, d= 1);
+			
+			
+				translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 2])
+				cylinder(h=5, d= 8.5);
+			}
+			
+			hull() {
+				translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 2])
+				cylinder(h=30, d= 1);
+			
+			
+				translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 2])
+				cylinder(h=5, d= 8.5);
+			}
 			
 			translate([0,-10,0])
 			rotate([0,0,-90])
