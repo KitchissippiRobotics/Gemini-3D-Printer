@@ -44,7 +44,7 @@ include <XC_CarriageBase.scad>
 
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
-//color("FireBrick")
+color("Snow")
 translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBase();
@@ -74,7 +74,7 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 include <HA_CarriageBase.scad>
 
 
-color("FireBrick")
+color("LimeGreen")
 translate([10.5,0,10.1])
 rotate([90,0,90])
 	Part_HA_CarriageBase();
@@ -106,7 +106,7 @@ rotate([0,0,90])
 include <XC_BeltClamp.scad>
 
 // ~~ Part No. XB-CB-ABS02 ~~ (XC_BeltClamp.stl)
-color("DarkSlateGray")
+color("Snow")
 	translate([0 - (rpXC_BeltMount_BaseOffset),0,rpXC_BeltMount_BoltOffset])
 	rotate([0,-90,0])
 	Part_XC_BeltClamp();
