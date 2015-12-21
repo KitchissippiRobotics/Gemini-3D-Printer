@@ -384,28 +384,28 @@ module _XCCB_BlowerCase() {
 // creates a block of vent cutouts
 // -----------------------------------------------------------------------------
 
-module _XCCB_VentBlock() {
+module _XCCB_VentBlock(_blockRise = 0.66) {
 	_blockHeight = 0.5;
 	_blockWidth = 2;
 	_blockSpace = 4;
-	_blockRise = 0.66;
+	//_blockRise = 0.66;
 
-	translate([0,0,0])
+	translate([0,-2,0])
 	cube([_blockWidth, 10, _blockHeight]);
 	
-	translate([_blockSpace,0,0])
+	*translate([_blockSpace,0,0])
 	cube([_blockWidth, 10, _blockHeight]);
 	
-	translate([_blockSpace * 2,0,0])
+	*translate([_blockSpace * 2,0,0])
 	cube([_blockWidth, 10, _blockHeight]);
 	
-	translate([_blockSpace / 2,0,_blockHeight + _blockRise])
+	translate([_blockSpace / 2,-2,_blockHeight + _blockRise])
 	cube([_blockWidth, 10, _blockHeight]);
 	
-	translate([_blockSpace / 2 + _blockSpace,0,_blockHeight + _blockRise])
+	*translate([_blockSpace / 2 + _blockSpace,0,_blockHeight + _blockRise])
 	cube([_blockWidth, 10, _blockHeight]);
 	
-	translate([_blockSpace / 2 + _blockSpace * 2,0,_blockHeight + _blockRise])
+	*translate([_blockSpace / 2 + _blockSpace * 2,0,_blockHeight + _blockRise])
 	cube([_blockWidth, 10, _blockHeight]);
 	
 
@@ -417,33 +417,27 @@ module _XCCB_VentBlock() {
 
 module _XCCB_TopVents(_drawText = true) {
 
-	intersection() {
-	
+		for (i = [0 : 1 : 9]) {
+		
+		translate([5.5,0,i * 3 - 2])
+		_XCCB_VentBlock(0.5);
+		
+		translate([-4.66,0,i * 3 - 2])
+		_XCCB_VentBlock(0.5);
+		
+		if ((_drawText == false) || (i == 0) || (i == 9))
+			translate([0.33,0,i * 3 - 2])
+				_XCCB_VentBlock();
+		
+		}
+		
 
-		for (i = [0 : 1 : 5]) {
-		translate([0,0,i * 4.33])
-		_XCCB_VentBlock();
-	
-		translate([0,0,(i * 4.33) + 2])
-		_XCCB_VentBlock();		
-		}
-	
-		if (_drawText == true) {
-			translate([0, 10, 25.3])
-			rotate([0,84,-90])
-			scale([1,2,1])
-			linear_extrude(height = 10)
-				text("GEMINI", font="Myanmar MN:style=Bold", size = 5);
-					
-		}
-	}
-	
 	if (_drawText == true) {
-		translate([0, 3.6, 26])
-		rotate([0,84,-90])
-		scale([1,2,1])
-		linear_extrude(height = 4)
-			text("GEMINI", font="Myanmar MN:style=Bold", size = 5);
+		translate([0, 3.0, 24.0])
+		rotate([0,83,-90])
+		scale([1.1,1,1])
+		linear_extrude(height = 2)
+			text("Gemini", font="Myanmar MN:style=Bold", size = 5);
 			
 			
 	}
@@ -462,7 +456,7 @@ module _XCCB_Shell() {
 		STYLE_SIZE = 4.33;	// 4.33 for 5 stacks in 26mm
 
 		// shaped stack of the outline design
-		union() { // union() : switch to hull() if a less stylized design is desired
+		hull() { // union() : switch to hull() if a less stylized design is desired
 			translate([0, - lowerBoltOffset /2, 0])
 			scale([1 - 0.00,1 - 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
