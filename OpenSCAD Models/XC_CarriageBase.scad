@@ -381,6 +381,45 @@ module _XCCB_BlowerCase() {
 }
 
 // -----------------------------------------------------------------------------
+// creates a block of vent cutouts
+// -----------------------------------------------------------------------------
+
+module _XCCB_VentBlock() {
+	_blockHeight = 0.5;
+	_blockWidth = 2;
+	_blockSpace = 5;
+	_blockRise = 0.5;
+
+	translate([0,0,0])
+	cube([_blockWidth, 10, _blockHeight]);
+	
+	translate([_blockSpace,0,0])
+	cube([_blockWidth, 10, _blockHeight]);
+	
+	translate([_blockSpace / 2,0,_blockHeight + _blockRise])
+	cube([_blockWidth, 10, _blockHeight]);
+	
+	translate([_blockSpace / 2 + _blockSpace,0,_blockHeight + _blockRise])
+	cube([_blockWidth, 10, _blockHeight]);
+}
+
+// -----------------------------------------------------------------------------
+// creates the top vent cutouts - this could be combined with a design or text
+// -----------------------------------------------------------------------------
+
+module _XCCB_TopVents() {
+
+	for (i = [0 : 1 : 5]) {
+	translate([0,0,i * 4.33])
+	_XCCB_VentBlock();
+	
+	translate([0,0,(i * 4.33) + 2])
+	_XCCB_VentBlock();		
+	}
+}
+
+
+// -----------------------------------------------------------------------------
 // Shell around the main components
 // -----------------------------------------------------------------------------
 
@@ -391,7 +430,7 @@ module _XCCB_Shell() {
 		STYLE_SIZE = 4.33;	// 4.33 for 5 stacks in 26mm
 
 		// shaped stack of the outline design
-		union() {
+		union() { // union() : switch to hull() if a less stylized design is desired
 			translate([0, - lowerBoltOffset /2, 0])
 			scale([1 - 0.00,1 - 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
@@ -468,6 +507,16 @@ module _XCCB_Shell() {
 			}}
 			
 		} // union
+		
+		translate([25,-42,4.33])
+		rotate([0,0,70])
+			_XCCB_TopVents();
+		
+		mirror([1,0,0])	
+		translate([25,-42,4.33])
+		rotate([0,0,70])
+			_XCCB_TopVents();
+			
 	
 		// carve out center, leaving just a shell
 		union() {
@@ -548,6 +597,8 @@ module _XCCB_Shell() {
 
 module Part_XC_CarriageBase() {
 
+
+	
 	difference() {
 		union() {
 			// start with the base elements
