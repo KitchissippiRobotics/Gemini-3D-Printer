@@ -387,8 +387,8 @@ module _XCCB_BlowerCase() {
 module _XCCB_VentBlock() {
 	_blockHeight = 0.5;
 	_blockWidth = 2;
-	_blockSpace = 5;
-	_blockRise = 0.5;
+	_blockSpace = 4;
+	_blockRise = 0.66;
 
 	translate([0,0,0])
 	cube([_blockWidth, 10, _blockHeight]);
@@ -396,26 +396,58 @@ module _XCCB_VentBlock() {
 	translate([_blockSpace,0,0])
 	cube([_blockWidth, 10, _blockHeight]);
 	
+	translate([_blockSpace * 2,0,0])
+	cube([_blockWidth, 10, _blockHeight]);
+	
 	translate([_blockSpace / 2,0,_blockHeight + _blockRise])
 	cube([_blockWidth, 10, _blockHeight]);
 	
 	translate([_blockSpace / 2 + _blockSpace,0,_blockHeight + _blockRise])
 	cube([_blockWidth, 10, _blockHeight]);
+	
+	translate([_blockSpace / 2 + _blockSpace * 2,0,_blockHeight + _blockRise])
+	cube([_blockWidth, 10, _blockHeight]);
+	
+
 }
 
 // -----------------------------------------------------------------------------
 // creates the top vent cutouts - this could be combined with a design or text
 // -----------------------------------------------------------------------------
 
-module _XCCB_TopVents() {
+module _XCCB_TopVents(_drawText = true) {
 
-	for (i = [0 : 1 : 5]) {
-	translate([0,0,i * 4.33])
-	_XCCB_VentBlock();
+	intersection() {
 	
-	translate([0,0,(i * 4.33) + 2])
-	_XCCB_VentBlock();		
+
+		for (i = [0 : 1 : 5]) {
+		translate([0,0,i * 4.33])
+		_XCCB_VentBlock();
+	
+		translate([0,0,(i * 4.33) + 2])
+		_XCCB_VentBlock();		
+		}
+	
+		if (_drawText == true) {
+			translate([0, 10, 25.3])
+			rotate([0,84,-90])
+			scale([1,2,1])
+			linear_extrude(height = 10)
+				text("GEMINI", font="Myanmar MN:style=Bold", size = 5);
+					
+		}
 	}
+	
+	if (_drawText == true) {
+		translate([0, 3.6, 26])
+		rotate([0,84,-90])
+		scale([1,2,1])
+		linear_extrude(height = 4)
+			text("GEMINI", font="Myanmar MN:style=Bold", size = 5);
+			
+			
+	}
+	
 }
 
 
@@ -486,25 +518,7 @@ module _XCCB_Shell() {
 			
 			// border around access hole for hiwin rail
 			
-			hull() {
-				translate([29,-9.6,-1])	
-				rotate([-2,-7,0])		
-				cylinder(h = 36, r = 2);
-			
-				translate([29,-30,-1])
-				rotate([-1,-7,0])		
-				cylinder(h = 36, r = 2);
 			}
-			
-			hull() {
-				translate([-28,-9.6,-1])	
-				rotate([-2,7,0])		
-				cylinder(h = 36, r = 2);
-			
-				translate([-28,-30,-1])
-				rotate([-1,7,0])		
-				cylinder(h = 36, r = 2);
-			}}
 			
 		} // union
 		
@@ -515,7 +529,7 @@ module _XCCB_Shell() {
 		mirror([1,0,0])	
 		translate([25,-42,4.33])
 		rotate([0,0,70])
-			_XCCB_TopVents();
+			_XCCB_TopVents(false);
 			
 	
 		// carve out center, leaving just a shell
@@ -546,23 +560,21 @@ module _XCCB_Shell() {
 	} // difference
 	
 	
-	difference() {
-		union() {
-			// Draw the case to hold the blower fan here
-			_XCCB_BlowerCase();
-			
-			// border around access hole with access hole cut out for wiring to exit
-			hull() {
-				translate([11,9.6,0])			
-				cylinder(h = 32, r = 2);
-			
-				translate([-11,9.6,0])			
-				cylinder(h = 32, r = 2);
-			}
-			
-			// border around access hole for hiwin rail
-			
-			*hull() {
+
+	union() {
+		// Draw the case to hold the blower fan here
+		_XCCB_BlowerCase();
+		
+		// border around access hole with access hole cut out for wiring to exit
+		hull() {
+			translate([11,9.6,0])			
+			cylinder(h = 32, r = 2);
+		
+			translate([-11,9.6,0])			
+			cylinder(h = 32, r = 2);
+		}
+		
+		hull() {
 				translate([29,-9.6,-1])	
 				rotate([-2,-7,0])		
 				cylinder(h = 36, r = 2);
@@ -572,7 +584,7 @@ module _XCCB_Shell() {
 				cylinder(h = 36, r = 2);
 			}
 			
-			*hull() {
+			hull() {
 				translate([-28,-9.6,-1])	
 				rotate([-2,7,0])		
 				cylinder(h = 36, r = 2);
@@ -581,14 +593,8 @@ module _XCCB_Shell() {
 				rotate([-1,7,0])		
 				cylinder(h = 36, r = 2);
 			}
-		}
-			
-		/*union() {
-			_XCCB_BlowerSpace();	
-			
-			_XCCB_WiringAccessHole();
-		}*/
-	}
+		
+	}	
 }
 
 // -----------------------------------------------------------------------------
@@ -597,8 +603,8 @@ module _XCCB_Shell() {
 
 module Part_XC_CarriageBase() {
 
+*_XCCB_TopVents();
 
-	
 	difference() {
 		union() {
 			// start with the base elements
