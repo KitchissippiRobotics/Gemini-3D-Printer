@@ -275,15 +275,15 @@ module _XCCB_BlowerSpace() {
 	// main blower body
 	translate([-18,-36.25,-5])
 	rotate([90,0,0])
-	cylinder(h = 17, d = 52);
+	cylinder(h = 17, d = 57);
 	
 	// intake clearance
 	translate([-18,-42,-5])
 	rotate([90,0,0])
-	cylinder(h = 16, d = 26);
+	cylinder(h = 32, d = 36);
 	
 	// mounting clearance
-	translate([-45, -53, 0])
+	*translate([-45, -53, 0])
 	cube([20, 17, 24]);
 	
 	hull() {
@@ -314,6 +314,14 @@ module _XCCB_BlowerSpace() {
 		cylinder(h = 10, d = 2);
 	}
 	
+	translate([-38,-52,16])
+		rotate([90,0,0])
+		cylinder(h = 20, d = 6);
+		
+	translate([-38,-55.5,16])
+		rotate([90,0,0])
+		cylinder(h = 20, d = 11, $fn = 6);
+	
 }
 
 // -----------------------------------------------------------------------------
@@ -323,32 +331,59 @@ module _XCCB_BlowerSpace() {
 module _XCCB_BlowerCase() {
 	hull() {
 		translate([9,-37,0])
-		cylinder(h = 23, d = 6);
-	
+		cylinder(h = 26, d = 7);
+		
+		// front right edge
 		translate([9,-53,0])
-		cylinder(h = 23, d = 6);
+		cylinder(h = 26, d = 8);
+		
+		// front left edge
+		translate([-12,-53,0])
+		cylinder(h = 23, d = 7);
 	
 		// 
-		translate([-32,-37,0])
-		cylinder(h = 18, d = 6);
+		translate([-25.5,-37,0])
+		rotate([0,6,0])
+		cylinder(h = 26, d = 7);
 	
-		translate([-32,-53,0])
-		cylinder(h = 18, d = 6);
-		
-		// attachement bolt point
-		translate([-38,-36,16])
-		rotate([90,0,0])
-		cylinder(h = 18, d = 11);
+// 
+		translate([-25.5,-55,0])
+		rotate([0,6,0])
+		cylinder(h = 26, d = 4);
 		
 		
 		// top of exit portion
 		translate([9,-36,24])
 		rotate([90,0,0])
-		cylinder(h = 18, d = 6);
+		cylinder(h = 18, d = 4);
 		
 		translate([-9,-36,24])
 		rotate([90,0,0])
-		cylinder(h = 18, d = 6);
+		cylinder(h = 18, d = 4);
+	}
+	
+	hull() {
+		// front right edge
+		translate([9,-55,0])
+		cylinder(h = 23, d = 4);
+		
+		translate([-25.5,-55,0])
+		rotate([0,6,0])
+		cylinder(h = 26, d = 4);
+		
+		// attachement bolt point
+		translate([-38,-53,16])
+		rotate([90,0,0])
+		_BoltBase(11 + rpDefaultBevel, 4, BBStyle_Round);
+		
+		// base of attachement point
+		translate([-38.5,-55,0])
+		cylinder(h = 18, d = 4);
+		
+		
+		*translate([-38,-53,16])
+		rotate([90,0,0])
+		cylinder(h = 5, d = 14);
 	}
 	
 	hull() {
@@ -356,7 +391,7 @@ module _XCCB_BlowerCase() {
 		rotate([90,0,90])
 		cylinder(h = 15, d = 5);
 	
-		#translate([-10, -37, 26])
+		translate([-10, -37, 26])
 		rotate([90,0,90])
 		cylinder(h = 19, d = 4);
 		
@@ -370,7 +405,7 @@ module _XCCB_BlowerCase() {
 		rotate([90,0,90])
 		cylinder(h = 15, d = 5);
 	
-		#translate([-10, -37, 26])
+		translate([-10, -37, 26])
 		rotate([90,0,90])
 		cylinder(h = 19, d = 4);
 		
@@ -540,10 +575,16 @@ module _XCCB_Shell() {
 					_XCCB_OutlineCase();
 				
 						// cut out space for HA_CarriageBase to insert
+			
+			difference() {
 			translate([0, - lowerBoltOffset /2, 26])
 			scale([0.84, 0.96, 1])	
 				linear_extrude(height = 12, scale=1)
 					_XCCB_OutlineCase(3.5);
+					
+			translate([-40,-60,25])
+				cube([80,40,20]);
+			}
 					
 				
 			*_XCCB_WiringAccessHole();
