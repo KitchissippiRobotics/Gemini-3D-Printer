@@ -433,11 +433,11 @@ module _XCCB_TopVents(_drawText = true) {
 		
 
 	if (_drawText == true) {
-		translate([0, 3.0, 24.0])
-		rotate([0,83,-90])
+		translate([0, 2.6, 24.0])
+		rotate([-1,84,-90])
 		scale([1.1,1,1])
 		linear_extrude(height = 2)
-			text("Gemini", font="Myanmar MN:style=Bold", size = 5);
+			text("Gemini", font="Phosphate:style=Solid", size = 5);
 			
 			
 	}

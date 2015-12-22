@@ -1,5 +1,19 @@
+
+// Determine if MultiPartMode is enabled - if not, render the part automatically
+// and enable support material (if it is defined)
+
+if (MultiPartMode == undef) {
+	MultiPartMode = false;
+	EnableSupport = true;
+	
+	hotend_jhead();
+} else {
+	EnableSupport = false;
+}
+
+
 module hotend_jhead() {
-	color("Black")
+	color("Tan")
 	translate([0,0,0])
 		jhead_plastic_body();
 		
