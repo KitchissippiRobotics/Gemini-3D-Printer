@@ -99,10 +99,10 @@ module _XCCB_OutlineCase(postMod = 0) {
 			
 		// bottom blower range
 		
-		translate([15, -40, 0])
+		translate([18, -40, 0])
 			circle(d = 20);
 			
-		translate([-15, -40, 0])
+		translate([-18, -40, 0])
 			circle(d = 20);
 		
 	}
