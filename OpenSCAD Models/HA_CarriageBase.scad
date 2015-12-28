@@ -38,15 +38,15 @@ module CarveOut() {
 					hwHA_Hotend_Spacing /2,
 					hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing])
 		rotate([0,90,0])
-			cylinder(h = 4.67,
-					 d = 16.2);
+			cylinder(h = 4.8,
+					 d = 16.6);
 		// hotend groovemount
 		translate([hwHA_Hotend_VerticalOffset + 4.67,
 					hwHA_Hotend_Spacing /2,
 					hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing])
 		rotate([0,90,0])
 			cylinder(h = 4.67,
-					 d = 12.2);
+					 d = 12.6);
 			
 		// hotend lower
 		translate([hwHA_Hotend_VerticalOffset + 2 * 4.67,
@@ -54,7 +54,7 @@ module CarveOut() {
 					hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing])
 		rotate([0,90,0])
 			cylinder(h = 40 - 2 * 4.67,
-					 d = 25);
+					 d = 20);
 				 
 		rotate([0,-90,0])
 			_XC_CB_BoltCarveouts();
@@ -95,13 +95,16 @@ module Part_HA_CarriageBase() {
 // -----------------------------------------------------------------------------
 
 module _HACB_BaseLeft() {
+
+	difference() {
+	union() {
 	hull() { 
 	
 			translate([8, -lowerBoltOffset/2 + 1, 0])
 				_BoltBase(4, 4, BBStyle_Round);
 			
-			translate([boltSpacing/2, 0, 0])
-				_BoltBase(4.5, 4, BBStyle_Round);
+			#translate([boltSpacing/2, 0, 0])
+				_BoltBase(4.2, 4, BBStyle_Round);
 		
 			// m3 bolt mount
 			translate([15, -lowerBoltOffset/2 +1, 0])
@@ -110,13 +113,33 @@ module _HACB_BaseLeft() {
 		
 		hull() {
 		// m3 bolt mount
-			translate([26, -lowerBoltOffset/2 - 0.75, 0])
-				_BoltBase(8, 13.0, BBStyle_Round);
+			translate([24, -lowerBoltOffset/2 - 3.5, 0])
+				_BoltBase(6, 13.5, BBStyle_Round);
+		
+			translate([18, -lowerBoltOffset/2 +1, 0])
+				_BoltBase(4, 13.5, BBStyle_Round);
+		}
+		
+		hull() {
+		
+			translate([18, -lowerBoltOffset/2 - 1, 0])
+				_BoltBase(8, 13.5, BBStyle_Round);
+		
+			translate([0, -lowerBoltOffset/2 - 1, 0])
+				_BoltBase(8, 13.5, BBStyle_Round);
 				
-			translate([0, -lowerBoltOffset/2, 0])
-				_BoltBase(6, 14.0, BBStyle_Round);
 
-				}
+		}
+	}
+	
+	// m3 bolt mount
+			translate([24, -lowerBoltOffset/2 - 3.5, 9])
+				cylinder(h = 5, d = 3.2);
+				
+			translate([24, -lowerBoltOffset/2 - 3.5, 0])
+				cylinder(h = 8, d1 = 7, d2 = 6.5, $fn = 6);
+	
+	}
 				
 	// draw a cube to fit in the slots
 	*translate([0, -10, 0])
@@ -131,8 +154,8 @@ module _HACB_BaseLeft() {
 module _HACB_BoltBases(baseBBStyle) {
 
 
-	translate([0, -lowerBoltOffset, 0])
-			_BoltBase(boltDiameter - rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+	*translate([0, -lowerBoltOffset, 0])
+			_BoltBase(boltDiameter - rpDefaultBevel, _baseThickness - rpDefaultBevel, BBStyle_Round);
 	
 	mirror([1,0,0]) _HACB_BaseLeft();
 	_HACB_BaseLeft();
@@ -141,11 +164,11 @@ module _HACB_BoltBases(baseBBStyle) {
 	_HACB_HotendMount();
 	
 	hull() {
-	#translate([0,-20,0])
-		_BoltBase(5, 4, BBStyle_Round);
+	translate([0,-20,0])
+		_BoltBase(6, 4, BBStyle_Round);
 		
-	#translate([0,-31,0])
-		_BoltBase(5, 4, BBStyle_Round);
+	translate([0,-31,0])
+		_BoltBase(3.2, 4, BBStyle_Round);
 	}
 }
 

@@ -54,6 +54,7 @@ if (MultiPartMode == undef) {
 	EnableSupport = true;
 	
 	Part_XC_CarriageBase();
+	//_XCCB_BlowerSpace();
 } else {
 	EnableSupport = false;
 }
@@ -107,26 +108,26 @@ module _HIWINClearance() {
 			
 	// carriage carve out
 				translate([	0,
-							-25,
+							-22.5,
 							rpXC_CarriageMount_BaseWidth /2 - rpXC_BeltMount_BoltHolderWidth])
 					cube(size= [9,
-								50,
+								45,
 								rpXC_CarriageMount_BaseWidth],
 						center = false);		
 			hull() {
 			
-	translate([2, 50,7])
+	translate([3.5, 50,7])
 	rotate([90,0,0])
 				cylinder(h = 100, d = 4);
 				
-	translate([1, 50,35])
+	translate([3.5, 50,34])
 	rotate([90,0,0])
 				cylinder(h = 100, d = 4);			
 				
 	translate([15,50,7])
 	rotate([90,0,0])
 				cylinder(h = 100, d = 4);
-	translate([15,50,35])
+	translate([15,50,34])
 	rotate([90,0,0])
 				cylinder(h = 100, d = 4);
 				
@@ -274,7 +275,7 @@ module _XCCB_WiringAccessHole() {
 module _XCCB_BlowerSpace() {
 
 	// additional blower air exit space
-	translate([-10.5, -52.5, 0])
+	*translate([-10.5, -52.5, 0])
 	cube([19, 15, 26]);
 
 	// main blower channel
@@ -282,54 +283,64 @@ module _XCCB_BlowerSpace() {
 	cube([20, 16, 25]);
 	
 	// main blower body
-	translate([-18,-37.25,-5])
+	translate([18,-37.5,-5])
 	rotate([90,0,0])
 	cylinder(h = 16, d = 57);
 	
+	hull() {
 	// intake clearance
-	translate([-18,-42,-4])
+	translate([19,-36,-5])
 	rotate([90,0,0])
-	cylinder(h = 32, d = 36);
+	cylinder(h = 10, d = 34);
+	
+	// intake clearance
+	translate([19,-38,-5])
+	rotate([90,0,0])
+	cylinder(h = 1, d = 38);
+	}
 	
 	// mounting clearance
 	*translate([-45, -53, 0])
 	cube([20, 17, 24]);
 	
+	
+	// right output channel
 	hull() {
-		translate([6, -60, 27])
+		translate([6, -59, 27])
 		rotate([90,0,90])
 		cylinder(h = 11, d = 3);
 	
-		translate([0, -38, 25])
+		translate([-1, -39, 25])
+		rotate([90,0,90])
+		cylinder(h = 9, d = 3);
+		
+		translate([-1, -52.5, 24])
+		rotate([90,0,90])
+		cylinder(h = 9, d = 2);
+	}
+	
+	// left output channel
+	hull() {
+		translate([-18, -59, 27])
+		rotate([90,0,90])
+		cylinder(h = 11, d = 3);
+	
+		translate([-12, -39, 25])
 		rotate([90,0,90])
 		cylinder(h = 8, d = 3);
 		
-		translate([0, -52, 24])
+		translate([-12, -52.5, 24])
 		rotate([90,0,90])
 		cylinder(h = 8, d = 2);
 	}
 	
-	hull() {
-		translate([-18, -60, 27])
-		rotate([90,0,90])
-		cylinder(h = 11, d = 3);
-	
-		translate([-11, -38, 25])
-		rotate([90,0,90])
-		cylinder(h = 10, d = 3);
-		
-		translate([-11, -52, 24])
-		rotate([90,0,90])
-		cylinder(h = 10, d = 2);
-	}
-	
-	translate([-38,-52,16])
+	translate([40,-52,16])
 		rotate([90,0,0])
-		cylinder(h = 20, d = 4.25);
+		cylinder(h = 10, d = 4.25);
 		
-	translate([-38,-55.5,16])
+	translate([40,-55.5,16])
 		rotate([90,0,0])
-		cylinder(h = 20, d = 10, $fn = 6);
+		cylinder(h = 5, d = 9.5, $fn = 6);
 	
 }
 
@@ -339,32 +350,36 @@ module _XCCB_BlowerSpace() {
 
 module _XCCB_BlowerCase() {
 	hull() {
-		#translate([9,-37,0])
-		cylinder(h = 1, d = 7);
-		
-		// front right edge
-		translate([9,-53,0])
-		cylinder(h = 26, d = 8);
-		
+		// form the box portion around the output hole
 		
 		// front left edge
-		translate([-12,-53,0])
+		translate([-12,-55,0])
+		cylinder(h = 26, d = 8);
+		
+		// front right edge
+		translate([12,-55,0])
 		cylinder(h = 23, d = 7);
+		
+		// rear left edge
+		translate([-12,-39,0])
+		cylinder(h = 1, d = 7);
 	
 		// 
-		#translate([-29,-37,0])
+		translate([29,-36,0])
 		rotate([0,0,0])
 		cylinder(h = 1, d = 4);
 		
-		#translate([-24,-36,22])
+		translate([24,-36,22])
 		sphere(d = 7);
+		
+
 	
 		// 
-		#translate([-25.5,-55,0])
+		translate([25.5,-55,0])
 		rotate([0,0,0])
 		cylinder(h = 1, d = 4);
 		
-		#translate([-24,-53,22])
+		translate([24,-55,22])
 		sphere(d = 7);
 		
 		
@@ -372,83 +387,65 @@ module _XCCB_BlowerCase() {
 		
 		// top of exit portion
 		
-		#translate([9,-36,22])
+		#translate([-12,-38,22])
 		sphere(d = 7);
 		
 		
-		
-		*translate([9,-36,24])
-		rotate([90,0,0])
-		cylinder(h = 18, d = 4);
-		
-		*translate([-9,-36,24])
-		rotate([90,0,0])
-		cylinder(h = 18, d = 4);
 	}
 	
+	// bolt mount
+	translate([0,-1.5,0])
 	hull() {
-		#translate([-24,-55,22])
+		translate([24,-55,22])
 		sphere(d = 4);
 	
 		// front right edge
-		translate([9,-55,0])
+		translate([-9,-55,0])
 		cylinder(h = 23, d = 4);
 		
-		translate([-25.5,-55,0])
+		translate([25.5,-55,0])
 		rotate([0,0,0])
 		cylinder(h = 1, d = 4);
 		
 		// attachement bolt point
-		translate([-38,-53,16])
+		translate([40,-53,16])
 		rotate([90,0,0])
 		_BoltBase(9 + rpDefaultBevel, 4, BBStyle_Round);
 		
 		// base of attachement point
-		translate([-38.5,-55,0])
+		translate([40.5,-55,0])
 		cylinder(h = 18, d = 4);
 		
-		
-		*translate([-38,-53,16])
-		rotate([90,0,0])
-		cylinder(h = 5, d = 14);
 	}
 	
+	// left output
 	hull() {
-		translate([4, -58, 26])
+		translate([-4.5, -58, 26.5])
 		sphere(d = 5);
 		
-		translate([18, -58, 26])
+		translate([-19, -58, 26.5])
 		sphere(d = 5);
 		
-		*translate([4, -58, 26])
+		translate([-13, -39, 26.5])
 		rotate([90,0,90])
-		cylinder(h = 15, d = 5);
-	
-		translate([-8, -37, 27])
-		rotate([90,0,90])
-		cylinder(h = 19, d = 6);
+		cylinder(h = 12, d = 7);
 		
-		translate([-8, -52, 0])
+		translate([-12, -52, 0])
 		rotate([90,0,90])
 		cylinder(h = 16, d = 2);
 	}
 	
+	// right output
 	hull() {
-		translate([-18, -58, 26])
+		translate([18, -58, 26.5])
 		sphere(d = 5);
 		
-		translate([-4, -58, 26])
+		translate([4, -58, 26.5])
 		sphere(d = 5);
 
-		
-	
-		*translate([-20, -58, 26])
+		translate([-1, -39, 26.5])
 		rotate([90,0,90])
-		cylinder(h = 15, d = 5);
-	
-		#translate([-15, -37, 27])
-		rotate([90,0,90])
-		cylinder(h = 19, d = 6);
+		cylinder(h = 11, d = 7);
 		
 		translate([-8, -52, 0])
 		rotate([90,0,90])
@@ -509,10 +506,11 @@ module _XCCB_TopVents(_drawText = true) {
 		
 
 	if (_drawText == true) {
-		translate([0.25, 2, 24.0])
+		translate([0.25, 0, 1])
 		rotate([0,84,-90])
 		scale([1.15,1,1])
 		linear_extrude(height = 2)
+			mirror([1,0,0])
 			text("Gemini", font="Phosphate:style=Solid", size = 4.5);
 			
 			
@@ -573,6 +571,11 @@ module _XCCB_Shell() {
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
 				_XCCB_OutlineCase(3.5);
 				
+			*translate([0, - lowerBoltOffset /2, 8 * STYLE_SIZE])
+			scale([0.86,1 + 0.00,1])
+			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
+				_XCCB_OutlineCase(3.5);
+				
 			union() {
 			// Draw the case to hold the blower fan here
 			*_XCCB_BlowerCase();
@@ -594,26 +597,26 @@ module _XCCB_Shell() {
 		
 		translate([26,-42,4.33])
 		rotate([0,0,78])
-			_XCCB_TopVents();
+			_XCCB_TopVents(false);
 		
 		mirror([1,0,0])	
-		translate([25,-42,4.33])
-		rotate([0,0,70])
-			_XCCB_TopVents(false);
+		translate([26,-42,4.33])
+		rotate([0,0,78])
+			_XCCB_TopVents();
 			
 	
 		// carve out center, leaving just a shell
 		union() {
 			translate([0, - lowerBoltOffset /2, -0.1])
-			scale([0.875, 0.75, 1])	
+			scale([0.9, 0.9, 1])	
 				linear_extrude(height = 2.2, scale=1)
 					_XCCB_OutlineCase();
 	
 	
 			translate([0, - lowerBoltOffset /2, 2])
-			scale([0.9, 1, 1])	
+			scale([0.92, 0.98, 1])	
 				linear_extrude(height = 33, scale=0.90)
-					_XCCB_OutlineCase();
+					_XCCB_OutlineCase(-0.5);
 				
 						// cut out space for HA_CarriageBase to insert
 			
@@ -651,7 +654,7 @@ module _XCCB_Shell() {
 		}
 		
 		hull() {
-				translate([29,-8.6,-1])	
+				translate([29,-9.6,-1])	
 				rotate([-2,-7,0])		
 				cylinder(h = 36, r = 2);
 			
@@ -661,7 +664,7 @@ module _XCCB_Shell() {
 			}
 			
 			hull() {
-				translate([-28.5,-8.6,-1])	
+				translate([-28.5,-9.6,-1])	
 				rotate([-2,7,0])		
 				cylinder(h = 36, r = 2);
 			
@@ -693,7 +696,53 @@ module Part_XC_CarriageBase() {
 			
 			_width = 35;
 			
-			translate([- _width / 2,-10,0])
+			// mount to hiwin carriage
+			
+			hull() {
+			translate([8, -6, 8.5])
+			cylinder(h = 14, d = 7);
+			
+			translate([-8, -6, 8.5])
+			cylinder(h = 14, d = 7);
+			
+			translate([8, -6, 0])
+			cylinder(h = 26, d = 5);
+			
+			translate([-8, -6, 0])
+			cylinder(h = 26, d = 5);
+			}
+			
+			hull() {
+			translate([15, -7, 0])
+			cylinder(h = 20, d = 6);
+			
+			translate([-15, -7, 0])
+			cylinder(h = 20, d = 6);
+			
+			translate([8, -7, 0])
+			cylinder(h = 26, d = 6);
+			
+			translate([-8, -7, 0])
+			cylinder(h = 26, d = 6);
+			}
+			
+			hull() {
+			translate([-20, 0, 0])
+			cylinder(h = 15, d = 5);
+			
+			translate([-15, -7, 0])
+			cylinder(h = 20, d = 6);
+			}
+			
+			hull() {
+			translate([20, 0, 0])
+			cylinder(h = 15, d = 5);
+			
+			translate([15, -7, 0])
+			cylinder(h = 20, d = 6);
+			}
+			
+			*translate([- _width / 2,-10,0])
 			cube([_width,8,26]);			
 		}
 			
@@ -731,12 +780,13 @@ module Part_XC_CarriageBase() {
 			//translate([-rpXC_CarriageMount_LowerPointSpacing,0,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8]) 
 			translate([0,-10,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8])
 			rotate([0,-90,-90]) {
-				#_XC_CB_BoltCarveouts();
+				_XC_CB_BoltCarveouts();
 		
 				mirror([0,1,0])
 				_XC_CB_BoltCarveouts();
 			}
 		
+			translate([0,-1,0])
 			_XCCB_BlowerSpace();	
 			
 			_XCCB_WiringAccessHole();
@@ -758,6 +808,17 @@ module Part_XC_CarriageBase() {
 			rotate([90,0,0])
 			cylinder(h = 10, d = 20);
 				
+			// wire routing channel
+			hull() {
+			translate([0, 0, 0])
+			rotate([90,0,0])
+			cylinder(h = 12, d = 6);
+			
+			// wire routing channel
+			translate([4, 0, 0])
+			rotate([90,0,0])
+			cylinder(h = 12, d = 6);
+			}
 			
 			//translate([0, - lowerBoltOffset /2, 26])_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
 		
@@ -770,6 +831,14 @@ module Part_XC_CarriageBase() {
 				cube([200,200,20]);
 		}
 	}
+	
+	*hull() {
+			translate([4, -6, 26])
+			cylinder(h = 10, d = 7);
+			
+			translate([-4, -6, 26])
+			cylinder(h = 10, d = 7);
+			}
 }
 
 // -----------------------------------------------------------------------------

@@ -44,7 +44,7 @@ include <XC_CarriageBase.scad>
 
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
-color("Red")
+color("Snow")
 translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBase();
@@ -94,9 +94,9 @@ rotate([-90,0,0])
 // =============================================================================
 
 %translate([-19,
-			-17,
+			17,
 			-35])
-rotate([0,0,90])
+rotate([0,180,90])
 	import("./Vitamins/blower.stl", convexity = 3);
 	
 // =============================================================================
@@ -169,16 +169,16 @@ rotate([0,180,90])
 	hotend_jhead();
 	
 // pushfit
-%translate([hwHA_Hotend_Offset -5,
+%translate([hwHA_Hotend_Offset,
 			(hwHA_Hotend_Spacing /2),
-			24])
-rotate([0,-15,0])
+			20])
+rotate([0,0,0])
 import("./Vitamins/pushfit.stl", convexity=3);
 
-%translate([hwHA_Hotend_Offset -5,
+%translate([hwHA_Hotend_Offset,
 			-(hwHA_Hotend_Spacing /2),
-			24])
-rotate([0,-15,0])
+			20])
+rotate([0,0,0])
 import("./Vitamins/pushfit.stl", convexity=3);
 	
 // =============================================================================

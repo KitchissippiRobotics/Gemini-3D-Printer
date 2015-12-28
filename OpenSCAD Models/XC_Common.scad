@@ -60,7 +60,7 @@ caseDepth = 60;
 // Draw the case base outline shape (experimental)
 // -----------------------------------------------------------------------------
 
-module _XCCB_OutlineCase(postMod = 0) {
+module _XCCB_OutlineCase(postMod = 0, lowerMod = 0) {
 	translate([0, lowerBoltOffset /2, 0])
 	hull() {
 	
@@ -100,10 +100,10 @@ module _XCCB_OutlineCase(postMod = 0) {
 		// bottom blower range
 		
 		translate([18, -40, 0])
-			circle(d = 20);
+			circle(d = 20 + lowerMod);
 			
 		translate([-18, -40, 0])
-			circle(d = 20);
+			circle(d = 20 + lowerMod);
 		
 	}
 }

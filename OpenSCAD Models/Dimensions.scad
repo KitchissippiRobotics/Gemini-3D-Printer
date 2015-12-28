@@ -143,7 +143,7 @@ hwHA_Hotend_Spacing = 24;	// Rv2 = 25
 hwHA_Hotend_Offset = 24;	// Rv2 = 27.4
 hwHA_Hotend_VerticalOffset = 2;
 
-hwHA_Fan_Offset = 45;		// Rv2 = 45
+hwHA_Fan_Offset = 40;		// Rv2 = 45
 hwHA_Fan_VertOffset = 0;
 
 // =============================================================================
