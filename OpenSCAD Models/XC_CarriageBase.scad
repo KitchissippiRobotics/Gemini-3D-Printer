@@ -354,33 +354,33 @@ module _XCCB_BlowerCase() {
 		
 		// front left edge
 		translate([-12,-55,0])
-		cylinder(h = 26, d = 8);
+		cylinder(h = 26, d = 6);
 		
 		// front right edge
 		translate([12,-55,0])
-		cylinder(h = 23, d = 7);
+		cylinder(h = 23, d = 6);
 		
 		// rear left edge
-		translate([-12,-39,0])
-		cylinder(h = 1, d = 7);
+		translate([-12,-36.5,0])
+		cylinder(h = 1, d = 6);
 	
 		// 
-		translate([29,-36,0])
+		translate([29,-36.5,0])
 		rotate([0,0,0])
-		cylinder(h = 1, d = 4);
+		cylinder(h = 1, d = 6);
 		
-		translate([24,-36,22])
-		sphere(d = 7);
+		translate([24,-38,22])
+		sphere(d = 6);
 		
 
 	
 		// 
 		translate([25.5,-55,0])
 		rotate([0,0,0])
-		cylinder(h = 1, d = 4);
+		cylinder(h = 1, d = 6);
 		
 		translate([24,-55,22])
-		sphere(d = 7);
+		sphere(d = 6);
 		
 		
 		
@@ -388,7 +388,7 @@ module _XCCB_BlowerCase() {
 		// top of exit portion
 		
 		#translate([-12,-38,22])
-		sphere(d = 7);
+		sphere(d = 6);
 		
 		
 	}
@@ -396,12 +396,12 @@ module _XCCB_BlowerCase() {
 	// bolt mount
 	translate([0,-1.5,0])
 	hull() {
-		translate([24,-55,22])
+		translate([25,-55,20])
 		sphere(d = 4);
 	
 		// front right edge
-		translate([-9,-55,0])
-		cylinder(h = 23, d = 4);
+		translate([12,-55,0])
+		cylinder(h = 1, d = 4);
 		
 		translate([25.5,-55,0])
 		rotate([0,0,0])
@@ -440,7 +440,7 @@ module _XCCB_BlowerCase() {
 		translate([18, -58, 26.5])
 		sphere(d = 5);
 		
-		translate([4, -58, 26.5])
+		translate([3.5, -58, 26.5])
 		sphere(d = 5);
 
 		translate([-1, -39, 26.5])
@@ -569,12 +569,12 @@ module _XCCB_Shell() {
 			translate([0, - lowerBoltOffset /2, 7 * STYLE_SIZE])
 			scale([0.86,1 + 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase(3.5);
+				_XCCB_OutlineCase(3.5, -1);
 				
 			*translate([0, - lowerBoltOffset /2, 8 * STYLE_SIZE])
 			scale([0.86,1 + 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase(3.5);
+				_XCCB_OutlineCase(3.5, -3);
 				
 			union() {
 			// Draw the case to hold the blower fan here
@@ -608,15 +608,15 @@ module _XCCB_Shell() {
 		// carve out center, leaving just a shell
 		union() {
 			translate([0, - lowerBoltOffset /2, -0.1])
-			scale([0.9, 0.9, 1])	
+			scale([0.85, 0.9, 1])	
 				linear_extrude(height = 2.2, scale=1)
-					_XCCB_OutlineCase();
+					_XCCB_OutlineCase(0,-1);
 	
 	
-			translate([0, - lowerBoltOffset /2, 2])
+			translate([0, - lowerBoltOffset /2, 1])
 			scale([0.92, 0.98, 1])	
-				linear_extrude(height = 33, scale=0.90)
-					_XCCB_OutlineCase(-0.5);
+				linear_extrude(height = 38, scale=0.90)
+					_XCCB_OutlineCase(-0.5, -2.5);
 				
 						// cut out space for HA_CarriageBase to insert
 			
@@ -792,6 +792,17 @@ module Part_XC_CarriageBase() {
 			_XCCB_WiringAccessHole();
 			
 			
+			hull() {
+				translate([12, -22, 40])
+				rotate([90,0,0])
+				cylinder(h = 18, d = 18);
+			
+				translate([12, -23, 40])
+				rotate([90,0,0])
+				cylinder(h = 16, d = 20);
+			}
+			
+			
 			translate([12, -12, 40])
 			rotate([90,0,0])
 			cylinder(h = 40, d = 18);
@@ -803,6 +814,16 @@ module Part_XC_CarriageBase() {
 			translate([-12, -12, 40])
 			rotate([90,0,0])
 			cylinder(h = 40, d = 18);
+			
+			hull() {
+				translate([-12, -22, 40])
+				rotate([90,0,0])
+				cylinder(h = 18, d = 18);
+			
+				translate([-12, -23, 40])
+				rotate([90,0,0])
+				cylinder(h = 16, d = 20);
+			}
 			
 			translate([-12, -52, 40])
 			rotate([90,0,0])
