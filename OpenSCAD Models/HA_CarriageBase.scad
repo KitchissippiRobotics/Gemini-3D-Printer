@@ -38,15 +38,15 @@ module CarveOut() {
 					hwHA_Hotend_Spacing /2,
 					hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing])
 		rotate([0,90,0])
-			cylinder(h = 4.8,
-					 d = 16.6);
+			cylinder(h = 5,
+					 d = 17);
 		// hotend groovemount
 		translate([hwHA_Hotend_VerticalOffset + 4.67,
 					hwHA_Hotend_Spacing /2,
 					hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing])
 		rotate([0,90,0])
 			cylinder(h = 4.67,
-					 d = 12.6);
+					 d = 13);
 			
 		// hotend lower
 		translate([hwHA_Hotend_VerticalOffset + 2 * 4.67,
@@ -73,9 +73,10 @@ module Part_HA_CarriageBase() {
 		
 		// hotend upper
 		
-		
-		CarveOut();
-		mirror([1,0,0]) CarveOut();
+		translate([0,0,0]) {
+			CarveOut();
+			mirror([1,0,0]) CarveOut();
+		}
 		
 		#translate([hwHA_Hotend_Spacing /2, 0, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing])
 		rotate([90,0,0])
@@ -165,7 +166,10 @@ module _HACB_BoltBases(baseBBStyle) {
 	
 	hull() {
 	translate([0,-20,0])
-		_BoltBase(6, 4, BBStyle_Round);
+		_BoltBase(3.2, 4, BBStyle_Round);
+		
+	translate([0,-20,0])
+		_BoltBase(10, 2, BBStyle_Round);
 		
 	translate([0,-31,0])
 		_BoltBase(3.2, 4, BBStyle_Round);

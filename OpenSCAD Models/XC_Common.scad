@@ -15,6 +15,8 @@
 
 include <Dimensions.scad>
 
+$fn = 100;
+
 // -----------------------------------------------------------------------------
 // Some internal switch values:
 // -----------------------------------------------------------------------------
@@ -30,7 +32,7 @@ BBStyle_Taper = 3;
 
 _baseThickness = rpDefaultBaseThickness + rpDefaultBevel * 2;		// mm
 minimumThickness = 4; // mm
-boltSpacing = 40;		// mm
+boltSpacing = rpXC_BeltMount_BoltSpacing;		// mm
 boltDiameter = hwM4_Bolt_ShaftDiameter;
 lowerBoltOffset = rpXC_BeltMount_BoltOffset + rpXC_CarriageMount_LowerPointSpacing;	// mm
 bevelSize = rpDefaultBevel;	// mm
@@ -100,11 +102,125 @@ module _XCCB_OutlineCase(postMod = 0, lowerMod = 0) {
 		// bottom blower range
 		
 		translate([18, -40, 0])
-			circle(d = 20 + lowerMod);
+			circle(d = 10);
 			
 		translate([-18, -40, 0])
-			circle(d = 20 + lowerMod);
+			circle(d = 10);
 		
+	}
+}
+
+module _XCCB_OutlineCase_Base(postMod = 0, lowerMod = 0) {
+	$fn = 100;
+	translate([0, lowerBoltOffset /2, 0])
+	hull() {
+		hull() {
+	
+			// top belt clamp area
+		
+			translate([-20, 6, 0])
+				circle(d = 8);
+	
+			translate([20, 6, 0])
+				circle(d = 8);
+			
+			// top clamp mount right
+		
+			translate([-rpXC_BeltMount_BoltSpacing/2, 0, 0])
+				circle(d = 16 + postMod);
+			
+			// top clamp mount left
+		
+			translate([rpXC_BeltMount_BoltSpacing/2, 0, 0])
+				circle(d = 16 + postMod);
+			
+			
+			// bottom blower range
+		
+			translate([15, -48, 0])
+				circle(d = 20);
+			
+			translate([-15, -48, 0])
+				circle(d = 20);
+		
+		}
+	
+
+		hull() {
+				// switch holder
+	
+			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
+				circle(d = 12);
+			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
+				circle(d = 12);
+	
+			// switch holder
+			mirror([1,0,0])
+			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
+				circle(d = 12);
+			
+			mirror([1,0,0])
+			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
+				circle(d = 12);
+		}
+	}
+}
+
+module _XCCB_OutlineCase_Upper(postMod = 0, lowerMod = 0) {
+	$fn = 100;
+	translate([0, lowerBoltOffset /2, 0])
+	hull() {
+		hull() {
+	
+			// top belt clamp area
+		
+			translate([-10, 2, 0])
+				circle(d = 8);
+	
+			translate([10, 2, 0])
+				circle(d = 8);
+			
+			// top clamp mount right
+		
+			translate([-boltSpacing/2 - 4, 1, 0])
+				circle(d = 10);
+			
+			// top clamp mount left
+		
+			translate([boltSpacing/2 + 4, 1, 0])
+				circle(d = 10);
+			
+			
+			
+			// bottom blower range
+		
+			translate([20, -42, 0])
+				circle(d = 15);
+			
+			translate([-20, -42, 0])
+				circle(d = 15);
+		
+		}
+		
+		hull() {
+				// switch holder
+	
+			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
+				circle(d = 12);
+			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
+				circle(d = 12);
+		}
+	
+		mirror([1,0,0])
+
+		hull() {
+				// switch holder
+	
+			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
+				circle(d = 12);
+			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
+				circle(d = 12);
+		}
 	}
 }
 
