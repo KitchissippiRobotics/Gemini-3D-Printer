@@ -15,7 +15,7 @@
 
 include <Dimensions.scad>
 
-$fn = 100;
+$fn = 20;
 
 // -----------------------------------------------------------------------------
 // Some internal switch values:
@@ -37,8 +37,8 @@ boltDiameter = hwM4_Bolt_ShaftDiameter;
 lowerBoltOffset = rpXC_BeltMount_BoltOffset + rpXC_CarriageMount_LowerPointSpacing;	// mm
 bevelSize = rpDefaultBevel;	// mm
 
-switchXOffset = 24;
-switchYOffset = -10.0;
+switchXOffset = 32;
+switchYOffset = -15.0;
 
 caseRightSide = switchXOffset + hwMicroSwitch_ScrewHeadDiameter;
 caseLeftSide = caseRightSide;	// symmetrical sizes
@@ -156,11 +156,11 @@ module _XCCB_OutlineCase_Base(postMod = 0, lowerMod = 0) {
 	
 			// switch holder
 			mirror([1,0,0])
-			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
+			translate([rpXC_BeltMount_BoltOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
 				circle(d = 12);
 			
 			mirror([1,0,0])
-			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
+			translate([rpXC_BeltMount_BoltOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
 				circle(d = 12);
 		}
 	}
@@ -216,9 +216,9 @@ module _XCCB_OutlineCase_Upper(postMod = 0, lowerMod = 0) {
 		hull() {
 				// switch holder
 	
-			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
+			translate([rpXC_BeltMount_BoltOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
 				circle(d = 12);
-			translate([caseWidth/2, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
+			translate([rpXC_BeltMount_BoltOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
 				circle(d = 12);
 		}
 	}

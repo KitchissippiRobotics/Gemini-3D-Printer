@@ -84,8 +84,8 @@ rotate([90,0,90])
 // =============================================================================
 
 %translate([0 - (rpXC_BeltMount_BaseOffset) - 3,
-			rpXC_BeltMount_BoltOffset + 16,
-			-9.5])
+			rpXC_BeltMount_BoltOffset + 25,
+			-15])
 rotate([-90,0,0])
 	import("./Vitamins/microswitch.stl", convexity = 3);
 	
@@ -95,7 +95,7 @@ rotate([-90,0,0])
 
 %translate([-19,
 			17,
-			-35])
+			-36])
 rotate([0,180,90])
 	import("./Vitamins/blower.stl", convexity = 3);
 	

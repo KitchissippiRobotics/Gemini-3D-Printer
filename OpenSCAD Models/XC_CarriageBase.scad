@@ -171,7 +171,7 @@ module _HIWINClearance() {
 
 module _XCCB_BoltSkeleton(baseBBStyle) {
 
-		*hull() {
+		#hull() {
 			translate([boltSpacing/2, 0, 0])
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
@@ -180,11 +180,11 @@ module _XCCB_BoltSkeleton(baseBBStyle) {
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 		
-		*hull() {
+		#hull() {
 			translate([0, -lowerBoltOffset, 0])
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
-			translate([switchXOffset + 2, -lowerBoltOffset + 5, 0])
+			translate([switchXOffset + 2, -lowerBoltOffset, 0])
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 		
@@ -274,10 +274,6 @@ module _XCCB_WiringAccessHole() {
 
 module _XCCB_BlowerSpace() {
 
-	// additional blower air exit space
-	*translate([-10.5, -52.5, 0])
-	cube([19, 15, 26]);
-
 	// main blower channel
 	translate([-12, -53.5, 0])
 	cube([20, 16, 25]);
@@ -287,22 +283,18 @@ module _XCCB_BlowerSpace() {
 	rotate([90,0,0])
 	cylinder(h = 16, d = 57);
 	
+	// air intake clearance
 	hull() {
-	// intake clearance
-	translate([19,-35,-5])
-	rotate([90,0,0])
-	cylinder(h = 10, d = 34);
+		translate([19,-35,-5])
+		rotate([90,0,0])
+		cylinder(h = 10, d = 34);
 	
-	// intake clearance
-	translate([19,-38,-5])
-	rotate([90,0,0])
-	cylinder(h = 1, d = 38);
+		translate([19,-38,-5])
+		rotate([90,0,0])
+		cylinder(h = 1, d = 38);
 	}
 	
-	// mounting clearance
-	*translate([-45, -53, 0])
-	cube([20, 17, 24]);
-	
+	// slot for blower's casing snap
 	translate([-12,-47,0])
 	cylinder(h= 22, d =3);
 	
@@ -577,7 +569,7 @@ module _XCCB_Shell() {
 		// shaped stack of the outline design
 		$fn = 50;	
 	
-		hull() { // union() : switch to hull() if a less stylized design is desired
+		*hull() { // union() : switch to hull() if a less stylized design is desired
 			translate([0, - lowerBoltOffset /2, 0])
 			scale([1 - 0.00,1 - 0.00,1])
 			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
@@ -615,6 +607,7 @@ module _XCCB_Shell() {
 			
 		} // union
 		
+		// -- vent design testing
 		translate([26,-42,4.33])
 		rotate([0,0,78])
 			_XCCB_BottomVents(false);
@@ -665,10 +658,6 @@ module _XCCB_Shell() {
 				cube([80,40,20]);
 			}
 					
-				
-			*_XCCB_WiringAccessHole();
-			
-			*_XCCB_BlowerSpace();
 		} // union
 		
 	} // difference
@@ -679,34 +668,6 @@ module _XCCB_Shell() {
 		// Draw the case to hold the blower fan here
 		_XCCB_BlowerCase();
 		
-		// border around access hole with access hole cut out for wiring to exit
-		*hull() {
-			translate([11,9.6,0])			
-			cylinder(h = 32, r = 2);
-		
-			translate([-11,9.6,0])			
-			cylinder(h = 32, r = 2);
-		}
-		
-		*hull() {
-				translate([29,-9.6,-1])	
-				rotate([-2,-7,0])		
-				cylinder(h = 36, r = 2);
-			
-				translate([29,-30,-1])
-				rotate([-1,-7,0])		
-				cylinder(h = 36, r = 2);
-			}
-			
-		*hull() {
-				translate([-28.5,-9.6,-1])	
-				rotate([-2,7,0])		
-				cylinder(h = 36, r = 2);
-			
-				translate([-28.5,-30,-1])
-				rotate([-1,7,0])		
-				cylinder(h = 36, r = 2);
-			}
 		
 	}	
 }
