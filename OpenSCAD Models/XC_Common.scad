@@ -37,7 +37,7 @@ boltDiameter = hwM4_Bolt_ShaftDiameter;
 lowerBoltOffset = rpXC_BeltMount_BoltOffset + rpXC_CarriageMount_LowerPointSpacing;	// mm
 bevelSize = rpDefaultBevel;	// mm
 
-switchXOffset = 32;
+switchXOffset = 30;
 switchYOffset = -15.0;
 
 caseRightSide = switchXOffset + hwMicroSwitch_ScrewHeadDiameter;

@@ -69,30 +69,43 @@ module _XCCB_BoltBases(baseBBStyle) {
 	// top left assembly bolt mount base
 	translate([-boltSpacing/2, 0, 0]) {
 		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
-		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
 	}
 	
 	// top right assembly bolt mount base
-	translate([boltSpacing/2, 0, 0]) {
+	translate([switchXOffset, 0, 0]) {
 		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
-		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
 	}
 	
 	// bottom center assembly bolt mount base
 	translate([0, -lowerBoltOffset, 0]) {
 		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
-		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel, BBStyle_Round);
+		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
 	}
 	
 	
 	// switch holder lower screw base
 	hull() {
+		// make a rectangular-ish space
+		// lower
+		translate([switchXOffset + 3, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
+			_BoltBase(1, _baseThickness - 0.5, BBStyle_Round);
+		translate([switchXOffset - 3, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
+			_BoltBase(1, _baseThickness - 0.5, BBStyle_Round);
+		// upper
+		translate([switchXOffset + 3, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
+			_BoltBase(1, _baseThickness - 0.5, BBStyle_Round);
+		translate([switchXOffset - 3, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
+			_BoltBase(1, _baseThickness - 0.5, BBStyle_Round);
+	
+		// switch holder lower screw base
 		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
-			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, BBStyle_Round);
+			_BoltBase(hwMicroSwitch_ScrewHeadDiameter - 0.5, _baseThickness, BBStyle_Round);
 	
 		// switch holder upper screw base
 		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
-			_BoltBase(hwMicroSwitch_ScrewHeadDiameter, _baseThickness, BBStyle_Round);
+			_BoltBase(hwMicroSwitch_ScrewHeadDiameter - 0.5, _baseThickness, BBStyle_Round);
 	}
 }
 
@@ -171,7 +184,7 @@ module _HIWINClearance() {
 
 module _XCCB_BoltSkeleton(baseBBStyle) {
 
-		#hull() {
+		*hull() {
 			translate([boltSpacing/2, 0, 0])
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
@@ -180,7 +193,7 @@ module _XCCB_BoltSkeleton(baseBBStyle) {
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 		
-		#hull() {
+		*hull() {
 			translate([0, -lowerBoltOffset, 0])
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 				
@@ -229,19 +242,19 @@ module _XCCB_BoltSkeleton(baseBBStyle) {
 
 module _XCCB_BoltPosts() {
 	// top left assembly bolt mount base
-	translate([-boltSpacing/2, 0, 0])
-		cylinder(h = 26,d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness - bevelSize /2,
-						d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);
+	translate([-boltSpacing/2, 0, _baseThickness])
+		cylinder(h = 26 - _baseThickness,	d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness - bevelSize /2,
+											d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);
 		
 	// top right assembly bolt mount base
-	translate([boltSpacing/2, 0, 0])
-		cylinder(h = 26,d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness - bevelSize /2,
-						d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);
+	translate([switchXOffset, 0, _baseThickness])
+		cylinder(h = 26 - _baseThickness,	d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness - bevelSize /2,
+											d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);
 
 	// bottom center assembly bolt mount base
-	translate([0, -lowerBoltOffset, 0])
-		cylinder(h = 26,d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness - bevelSize /2,
-						d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);
+	translate([0, -lowerBoltOffset, _baseThickness])
+		cylinder(h = 26 - _baseThickness,	d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness - bevelSize /2,
+											d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);
 }
 
 // -----------------------------------------------------------------------------
@@ -301,33 +314,48 @@ module _XCCB_BlowerSpace() {
 	
 	// right output channel
 	hull() {
-		translate([6, -59, 27])
-		rotate([90,0,90])
-		cylinder(h = 11, d = 3);
-	
 		translate([-1, -39, 25])
 		rotate([90,0,90])
 		cylinder(h = 9, d = 3);
 		
-		translate([-1, -52.5, 24])
+		translate([-1, -52, 25])
 		rotate([90,0,90])
-		cylinder(h = 9, d = 2);
+		cylinder(h = 9, d = 3);
+	}
+	
+	hull() {
+		translate([6, -61, 28])
+		rotate([90,0,90])
+		cylinder(h = 12, d = 1);
+		
+		translate([-1, -52, 25])
+		rotate([90,0,90])
+		cylinder(h = 9, d = 3);
 	}
 	
 	// left output channel
 	hull() {
-		translate([-18, -59, 27])
-		rotate([90,0,90])
-		cylinder(h = 11, d = 3);
 	
 		translate([-12, -39, 25])
 		rotate([90,0,90])
 		cylinder(h = 8, d = 3);
 		
-		translate([-12, -52.5, 24])
+		translate([-12, -52, 25])
 		rotate([90,0,90])
-		cylinder(h = 8, d = 2);
+		cylinder(h = 8, d = 3);
 	}
+	
+	hull() {
+		translate([-18, -61, 28])
+		rotate([90,0,90])
+		cylinder(h = 12, d = 1);
+		
+		translate([-12, -52, 25])
+		rotate([90,0,90])
+		cylinder(h = 8, d = 3);
+	}
+	
+	// bolt hole and nut trap
 	
 	translate([36,-52,16])
 		rotate([90,0,0])
@@ -344,110 +372,145 @@ module _XCCB_BlowerSpace() {
 // -----------------------------------------------------------------------------
 
 module _XCCB_BlowerCase() {
-	hull() {
-		// form the box portion around the output hole
-		
-		// front left edge
-		translate([-12,-55,0])
-		cylinder(h = 26, d = 6);
-		
-		// front right edge
-		translate([12,-55,0])
-		cylinder(h = 23, d = 6);
-		
-		// rear left edge
-		translate([-12,-36.5,0])
-		cylinder(h = 1, d = 6);
-	
-		// 
-		translate([29,-36.5,0])
-		rotate([0,0,0])
-		cylinder(h = 1, d = 6);
-		
-		translate([24,-38,22])
-		sphere(d = 6);
-		
 
+	_boxEdgeDiameter = 6;
+
+
+	// --- form the box portion around the output hole -----
+	hull() {
+		
+		// bottom front left edge
+		translate([-12,-55,0])
+		cylinder(h = 1, d = _boxEdgeDiameter);
+		
+		// bottom front right edge
+		translate([12,-55,0])
+		cylinder(h = 1, d = _boxEdgeDiameter);
+		
+		// bottom rear left edge
+		translate([-12,-38.5,0])
+		cylinder(h = 1, d = _boxEdgeDiameter);
+		
+		// bottom rear right edge
+		translate([12,-38.5,0])
+		cylinder(h = 1, d = _boxEdgeDiameter);
+		
+		
+		// top front left edge
+		translate([-12,-55,22])
+		sphere(d = _boxEdgeDiameter);
+		
+		// top front right edge
+		translate([12,-55,22])
+		sphere(d = _boxEdgeDiameter);
+		
+		// top rear left edge
+		translate([-12,-38.5,22])
+		sphere(d = _boxEdgeDiameter);
+		
+		// top rear right edge
+		translate([12,-38.5,22])
+		sphere(d = _boxEdgeDiameter);
 	
-		// 
-		translate([25.5,-55,0])
-		rotate([0,0,0])
-		cylinder(h = 1, d = 6);
-		
-		translate([24,-55,22])
-		sphere(d = 6);
-		
-		
-		
-		
-		// top of exit portion
-		
-		#translate([-12,-38,22])
-		sphere(d = 6);
-		
-		
 	}
 	
 	
 	
 	// bolt mount
-	translate([0,-1.5,0])
+
 	hull() {
-		translate([25,-55,20])
-		sphere(d = 4);
-	
-		// front right edge
-		translate([12,-55,0])
-		cylinder(h = 1, d = 4);
+		// top front right edge
+		*translate([12,-55,22])
+		sphere(d = _boxEdgeDiameter);
 		
-		translate([25.5,-55,0])
-		rotate([0,0,0])
-		cylinder(h = 1, d = 4);
+		// bottom front right edge
+		*translate([18,-55,0])
+		cylinder(h = 1, d = _boxEdgeDiameter);
+	
 		
 		// attachement bolt point
-		translate([36,-53,16])
+		translate([36,-54.5,16])
 		rotate([90,0,0])
-		_BoltBase(9 + rpDefaultBevel, 4, BBStyle_Round);
+		_BoltBase(6 + rpDefaultBevel, 4, BBStyle_Round);
 		
 		// base of attachement point
-		translate([28,-55,0])
-		cylinder(h = 18, d = 4);
+		*translate([28,-55,0])
+		cylinder(h = 18, d = _boxEdgeDiameter);
 		
 	}
 	
 	// left output
 	hull() {
-		#translate([-4, -58, 26.5])
-		sphere(d = 5);
+		translate([-5, -60, 26.5])
+		sphere(d = 4);
 		
-		#translate([-18, -58, 26.5])
-		sphere(d = 5);
+		translate([-17, -60, 26.5])
+		sphere(d = 4);
 		
-		translate([-13, -39, 26.5])
+		translate([-14, -52, 25])
 		rotate([90,0,90])
-		cylinder(h = 12, d = 7);
+		cylinder(h = 12.5, d = 4.5);
 		
-		translate([-12, -52, 0])
+		translate([-14, -52, 10])
 		rotate([90,0,90])
-		cylinder(h = 16, d = 2);
+		cylinder(h = 12.5, d = 2);
+	}
+	
+	hull() {
+		translate([-14, -52, 25])
+		rotate([90,0,90])
+		cylinder(h = 12.5, d = 4.5);
+		
+		translate([-14, -40, 25])
+		rotate([90,0,90])
+		cylinder(h = 12.5, d = 4.5);
+		
 	}
 	
 	// right output
 	hull() {
-		#translate([18, -58, 26.5])
-		sphere(d = 5);
+		translate([5, -60, 26.5])
+		sphere(d = 4);
+	
+		translate([17, -60, 26.5])
+		sphere(d = 4);
 		
-		#translate([4, -58, 26.5])
-		sphere(d = 5);
-
-		translate([-1, -39, 26.5])
+		translate([-2, -52, 25])
 		rotate([90,0,90])
-		cylinder(h = 11, d = 7);
+		cylinder(h = 11.5, d = 4.5);
 		
-		translate([-8, -52, 0])
+		translate([-2, -52, 10])
 		rotate([90,0,90])
-		cylinder(h = 16, d = 2);
+		cylinder(h = 11.5, d = 2);
 	}
+		
+	hull() {
+		translate([-2, -40, 25])
+		rotate([90,0,90])
+		cylinder(h = 11.5, d = 4.5);
+		
+		translate([-2, -52, 25])
+		rotate([90,0,90])
+		cylinder(h = 11.5, d = 4.5);
+	}
+		
+	
+		/*translate([-1, -39, 25.5])
+		rotate([90,0,90])
+		cylinder(h = 14, d = 7);
+		
+		translate([-12, -55, 22])
+		rotate([90,0,90])
+		cylinder(h = 24, d = _boxEdgeDiameter);
+		
+		translate([-12, -55, 0])
+		rotate([90,0,90])
+		cylinder(h = 24, d = _boxEdgeDiameter);
+		
+		translate([-12, -38.5, 10])
+		rotate([90,0,90])
+		cylinder(h = 24, d = _boxEdgeDiameter - 0.5);*/
+	
 }
 
 // -----------------------------------------------------------------------------
@@ -683,59 +746,66 @@ module Part_XC_CarriageBase() {
 	difference() {
 		union() {
 			// start with the base elements
-			_XCCB_BoltSkeleton(BBStyle_Round);
+			*_XCCB_BoltSkeleton(BBStyle_Round);
 			_XCCB_BoltBases(BBStyle_Taper);
 			_XCCB_BoltPosts();
 		
 			// case skin
-			_XCCB_Shell();	
+			*_XCCB_Shell();	
+			
+			translate([0,0,0])
+			_XCCB_BlowerCase();
 			
 			_width = 35;
 			
 			// mount to hiwin carriage
 			
+			// bulk for bolts to mount through
 			hull() {
-			translate([8, -6, 8.5])
-			cylinder(h = 14, d = 7);
+				translate([8, -6, 8.5])
+				cylinder(h = 14, d = 7);
 			
-			translate([-8, -6, 8.5])
-			cylinder(h = 14, d = 7);
+				translate([-8, -6, 8.5])
+				cylinder(h = 14, d = 7);
 			
-			translate([8, -6, 0])
-			cylinder(h = 26, d = 5);
+				translate([8, -6, 0])
+				cylinder(h = 26, d = 5);
 			
-			translate([-8, -6, 0])
-			cylinder(h = 26, d = 5);
+				translate([-8, -6, 0])
+				cylinder(h = 26, d = 5);
 			}
 			
+			// wings for bolt post to meet with
 			hull() {
-			translate([15, -7, 0])
-			cylinder(h = 20, d = 6);
+				*translate([15, -7, 0])
+				cylinder(h = 20, d = 6);
 			
-			translate([-15, -7, 0])
-			cylinder(h = 20, d = 6);
+				*translate([-15, -7, 0])
+				cylinder(h = 20, d = 6);
 			
-			translate([8, -7, 0])
-			cylinder(h = 26, d = 6);
+				translate([8, -7, 0])
+				cylinder(h = 26, d = 6);
 			
-			translate([-8, -7, 0])
-			cylinder(h = 26, d = 6);
+				translate([-8, -7, 0])
+				cylinder(h = 26, d = 6);
 			}
 			
+			// left joining bit
 			hull() {
-			translate([- rpXC_BeltMount_BoltSpacing /2, 0, 0])
-			cylinder(h = 15, d = 5);
+				translate([- rpXC_BeltMount_BoltSpacing /2, 0, 0])
+				cylinder(h = 15, d = 5);
 			
-			translate([-15, -7, 0])
-			cylinder(h = 20, d = 6);
+				translate([-8, -7, 0])
+				cylinder(h = 26, d = 6);
 			}
 			
+			// right joining bit
 			hull() {
-			translate([rpXC_BeltMount_BoltSpacing /2, 0, 0])
-			cylinder(h = 15, d = 5);
+				translate([switchXOffset, 0, 0])
+				cylinder(h = 15, d = 5);
 			
-			translate([15, -7, 0])
-			cylinder(h = 20, d = 6);
+				translate([8, -7, 0])
+				cylinder(h = 26, d = 6);
 			}
 			
 			*translate([- _width / 2,-10,0])
