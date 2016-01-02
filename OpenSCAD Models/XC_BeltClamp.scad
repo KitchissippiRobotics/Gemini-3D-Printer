@@ -11,7 +11,8 @@
 // Generates XC_BeltClamp.stl
 // *****************************************************************************
 
-include <Dimensions.scad>
+// include <Dimensions.scad> - included from XC_Common.scad
+include <XC_Common.scad>
 
 // Default Usage:	
 // Part_XC_BeltClamp();
@@ -31,9 +32,26 @@ if (MultiPartMode == undef) {
 // -----------------------------------------------------------------------------
 
 module Part_XC_BeltClamp() {
+	rotate([0,0,90])
+	_XCBC_BoltPosts();
+
 	_XC_BeltClamp_Left();
-	mirror([0,1,0])
-		_XC_BeltClamp_Left();
+	/*mirror([0,1,0])
+		_XC_BeltClamp_Left();*/
+}
+
+module _XCBC_BoltPosts() {
+// top left assembly bolt mount base
+	translate([-boltSpacing/2, 0, 0]) {
+		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
+		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
+	}
+
+// top left assembly bolt mount base
+	translate([boltSpacing/2, 0, 0]) {
+		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
+		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
+	}										
 }
 
 // -----------------------------------------------------------------------------

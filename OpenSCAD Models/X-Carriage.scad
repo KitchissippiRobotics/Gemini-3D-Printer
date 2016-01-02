@@ -50,7 +50,7 @@ rotate([90,0,90])
 // Render: XC_CarriageBracket_Rear
 // =============================================================================
 	
-//color("Black")
+color("LimeGreen")
 translate([-rpXC_CarriageMount_BaseWidth  + rpXC_BeltMount_BoltHolderWidth,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBracket_Rear();
@@ -95,7 +95,7 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 include <HA_CarriageBase.scad>
 
 
-color("LimeGreen")
+color("Snow")
 translate([10.5,0,10.1])
 rotate([90,0,90])
 	Part_HA_CarriageBase();

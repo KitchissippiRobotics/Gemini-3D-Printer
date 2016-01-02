@@ -342,7 +342,7 @@ module _XCCB_BlowerSpace() {
 	
 	// slot for blower's casing snap
 	translate([-12,-45.5,0])
-	cylinder(h= 22, d =3);
+	cylinder(h= 22, d =3.5);
 	
 	
 	// right output channel
@@ -519,7 +519,7 @@ module _XCCB_BlowerCase() {
 		rotate([90,0,90])
 		cylinder(h = 13.5, d = 2);
 		
-		translate([-14.5, -40, 25])
+		*translate([-14.5, -40, 25])
 		rotate([90,0,90])
 		cylinder(h = 13.5, d = 6);
 	}
@@ -527,11 +527,11 @@ module _XCCB_BlowerCase() {
 	hull() {
 		translate([-14.5, -52, 25])
 		rotate([90,0,90])
-		cylinder(h = 13.5, d = 6);
+		cylinder(h = 13.5, d = 6.5);
 		
 		translate([-14.5, -40, 25])
 		rotate([90,0,90])
-		cylinder(h = 13.5, d = 6);
+		cylinder(h = 13.5, d = 6.5);
 		
 	}
 	
@@ -552,7 +552,7 @@ module _XCCB_BlowerCase() {
 		rotate([90,0,90])
 		cylinder(h = 12.5, d = 2);
 		
-		translate([-2, -40, 25])
+		*translate([-2, -40, 25])
 		rotate([90,0,90])
 		cylinder(h = 12.5, d = 6);
 	}
@@ -560,11 +560,11 @@ module _XCCB_BlowerCase() {
 	hull() {
 		translate([-2, -40, 25])
 		rotate([90,0,90])
-		cylinder(h = 12.5, d = 6);
+		cylinder(h = 12.5, d = 6.5);
 		
 		translate([-2, -52, 25])
 		rotate([90,0,90])
-		cylinder(h = 12.5, d = 6);
+		cylinder(h = 12.5, d = 6.5);
 	}
 		
 	
@@ -836,20 +836,26 @@ module Part_XC_CarriageBase() {
 			// bulk for bolts to mount through
 			hull() {
 				translate([8, -6, 8.5])
-				cylinder(h = 14, d = 7);
+				cylinder(h = 14, d = 8);
 			
 				translate([-8, -6, 8.5])
-				cylinder(h = 14, d = 7);
+				cylinder(h = 14, d = 8);
 			
 				translate([8, -6, 0])
-				cylinder(h = 26, d = 5);
+				cylinder(h = 26, d = 6);
 			
 				translate([-8, -6, 0])
-				cylinder(h = 26, d = 5);
+				cylinder(h = 26, d = 6);
+				
+				translate([8, -7, 0])
+				cylinder(h = 26, d = 6);
+			
+				translate([-8, -7, 0])
+				cylinder(h = 26, d = 6);
 			}
 			
 			// wings for bolt post to meet with
-			hull() {
+			*hull() {
 				*translate([15, -7, 0])
 				cylinder(h = 20, d = 6);
 			
@@ -866,19 +872,38 @@ module Part_XC_CarriageBase() {
 			// left joining bit
 			hull() {
 				translate([- rpXC_BeltMount_BoltSpacing /2, 0, 0])
-				cylinder(h = 15, d = 5);
+				_BoltBase(0, 8, BBStyle_Round);
+				
 			
 				translate([-8, -7, 0])
-				cylinder(h = 26, d = 6);
+				_BoltBase(0, 10, BBStyle_Round);
+			}
+			
+			// left joining bit
+			hull() {
+				translate([- rpXC_BeltMount_BoltSpacing /2, 0, 20])
+				_BoltBase(0, 4, BBStyle_Round);
+			
+				translate([-8, -7, 20])
+				_BoltBase(0, 6, BBStyle_Round);
 			}
 			
 			// right joining bit
 			hull() {
 				translate([rpXC_BeltMount_BoltSpacing /2, 0, 0])
-				cylinder(h = 15, d = 5);
+				_BoltBase(0, 8, BBStyle_Round);
 			
 				translate([8, -7, 0])
-				cylinder(h = 26, d = 6);
+				_BoltBase(0, 10, BBStyle_Round);
+			}
+			
+			// right joining bit
+			hull() {
+				translate([rpXC_BeltMount_BoltSpacing /2, 0, 20])
+				_BoltBase(0, 4, BBStyle_Round);
+			
+				translate([8, -7, 20])
+				_BoltBase(0, 6, BBStyle_Round);
 			}
 			
 			*translate([- _width / 2,-10,0])
