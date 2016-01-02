@@ -57,7 +57,7 @@ module CarveOut() {
 					 d = 20);
 				 
 		rotate([0,-90,0])
-			_XC_CB_BoltCarveouts();
+			_HA_CB_BoltCarveouts();
 		}
 }
 
@@ -188,7 +188,7 @@ module _HACB_HotendMount() {
 // 			version which is all sorts of a different orientation
 // -----------------------------------------------------------------------------
 
-module _XC_CB_BoltCarveouts() {
+module _HA_CB_BoltCarveouts() {
 
 	*translate([0 - (hwLR_Carriage_BoltLength / 2), 0 - (hwLR_Carriage_BoltWidth / 2), 0 - hwLR_Carriage_BoltDepth])
 		Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 20);
@@ -215,7 +215,7 @@ module _XC_CB_BoltCarveouts() {
 // Just Draw the skeleton frame between the bolt bases
 // -----------------------------------------------------------------------------
 
-module _XCCB_BoltSkeleton(baseBBStyle) {
+/*module _XCCB_BoltSkeleton(baseBBStyle) {
 
 		*hull() {
 			translate([boltSpacing/2, 0, 0])
@@ -267,7 +267,7 @@ module _XCCB_BoltSkeleton(baseBBStyle) {
 		}
 
 	
-}
+}*/
 
 // *****************************************************************************
 // Old code - Beware, here be dragons

@@ -35,6 +35,27 @@ MultiPartMode = true;
 
 
 // =============================================================================
+// Render: XC_CarriageBracket_Front
+// =============================================================================
+
+include <XC_CarriageBracket.scad>
+
+//color("Black")
+translate([rpXC_CarriageMount_BaseWidth / 2,0,10.1])
+rotate([90,0,90])
+	Part_XC_CarriageBracket_Front();
+	
+	
+// =============================================================================
+// Render: XC_CarriageBracket_Rear
+// =============================================================================
+	
+//color("Black")
+translate([-rpXC_CarriageMount_BaseWidth  + rpXC_BeltMount_BoltHolderWidth,0,10.1])
+rotate([90,0,90])
+	Part_XC_CarriageBracket_Rear();
+
+// =============================================================================
 // Render: XC_CarriageBase
 // =============================================================================
 
@@ -84,9 +105,9 @@ rotate([90,0,90])
 // =============================================================================
 
 %translate([0 - (rpXC_BeltMount_BaseOffset) - 3,
-			rpXC_BeltMount_BoltOffset + 22,
-			-15])
-rotate([-90,0,0])
+			rpXC_BeltMount_BoltSpacing / 2 + 5,
+			-10])
+rotate([-90,180,0])
 	import("./Vitamins/microswitch.stl", convexity = 3);
 	
 // =============================================================================
@@ -94,7 +115,7 @@ rotate([-90,0,0])
 // =============================================================================
 
 %translate([-19,
-			17,
+			7,
 			-36])
 rotate([0,180,90])
 	import("./Vitamins/blower.stl", convexity = 3);
@@ -124,8 +145,12 @@ translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset, 0 + (rpXC_BeltMo
 	rotate([0,-90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		
-// lower bolt
-translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset, 0, -rpXC_CarriageMount_LowerPointSpacing])
+// lower bolts
+translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset - 5, 0 - (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing])
+	rotate([0,-90,0])
+		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
+		
+translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset - 5, 0 + (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing])
 	rotate([0,-90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		

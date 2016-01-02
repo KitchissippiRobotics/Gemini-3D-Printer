@@ -77,7 +77,7 @@ rpXC_CarriageMount_BoltHolderDiameter = 12;
 // This measurement is taken from the top face of the HiWin carriage to a few mm
 // below the M3 bolt protruding from the bottom of the Y axis brace.
 
-rpXC_CarriageMount_LowerClearance = 15;
+rpXC_CarriageMount_LowerClearance = 18;
 
 // The lower mount point on the X-Carriage must clear the bolt tip described above
 
@@ -93,7 +93,7 @@ rpXC_BeltMount_CoverOffset = 0;	// 3mm thick cover?
 
 // Bolts for attaching XC_BeltClamp to XC_CarriageBase
 
-rpXC_BeltMount_BoltSpacing = 40;		// Rv2 = 38.3
+rpXC_BeltMount_BoltSpacing = 52;		// Rv2 = 38.3
 rpXC_BeltMount_BoltOffset  = 10.1;		// Rv2 = 10.1
 rpXC_BeltMount_BoltDepth = 38;
 rpXC_BeltMount_BoltSize = hwM4_Bolt_AllenHeadSize;
@@ -173,4 +173,4 @@ hwMicroSwitch_Depth = 6;
 hwMicroSwitch_HoleSpacing = 9.5;
 hwMicroSwitch_HoleSize = 3;
 hwMicroSwitch_HoleOffset = 7;
-hwMicroSwitch_ScrewHeadDiameter = 7;	// mm
+hwMicroSwitch_ScrewHeadDiameter = 6.8;	// mm
