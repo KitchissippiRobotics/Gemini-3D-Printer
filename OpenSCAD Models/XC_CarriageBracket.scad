@@ -38,7 +38,7 @@ if (MultiPartMode == undef) {
 // -----------------------------------------------------------------------------
 
 module _BracketBase(_baseDiameter = 12) {
-	difference() {
+	*difference() {
 		union() {
 			// top left assembly bolt mount base
 			translate([-boltSpacing/2, 0, 2])
@@ -105,7 +105,7 @@ module _BracketBase(_baseDiameter = 12) {
 
 	// top left assembly bolt mount base
 	translate([-boltSpacing/2, 0, 0])
-		cylinder(h = 5, d = _baseDiameter);
+		cylinder(h = 4.5, d = _baseDiameter);
 	
 	// bottom left assembly bolt mount base
 	translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
@@ -239,7 +239,7 @@ module Part_XC_CarriageBracket_Front() {
 module Part_XC_CarriageBracket_Rear() {
 	difference() {
 		union() {
-			_BracketBase(11.5);
+			_BracketBase(9.75);
 			_BracketSkeleton(2);
 			_BracketSwitchMount(8);
 		}
