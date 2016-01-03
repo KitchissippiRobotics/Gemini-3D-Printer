@@ -61,9 +61,9 @@ module CarveOut() {
 		rotate([0,-90,0])
 			_HA_CB_BoltCarveouts();
 			
-			#translate([10, -25, -0.1])
+		translate([10, -25, -0.1])
 		rotate([0,0,15])
-				cylinder(h = 8, d1 = 8, d2 = 6.5, $fn = 6);
+				cylinder(h = 8, d1 = 8, d2 = 6.8, $fn = 6);
 		}
 }
 
@@ -150,7 +150,7 @@ module _HACB_BaseLeft() {
 		
 	}
 	
-	#translate([25, -lowerBoltOffset/2 - 3.0, -0.1])
+	translate([25, -lowerBoltOffset/2 - 3.0, -0.1])
 		rotate([0,0,15])
 				cylinder(h = 8, d1 = 8, d2 = 6.5, $fn = 6);
 	
@@ -205,7 +205,7 @@ module _HA_CB_BoltCarveouts() {
 		Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 20);
 
 	// [rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset]
-	#translate([rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset,
+	translate([rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset,
 				0 - (rpXC_BeltMount_BoltSpacing / 2),
 				rpXC_BeltMount_BoltOffset])
 	rotate([0,-90,0])
@@ -221,7 +221,7 @@ module _HA_CB_BoltCarveouts() {
 		Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 20);	
 		
 	// [rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset]
-	#translate([rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset,
+	translate([rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset,
 				0 - (rpXC_BeltMount_BoltSpacing / 2),
 				-lowerBoltOffset + 10])
 	rotate([0,-90,0])

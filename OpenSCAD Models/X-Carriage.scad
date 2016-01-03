@@ -129,15 +129,15 @@ include <XC_BeltClamp.scad>
 // ~~ Part No. XB-CB-ABS02 ~~ (XC_BeltClamp.stl)
 color("Snow")
 	translate([0 - (rpXC_BeltMount_BaseOffset),0,rpXC_BeltMount_BoltOffset])
-	rotate([0,-90,0])
+	rotate([-90,0,90])
 	Part_XC_BeltClamp();
 	
 // Mount Bolts for belt clamp and hotend assembly
 
 // upper bolts
 // ~~ Part No. XC_BM-MB05 ~~ (M4x40)
-translate([rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
-	rotate([0,-90,0])
+translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
+	rotate([0,-90,180])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		
 // ~~ Part No. XC_BM-MB06 ~~ (M4x40)

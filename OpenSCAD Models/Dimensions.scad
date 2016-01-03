@@ -125,7 +125,7 @@ rpXC_BeltMount_ChannelCenterLength = rpXC_BeltMount_BoltSpacing + (rpXC_BeltMoun
 
 // Attachment bolts for outer clamp portion
 
-rpXC_BeltMount_ClampBoltSpacing = 16;		// Rv2
+rpXC_BeltMount_ClampBoltSpacing = 25;		// Rv2
 rpXC_BeltMount_ClampBoltDepth = -rpXC_BeltMount_BaseOffset - rpXC_BeltMount_BoltHolderWidth;
 rpXC_BeltMount_ClampBoltOffset = rpXC_BeltMount_BoltOffset; // Rv2
 rpXC_BeltMount_ClampBoltLength = 10;		// Rv2
