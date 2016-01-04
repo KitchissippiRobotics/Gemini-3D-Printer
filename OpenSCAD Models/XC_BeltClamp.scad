@@ -34,40 +34,40 @@ module _XCBC_BeltMount() {
 		// right belt clamp base
 	
 		translate([-22, 7, 0])
-		cylinder(h = 6, d = 4);
+		cylinder(h = 6, d = 5);
 		
 		translate([-22, -7, 0])
-		cylinder(h = 6, d = 4);
+		cylinder(h = 6, d = 5);
 		
 		translate([-4.5, 7, 0])
-		cylinder(h = 6, d = 4);
+		cylinder(h = 6, d = 6);
 		
 		translate([-4.5, -7, 0])
-		cylinder(h = 6, d = 4);
+		cylinder(h = 6, d = 6);
 		
 		// right belt clamp base
 	
 		translate([-22, 7, 1.25])
-		cylinder(h = 4, d = 5);
+		cylinder(h = 4, d = 6);
 		
 		translate([-22, -7, 1.25])
-		cylinder(h = 4, d = 5);
+		cylinder(h = 4, d = 6);
 		
 		translate([-4.5, 7, 1.25])
-		cylinder(h = 4, d = 5);
+		cylinder(h = 4, d = 8);
 		
 		translate([-4.5, -7, 1.25])
-		cylinder(h = 4, d = 5);
+		cylinder(h = 4, d = 8);
 	}
 }
 
 module _XCBC_BeltCarveOut() {
 		// --- belt path carve out : right side
 		
-		translate([-29.1, 1.9, 4])
+		translate([-31.1, 1.9, 4])
 		cube([10, 6.2, 2.1]);
 		
-		translate([-29.1, -8.1, 4])
+		translate([-31.1, -8.1, 4])
 		cube([10, 6.2, 2.1]);
 		
 		// carve teeth to hold belts inline (lower)
@@ -90,17 +90,27 @@ module _XCBC_BeltCarveOut() {
 		
 		// --- carve outs for clamp
 		hull() {
-			translate([-8, 9.25, -0.1])
-				cylinder(h = 20, d = 2.5);
-			translate([-18, 9.25, -0.1])
-				cylinder(h = 20, d = 2.5);
+			translate([-8, 9.0, -0.1])
+				cylinder(h = 20, d = 2);
+			translate([-18, 9.0, -0.1])
+				cylinder(h = 20, d = 2);
+				
+			translate([-8, 11.25, -0.1])
+				cylinder(h = 20, d = 2);
+			translate([-18, 11.25, -0.1])
+				cylinder(h = 20, d = 2);
 		}
 		
 		hull() {
-			translate([-8, -9.25, -0.1])
-				cylinder(h = 20, d = 2.5);
-			translate([-18, -9.25, -0.1])
-				cylinder(h = 20, d = 2.5);
+			translate([-8, -9.0, -0.1])
+				cylinder(h = 20, d = 2);
+			translate([-18, -9.0, -0.1])
+				cylinder(h = 20, d = 2);
+				
+			translate([-8, -11.25, -0.1])
+				cylinder(h = 20, d = 2);
+			translate([-18, -11.25, -0.1])
+				cylinder(h = 20, d = 2);
 		}
 	}
 
@@ -125,11 +135,11 @@ module Part_XC_BeltClamp() {
 					
 				// top left assembly bolt mount base
 				translate([-boltSpacing/2, 0, 0])
-					cylinder(h = 1,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 1);
+					cylinder(h = 1,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 2);
 		
 				// top right assembly bolt mount base
 				translate([boltSpacing/2, 0, 0])
-					cylinder(h = 1,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 1);
+					cylinder(h = 1,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 2);
 			}
 		
 			
@@ -160,10 +170,10 @@ module Part_XC_BeltClamp() {
 				
 				
 			translate([rpXC_BeltMount_BoltSpacing / 2, 0, 2])
-			cylinder(h = 5, d = 9.0, $fn = 6);
+			cylinder(h = 5, d = 8.75, $fn = 6);
 			
 			translate([-rpXC_BeltMount_BoltSpacing / 2, 0, 2])
-			cylinder(h = 5, d = 9.0, $fn = 6);
+			cylinder(h = 5, d = 8.75, $fn = 6);
 									
 			// right mounting hole
 			translate([-rpXC_BeltMount_BoltSpacing / 2, 0, -rpXC_BeltMount_BoltDepth])

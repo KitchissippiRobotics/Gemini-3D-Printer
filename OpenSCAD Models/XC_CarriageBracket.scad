@@ -105,7 +105,7 @@ module _BracketBase(_baseDiameter = 12) {
 
 	// top left assembly bolt mount base
 	translate([-boltSpacing/2, 0, 0])
-		cylinder(h = 4.5, d = _baseDiameter);
+		cylinder(h = 5, d1 = _baseDiameter + 1, d2 = _baseDiameter);
 	
 	// bottom left assembly bolt mount base
 	translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
@@ -113,7 +113,7 @@ module _BracketBase(_baseDiameter = 12) {
 	
 	// top right assembly bolt mount base
 	translate([boltSpacing/2, 0, 0]) 
-		cylinder(h = 5, d = _baseDiameter);
+		cylinder(h = 5, d1 = _baseDiameter + 1, d2 = _baseDiameter);
 	
 	// bottom right assembly bolt mount base
 	translate([boltSpacing/2, -lowerBoltOffset, 0]) 
@@ -124,33 +124,117 @@ module _BracketSkeleton(_baseDiameter = 12) {
 	hull() {
 		// top left assembly bolt mount base
 		translate([-boltSpacing/2, 0, 0])
-			_BoltBase(_baseDiameter, 4.5, BBStyle_Round);
-			
-		// bottom right assembly bolt mount base
-		translate([boltSpacing/2, -lowerBoltOffset, 0]) 
-			_BoltBase(_baseDiameter, 4.5, BBStyle_Round);
-	}
-	
-	hull() {
-		// top right assembly bolt mount base
-		translate([boltSpacing/2, 0, 0]) 
-			_BoltBase(_baseDiameter, 4.5, BBStyle_Round);
+			_BoltBase(0, 4, BBStyle_Round);
 			
 		// bottom left assembly bolt mount base
 		translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
-			_BoltBase(_baseDiameter, 4.5, BBStyle_Round);
+			_BoltBase(0, 4, BBStyle_Round);
+			
+		// top right assembly bolt mount base
+		translate([boltSpacing/2, 0, 0]) 
+			_BoltBase(0, 4, BBStyle_Round);
+			
+		// bottom right assembly bolt mount base
+		translate([boltSpacing/2, -lowerBoltOffset, 0]) 
+			_BoltBase(0, 4, BBStyle_Round);
+	}
+	/*hull() {
+		// top left assembly bolt mount base
+		translate([boltSpacing/2, 0, 0])
+			_BoltBase(0, 4.5, BBStyle_Round);
+		
+		translate([8, -7, 0])
+				_BoltBase(0, 4.5, BBStyle_Round);	
+	}
+
+	hull() {
+		// top left assembly bolt mount base
+		translate([-boltSpacing/2, 0, 0])
+			_BoltBase(0, 4.5, BBStyle_Round);
+		
+		translate([-8, -7, 0])
+				_BoltBase(0, 4.5, BBStyle_Round);	
+				
+		
+	}
+	
+	hull() {
+		translate([-8, -7, 0])
+				_BoltBase(0, 2, BBStyle_Round);
+				
+		// bottom left assembly bolt mount base
+		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
+			_BoltBase(0, 2, BBStyle_Round);
+			
+		translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
+			_BoltBase(4, 2, BBStyle_Round);
+	}
+	
+	hull() {
+		translate([8, -7, 0])
+				_BoltBase(0, 2, BBStyle_Round);
+				
+		// bottom left assembly bolt mount base
+		translate([boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
+			_BoltBase(0, 2, BBStyle_Round);
+			
+		translate([boltSpacing/2, -lowerBoltOffset, 0]) 
+			_BoltBase(4, 2, BBStyle_Round);
+	}
+	
+	
+	hull() {
+		translate([-8, -7, 0])
+				_BoltBase(0, 4.5, BBStyle_Round);
+			
+		// bottom left assembly bolt mount base
+		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
+			_BoltBase(0, 4.5, BBStyle_Round);
+	}
+	
+	hull() {
+		translate([8, -7, 0])
+				_BoltBase(0, 4.5, BBStyle_Round);
+			
+		// bottom left assembly bolt mount base
+		translate([boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
+			_BoltBase(0, 4.5, BBStyle_Round);
+	}
+	
+	hull() {
+		translate([8, -6, 0])
+			cylinder(h = 4.5, d = 8);
+				
+		translate([-8, -6, 0])
+			cylinder(h = 4.5, d = 8);
+				
+		translate([10, -12, 0])
+				_BoltBase(2.5, 2, BBStyle_Round);
+		translate([-10, -12, 0])
+				_BoltBase(2.5, 2, BBStyle_Round);
 	}
 	
 	hull() {
 	
 		// top right assembly bolt mount base
 		translate([boltSpacing/2, 0, 0]) 
-			_BoltBase(boltDiameter /2 - 1, 4.5, BBStyle_Round);
+			_BoltBase(4, 4.5, BBStyle_Round);
 			
 		// bottom right assembly bolt mount base
 		translate([boltSpacing/2, -lowerBoltOffset, 0]) 
-			_BoltBase(boltDiameter /2 - 1, 4.5, BBStyle_Round);
+			_BoltBase(4, 4.5, BBStyle_Round);
 	}
+	
+	hull() {
+	
+		// top right assembly bolt mount base
+		translate([-boltSpacing/2, 0, 0]) 
+			_BoltBase(4, 4.5, BBStyle_Round);
+			
+		// bottom right assembly bolt mount base
+		translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
+			_BoltBase(4, 4.5, BBStyle_Round);
+	}*/
 }
 
 module _BracketSwitchMount(_baseDiameter = 10) {
@@ -186,7 +270,7 @@ module _Bracket_BoltCarveouts() {
 	_boltDiameter = 4.6;
 	
 	// top left assembly bolt mount base
-	translate([-boltSpacing/2, 0, 0])
+	#translate([-boltSpacing/2, 0, 0])
 		cylinder(h = 6, d = _boltDiameter);
 	
 	// bottom left assembly bolt mount base
