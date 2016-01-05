@@ -121,32 +121,38 @@ module _BracketBase(_baseDiameter = 12) {
 }
 
 module _BracketSkeleton(_baseDiameter = 12) {
-	hull() {
+	*hull() {
 		// top left assembly bolt mount base
-		translate([-boltSpacing/2, 0, 0])
+		translate([-boltSpacing/2, -20, 0])
 			_BoltBase(0, 4, BBStyle_Round);
 			
 		// bottom left assembly bolt mount base
-		translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
+		translate([-boltSpacing/2, -lowerBoltOffset + 2, 0]) 
 			_BoltBase(0, 4, BBStyle_Round);
 			
 		// top right assembly bolt mount base
-		translate([boltSpacing/2, 0, 0]) 
+		translate([boltSpacing/2, -20, 0]) 
 			_BoltBase(0, 4, BBStyle_Round);
 			
 		// bottom right assembly bolt mount base
-		translate([boltSpacing/2, -lowerBoltOffset, 0]) 
+		translate([boltSpacing/2, -lowerBoltOffset +2, 0]) 
 			_BoltBase(0, 4, BBStyle_Round);
 	}
-	/*hull() {
+	
+	// top right brace
+	hull() {
 		// top left assembly bolt mount base
 		translate([boltSpacing/2, 0, 0])
 			_BoltBase(0, 4.5, BBStyle_Round);
 		
 		translate([8, -7, 0])
 				_BoltBase(0, 4.5, BBStyle_Round);	
+				
+		translate([boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
+			_BoltBase(0, 4.5, BBStyle_Round);	
 	}
 
+	// top left brace
 	hull() {
 		// top left assembly bolt mount base
 		translate([-boltSpacing/2, 0, 0])
@@ -154,23 +160,24 @@ module _BracketSkeleton(_baseDiameter = 12) {
 		
 		translate([-8, -7, 0])
 				_BoltBase(0, 4.5, BBStyle_Round);	
-				
+			
+		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
+			_BoltBase(0, 4.5, BBStyle_Round);	
 		
 	}
 	
 	hull() {
-		translate([-8, -7, 0])
-				_BoltBase(0, 2, BBStyle_Round);
-				
 		// bottom left assembly bolt mount base
-		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
-			_BoltBase(0, 2, BBStyle_Round);
+		translate([boltSpacing/2, -6, 0]) 
+			_BoltBase(0.75, 4.5, BBStyle_Round);
 			
-		translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
-			_BoltBase(4, 2, BBStyle_Round);
+		// bottom left assembly bolt mount base
+		translate([-boltSpacing/2, -6, 0]) 
+			_BoltBase(0.75, 4.5, BBStyle_Round);
+		
 	}
 	
-	hull() {
+	*hull() {
 		translate([8, -7, 0])
 				_BoltBase(0, 2, BBStyle_Round);
 				
@@ -183,7 +190,7 @@ module _BracketSkeleton(_baseDiameter = 12) {
 	}
 	
 	
-	hull() {
+	*hull() {
 		translate([-8, -7, 0])
 				_BoltBase(0, 4.5, BBStyle_Round);
 			
@@ -192,7 +199,7 @@ module _BracketSkeleton(_baseDiameter = 12) {
 			_BoltBase(0, 4.5, BBStyle_Round);
 	}
 	
-	hull() {
+	*hull() {
 		translate([8, -7, 0])
 				_BoltBase(0, 4.5, BBStyle_Round);
 			
@@ -208,12 +215,12 @@ module _BracketSkeleton(_baseDiameter = 12) {
 		translate([-8, -6, 0])
 			cylinder(h = 4.5, d = 8);
 				
-		translate([10, -12, 0])
+		/*translate([10, -12, 0])
 				_BoltBase(2.5, 2, BBStyle_Round);
 		translate([-10, -12, 0])
-				_BoltBase(2.5, 2, BBStyle_Round);
+				_BoltBase(2.5, 2, BBStyle_Round);*/
 	}
-	
+	// right side vertical brace
 	hull() {
 	
 		// top right assembly bolt mount base
@@ -225,6 +232,7 @@ module _BracketSkeleton(_baseDiameter = 12) {
 			_BoltBase(4, 4.5, BBStyle_Round);
 	}
 	
+	// left side vertical brace
 	hull() {
 	
 		// top right assembly bolt mount base
@@ -234,7 +242,19 @@ module _BracketSkeleton(_baseDiameter = 12) {
 		// bottom right assembly bolt mount base
 		translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
 			_BoltBase(4, 4.5, BBStyle_Round);
-	}*/
+	}
+	
+	// bottom side vertical brace
+	hull() {
+	
+		// bottom right assembly bolt mount base
+		translate([boltSpacing/2, -lowerBoltOffset - 1, 0]) 
+			_BoltBase(2, 4.5, BBStyle_Round);
+			
+		// bottom right assembly bolt mount base
+		translate([-boltSpacing/2, -lowerBoltOffset - 1, 0]) 
+			_BoltBase(2, 4.5, BBStyle_Round);
+	}
 }
 
 module _BracketSwitchMount(_baseDiameter = 10) {
@@ -270,7 +290,7 @@ module _Bracket_BoltCarveouts() {
 	_boltDiameter = 4.6;
 	
 	// top left assembly bolt mount base
-	#translate([-boltSpacing/2, 0, 0])
+	translate([-boltSpacing/2, 0, 0])
 		cylinder(h = 6, d = _boltDiameter);
 	
 	// bottom left assembly bolt mount base
@@ -330,10 +350,25 @@ module Part_XC_CarriageBracket_Rear() {
 		
 		_Bracket_BoltCarveouts();
 		
-		translate([-22,-58.5,-10])
+		translate([-BlowerXOffset, -1, 0])
+		_BlowerCarveout();
+		
+		// wiring channel
+		hull() {
+			translate([0,0,-1])
+				sphere(d = 6);
+				
+			translate([3,-12,0])
+				sphere(d = 4);
+				
+			translate([-3,-12,0])
+				sphere(d = 4);
+			}
+		
+		*translate([-22,-58.5,-10])
 		cube([60,20, 60]);
 		
-		translate([-26,-58.5,5])
+		*translate([-26,-58.5,5])
 		cube([60,20, 60]);
 	}
 }

@@ -34,40 +34,40 @@ module _XCBC_BeltMount() {
 		// right belt clamp base
 	
 		translate([-22, 7, 0])
-		cylinder(h = 6, d = 5);
+		cylinder(h = rpXC_BeltMount_BaseThickness + 2, d = 5);
 		
 		translate([-22, -7, 0])
-		cylinder(h = 6, d = 5);
+		cylinder(h = rpXC_BeltMount_BaseThickness + 2, d = 5);
 		
 		translate([-4.5, 7, 0])
-		cylinder(h = 6, d = 6);
+		cylinder(h = rpXC_BeltMount_BaseThickness + 2, d = 6);
 		
 		translate([-4.5, -7, 0])
-		cylinder(h = 6, d = 6);
+		cylinder(h = rpXC_BeltMount_BaseThickness + 2, d = 6);
 		
 		// right belt clamp base
 	
-		translate([-22, 7, 1.25])
-		cylinder(h = 4, d = 6);
+		translate([-22, 7, 2.0])
+		cylinder(h = rpXC_BeltMount_BaseThickness - 1.5, d = 6);
 		
-		translate([-22, -7, 1.25])
-		cylinder(h = 4, d = 6);
+		translate([-22, -7, 2.0])
+		cylinder(h = rpXC_BeltMount_BaseThickness - 1.5, d = 6);
 		
-		translate([-4.5, 7, 1.25])
-		cylinder(h = 4, d = 8);
+		translate([-4.5, 7, 2.0])
+		cylinder(h = rpXC_BeltMount_BaseThickness - 1.5, d = 8);
 		
-		translate([-4.5, -7, 1.25])
-		cylinder(h = 4, d = 8);
+		translate([-4.5, -7, 2.0])
+		cylinder(h = rpXC_BeltMount_BaseThickness - 1.5, d = 8);
 	}
 }
 
 module _XCBC_BeltCarveOut() {
 		// --- belt path carve out : right side
 		
-		translate([-31.1, 1.9, 4])
+		translate([-31.1, 1.9, rpXC_BeltMount_BaseThickness])
 		cube([10, 6.2, 2.1]);
 		
-		translate([-31.1, -8.1, 4])
+		translate([-31.1, -8.1, rpXC_BeltMount_BaseThickness])
 		cube([10, 6.2, 2.1]);
 		
 		// carve teeth to hold belts inline (lower)
@@ -75,11 +75,11 @@ module _XCBC_BeltCarveOut() {
 		rotate([0,0,90])
 		_GT2_BeltTeeth(15, 5.25);
 		
-		translate([-5,-1.9,6.5])
+		translate([-4.75,-1.9,rpXC_BeltMount_BaseThickness + 1.5])
 		rotate([90,0,0])
 		cylinder(h = 6.2, d = 3);
 		
-		translate([-5, 8.1,6.5])
+		translate([-4.75, 8.1,rpXC_BeltMount_BaseThickness + 1.5])
 		rotate([90,0,0])
 		cylinder(h = 6.2, d = 3);
 		
@@ -91,26 +91,26 @@ module _XCBC_BeltCarveOut() {
 		// --- carve outs for clamp
 		hull() {
 			translate([-8, 9.0, -0.1])
-				cylinder(h = 20, d = 2);
+				cylinder(h = 10, d = 2);
 			translate([-18, 9.0, -0.1])
-				cylinder(h = 20, d = 2);
+				cylinder(h = 10, d = 2);
 				
 			translate([-8, 11.25, -0.1])
-				cylinder(h = 20, d = 2);
+				cylinder(h = 10, d = 2);
 			translate([-18, 11.25, -0.1])
-				cylinder(h = 20, d = 2);
+				cylinder(h = 10, d = 2);
 		}
 		
 		hull() {
 			translate([-8, -9.0, -0.1])
-				cylinder(h = 20, d = 2);
+				cylinder(h = 10, d = 2);
 			translate([-18, -9.0, -0.1])
-				cylinder(h = 20, d = 2);
+				cylinder(h = 10, d = 2);
 				
 			translate([-8, -11.25, -0.1])
-				cylinder(h = 20, d = 2);
+				cylinder(h = 10, d = 2);
 			translate([-18, -11.25, -0.1])
-				cylinder(h = 20, d = 2);
+				cylinder(h = 10, d = 2);
 		}
 	}
 
@@ -126,11 +126,11 @@ module Part_XC_BeltClamp() {
 			// --- bolt post bases - joined together
 			hull() {
 				// top right assembly bolt mount base
-				translate([boltSpacing/2, 0, 2]) 
+				translate([boltSpacing/2, 0, rpXC_BeltMount_BaseThickness - 2]) 
 					_BoltBase(hwM4_Bolt_AllenHeadDiameter, 2, BBStyle_Round);
 					
 				// top left assembly bolt mount base
-				translate([-boltSpacing/2, 0, 2]) 
+				translate([-boltSpacing/2, 0,rpXC_BeltMount_BaseThickness -  2]) 
 					_BoltBase(hwM4_Bolt_AllenHeadDiameter, 2, BBStyle_Round);
 					
 				// top left assembly bolt mount base
@@ -140,6 +140,13 @@ module Part_XC_BeltClamp() {
 				// top right assembly bolt mount base
 				translate([boltSpacing/2, 0, 0])
 					cylinder(h = 1,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 2);
+			
+			translate([-4.5, 7, 0])
+			cylinder(h = 3, d = 8);
+		
+			translate([4.5, 7, 0])
+			cylinder(h = 3, d = 8);
+			
 			}
 		
 			
@@ -165,47 +172,61 @@ module Part_XC_BeltClamp() {
 			// -- carve out main mounting holes
 		
 			// left mounting hole
-			translate([rpXC_BeltMount_BoltSpacing / 2, 0, -rpXC_BeltMount_BoltDepth])
+			translate([rpXC_BeltMount_BoltSpacing / 2, 0, -rpXC_BeltMount_BoltDepth + 15])
 				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 10);
 				
 				
-			translate([rpXC_BeltMount_BoltSpacing / 2, 0, 2])
-			cylinder(h = 5, d = 8.75, $fn = 6);
+			translate([rpXC_BeltMount_BoltSpacing / 2, 0, 4])
+			cylinder(h = 5, d = 8.6, $fn = 6);
 			
-			translate([-rpXC_BeltMount_BoltSpacing / 2, 0, 2])
-			cylinder(h = 5, d = 8.75, $fn = 6);
+			translate([-rpXC_BeltMount_BoltSpacing / 2, 0, 4])
+			cylinder(h = 5, d = 8.6, $fn = 6);
 									
 			// right mounting hole
-			translate([-rpXC_BeltMount_BoltSpacing / 2, 0, -rpXC_BeltMount_BoltDepth])
+			translate([-rpXC_BeltMount_BoltSpacing / 2, 0, -rpXC_BeltMount_BoltDepth + 15])
 				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 10);
 				
 			// -- carve out clamp mounting holes
 			
 			// left clamp bolt
-			translate([-rpXC_BeltMount_ClampBoltSpacing / 2, 0, 3])
+			translate([-rpXC_BeltMount_ClampBoltSpacing / 2, 0, 6])
 				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, rpXC_BeltMount_ClampBoltLength);
 				
 			// right clamp bolt
-			translate([rpXC_BeltMount_ClampBoltSpacing / 2, 0, 3])
+			translate([rpXC_BeltMount_ClampBoltSpacing / 2, 0, 6])
 				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, rpXC_BeltMount_ClampBoltLength);
 			
 			// -- carve out clamp mounting nuts
 			
 			// left clamp nut
-			translate([-rpXC_BeltMount_ClampBoltSpacing / 2, 0, 0.5])
-			rotate([0,0,-25])
-				cylinder(h = 2, d = 6.6, $fn = 6);
+			translate([-rpXC_BeltMount_ClampBoltSpacing / 2, 0, 2.5])
+			rotate([0,0,-45])
+				cylinder(h = 3, d = 6.6, $fn = 6);
+				
 			translate([-rpXC_BeltMount_ClampBoltSpacing / 2, 0, -0.1])
-			rotate([0,0,-25])
-				cylinder(h = 0.7, d1 = 6.8, d2 = 6.6, $fn = 6);
+			rotate([0,0,-45])
+				cylinder(h = 2.7, d1 = 7.6, d2 = 6.6, $fn = 6);
 				
 			// right clamp nut
-			translate([rpXC_BeltMount_ClampBoltSpacing / 2, 0, 0.5])
-			rotate([0,0,25])
-				cylinder(h = 2, d = 6.6, $fn = 6);
+			translate([rpXC_BeltMount_ClampBoltSpacing / 2, 0, 2.5])
+			rotate([0,0,45])
+				cylinder(h = 3, d = 6.6, $fn = 6);
+				
 			translate([rpXC_BeltMount_ClampBoltSpacing / 2, 0, -0.1])
-			rotate([0,0,25])
-				cylinder(h = 0.7, d1 = 6.8, d2 = 6.6, $fn = 6);
+			rotate([0,0,45])
+				cylinder(h = 2.7, d1 = 6.8, d2 = 6.6, $fn = 6);
+				
+			// wiring channel
+			hull() {
+			translate([0,0,-1])
+				sphere(d = 6);
+				
+			translate([3,12,0])
+				sphere(d = 4);
+				
+			translate([-3,12,0])
+				sphere(d = 4);
+			}
 		
 		}
 		

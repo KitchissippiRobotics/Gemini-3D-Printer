@@ -15,7 +15,7 @@
 
 include <Dimensions.scad>
 
-$fn = 40;
+$fn = 100;
 
 // -----------------------------------------------------------------------------
 // Some internal switch values:
@@ -256,4 +256,113 @@ module _BoltBase(shaftSize, baseThickness, style = BBStyle_Simple) {
 					circle(h = bevelSize, d = bevelSize * 2);
 		}
 	}	
+}
+
+
+// -----------------------------------------------------------------------------
+// Blower Fan Carvout
+// -----------------------------------------------------------------------------
+
+BlowerXOffset = 10;
+BlowerCaseExtension = 20;
+
+module _BlowerCarveout() {
+
+	// main blower channel
+	translate([-12, -53.5, 0])
+	cube([20, 16, 25]);
+	
+	// main blower body
+	translate([18,-37.5,-5])
+	rotate([90,0,0])
+	cylinder(h = 16, d = 57);
+	
+	// air intake clearance
+	hull() {
+		translate([16,-33,-5])
+		rotate([90,0,0])
+		cylinder(h = 10, d = 34);
+	
+		translate([16,-38,-5])
+		rotate([90,0,0])
+		cylinder(h = 1, d = 38);
+	}
+	
+	// slot for blower's casing snap
+	translate([-12,-45.5,0])
+	cylinder(h= 22, d =3.5);
+	
+	
+	// right output channel
+	hull() {
+		translate([-1, -39, 25])
+		rotate([90,0,90])
+		cylinder(h = 9, d = 3);
+		
+		translate([-1, -52, 25])
+		rotate([90,0,90])
+		cylinder(h = 9, d = 3);
+	}
+	
+	hull() {
+		// right output hole
+		translate([6 + BlowerXOffset, -61, 28])
+		rotate([90,0,90])
+		cylinder(h = 12, d = 1.5);
+		
+		translate([-1, -52, 25])
+		rotate([90,0,90])
+		cylinder(h = 9, d = 3);
+	}
+	
+	// left output channel
+	hull() {
+	
+		translate([-12, -39, 25])
+		rotate([90,0,90])
+		cylinder(h = 8, d = 3);
+		
+		translate([-12, -54, 25])
+		rotate([90,0,90])
+		cylinder(h = 8, d = 3);
+	}
+	
+	hull() {
+		// left output hole
+		translate([-18 + BlowerXOffset, -61, 28])
+		rotate([90,0,90])
+		cylinder(h = 12, d = 1.5);
+		
+		translate([-12, -54, 25])
+		rotate([90,0,90])
+		cylinder(h = 8, d = 3);
+	}
+	
+	// bolt hole and nut trap
+	
+	translate([36,-30,16])
+		rotate([90,0,0])
+		cylinder(h = 30, d = 4.25);
+		
+	translate([36,-55.5,16])
+		rotate([90,0,0])
+		cylinder(h = 5, d = 9.2, $fn = 6);
+		
+		
+	translate([36,-37.5,16])
+		rotate([90,0,0])
+		cylinder(h = 16, d = 15);
+		
+	*translate([36,-36,16])
+		rotate([90,0,0])
+		cylinder(h = 10, d = 4.25);
+		
+	*translate([36,-20,16])
+		rotate([90,0,0])
+		cylinder(h = 22, d1 = 9, d2 = 9);
+		
+	translate([36,-26.5,16])
+		rotate([90,0,0])
+		cylinder(h = 10, d1 = 9.5, d2 = 9.25);
+	
 }

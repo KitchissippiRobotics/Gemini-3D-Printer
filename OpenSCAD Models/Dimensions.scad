@@ -108,7 +108,7 @@ rpXC_BeltMount_InnerBoltHolderDiameter = 8;
 
 // Belt Mount Piece Base Dimensions
 
-rpXC_BeltMount_BaseThickness = 4;			// Rv2 = 6
+rpXC_BeltMount_BaseThickness = 6;			// Rv2 = 6
 rpXC_BeltMount_BaseWidth = 20;			// Rv2 = 20.2
 rpXC_BeltMount_BaseLength = rpXC_BeltMount_BoltSpacing; 			// Rv2 = 30
 rpXC_BeltMount_BaseOffset = 16.0;			// Rv2 = 17.2

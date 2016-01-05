@@ -849,10 +849,10 @@ module Part_XC_CarriageBase() {
 			
 			// bulk for bolts to mount through
 			hull() {
-				translate([8, -6, 8.5])
+				translate([8, -6, 4])
 				cylinder(h = 14, d = 8);
 			
-				translate([-8, -6, 8.5])
+				translate([-8, -6, 4])
 				cylinder(h = 14, d = 8);
 			
 				translate([8, -6, 0])
@@ -956,7 +956,7 @@ module Part_XC_CarriageBase() {
 				_HIWINClearance();
 			
 			//translate([-rpXC_CarriageMount_LowerPointSpacing,0,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8]) 
-			translate([0,-10,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset + 1.8])
+			translate([0,-10,rpXC_BeltMount_BaseThickness + rpXC_BeltMount_BoltHolderWidth +rpXC_BeltMount_BoltHolderOffset - 0.25])
 			rotate([0,-90,-90]) {
 				_XC_CB_BoltCarveouts();
 		
