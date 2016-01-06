@@ -16,6 +16,9 @@ include <Dimensions.scad>
 
 MultiPartMode = true;
 
+colourPrimary = "Green";
+colourSecondary = "Snow";
+
 // Parts List for XC Assembly
 // -----------------------------------------------------------------------------
 
@@ -41,16 +44,16 @@ MultiPartMode = true;
 include <XC_CarriageBracket.scad>
 
 //color("Black")
-translate([rpXC_CarriageMount_BaseWidth / 2,0,10.1])
+/*translate([rpXC_CarriageMount_BaseWidth / 2,0,10.1])
 rotate([90,0,90])
-	Part_XC_CarriageBracket_Front();
+	Part_XC_CarriageBracket_Front();*/
 	
 	
 // =============================================================================
 // Render: XC_CarriageBracket_Rear
 // =============================================================================
 	
-color("LimeGreen")
+color(colourPrimary)
 translate([-rpXC_CarriageMount_BaseWidth  + rpXC_BeltMount_BoltHolderWidth,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBracket_Rear();
@@ -65,7 +68,7 @@ include <XC_CarriageBase.scad>
 
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
-color("Snow")
+color(colourPrimary)
 translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBase();
@@ -95,8 +98,8 @@ translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2)
 include <HA_CarriageBase.scad>
 
 
-color("Snow")
-translate([10.5,0,10.1])
+color(colourPrimary)
+translate([10.5 + 4,0,10.1])
 rotate([90,0,90])
 	Part_HA_CarriageBase();
 
@@ -114,8 +117,9 @@ rotate([-90,180,0])
 // Render: Print Cooling Fan
 // =============================================================================
 
+color("Black")
 %translate([-19,
-			7,
+			5,
 			-36])
 rotate([0,180,90])
 	import("./Vitamins/blower.stl", convexity = 3);
@@ -127,7 +131,7 @@ rotate([0,180,90])
 include <XC_BeltClamp.scad>
 
 // ~~ Part No. XB-CB-ABS02 ~~ (XC_BeltClamp.stl)
-color("Snow")
+//color("Snow")
 	translate([0 - (rpXC_BeltMount_BaseOffset),0,rpXC_BeltMount_BoltOffset])
 	rotate([-90,0,90])
 	Part_XC_BeltClamp();
@@ -194,15 +198,17 @@ rotate([0,180,90])
 	hotend_jhead();
 	
 // pushfit
+color("Gold")
 %translate([hwHA_Hotend_Offset,
 			(hwHA_Hotend_Spacing /2),
-			20])
+			9.5])
 rotate([0,0,0])
 import("./Vitamins/pushfit.stl", convexity=3);
 
+color("Gold")
 %translate([hwHA_Hotend_Offset,
 			-(hwHA_Hotend_Spacing /2),
-			20])
+			9.5])
 rotate([0,0,0])
 import("./Vitamins/pushfit.stl", convexity=3);
 	

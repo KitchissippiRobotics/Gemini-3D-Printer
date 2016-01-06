@@ -13,7 +13,8 @@ if (MultiPartMode == undef) {
 
 
 module hotend_jhead() {
-	color("Tan")
+	//color("Tan")
+	color("Black")
 	translate([0,0,0])
 		jhead_plastic_body();
 		

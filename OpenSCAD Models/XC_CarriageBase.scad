@@ -267,7 +267,7 @@ module _XCCB_BoltPosts() {
 			
 										
 	// bottom left assembly bolt mount base
-	/*translate([-boltSpacing/2, -lowerBoltOffset, 0])
+	translate([-boltSpacing/2, -lowerBoltOffset, 0])
 		cylinder(h = 26,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 1);
 			
 	// bottom right assembly bolt mount base
@@ -286,7 +286,7 @@ module _XCCB_BoltPosts() {
 		// bottom right assembly bolt mount base
 	translate([boltSpacing/2, -lowerBoltOffset, _baseThickness + 14])
 		cylinder(h = 4,	d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness,
-													d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 3.8);*/
+													d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 3.8);
 											
 }
 
@@ -398,7 +398,7 @@ module _XCCB_BlowerSpace() {
 		
 	translate([36,-55.5,16])
 		rotate([90,0,0])
-		cylinder(h = 5, d = 9.2, $fn = 6);
+		cylinder(h = 5, d = 9.0, $fn = 6);
 		
 		
 	translate([36,-37.5,16])
@@ -840,8 +840,8 @@ module Part_XC_CarriageBase() {
 			// case skin
 			*_XCCB_Shell();	
 			
-			/*translate([0 - BlowerXOffset,0,0])
-				_XCCB_BlowerCase();*/
+			translate([0 - BlowerXOffset,0,0])
+				_XCCB_BlowerCase();
 			
 			_width = 35;
 			

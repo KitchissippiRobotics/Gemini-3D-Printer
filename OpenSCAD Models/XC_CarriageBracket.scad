@@ -105,19 +105,19 @@ module _BracketBase(_baseDiameter = 12) {
 
 	// top left assembly bolt mount base
 	translate([-boltSpacing/2, 0, 0])
-		cylinder(h = 5, d1 = _baseDiameter + 1, d2 = _baseDiameter);
+		cylinder(h = 4.5, d1 = _baseDiameter + 1, d2 = _baseDiameter);
 	
 	// bottom left assembly bolt mount base
 	translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
-		cylinder(h = 5, d = _baseDiameter);
+		cylinder(h = 4.5, d = _baseDiameter);
 	
 	// top right assembly bolt mount base
 	translate([boltSpacing/2, 0, 0]) 
-		cylinder(h = 5, d1 = _baseDiameter + 1, d2 = _baseDiameter);
+		cylinder(h = 4.5, d1 = _baseDiameter + 1, d2 = _baseDiameter);
 	
 	// bottom right assembly bolt mount base
 	translate([boltSpacing/2, -lowerBoltOffset, 0]) 
-		cylinder(h = 5, d = _baseDiameter);
+		cylinder(h = 4.5, d = _baseDiameter);
 }
 
 module _BracketSkeleton(_baseDiameter = 12) {
@@ -287,7 +287,7 @@ module _BracketSwitchMount(_baseDiameter = 10) {
 }
 
 module _Bracket_BoltCarveouts() {
-	_boltDiameter = 4.6;
+	_boltDiameter = 4.5;
 	
 	// top left assembly bolt mount base
 	translate([-boltSpacing/2, 0, 0])

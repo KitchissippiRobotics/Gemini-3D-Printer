@@ -113,11 +113,147 @@ module _XCBC_BeltCarveOut() {
 				cylinder(h = 10, d = 2);
 		}
 	}
+	
+module Part_XC_ClampCover() {
+	difference() {
+		union() {
+			// upper tab
+			hull() {
+				translate([-8, 8.6, 0])
+					cylinder(h = 10, d = 1.0);
+				translate([-18, 8.6, 0])
+					cylinder(h = 10, d = 1.0);
+			
+				translate([-8, 11.25, 0])
+					cylinder(h = 10, d = 1.0);
+				translate([-18, 11.25, 0])
+					cylinder(h = 10, d = 1.0);
+			
+			
+				translate([-8, 9.0, 2])
+					cylinder(h = 6, d = 1.6);
+				translate([-18, 9.0, 2])
+					cylinder(h = 6, d = 1.6);
+			
+				translate([-8, 11.25, 2])
+					cylinder(h = 6, d = 1.6);
+				translate([-18, 11.25, 2])
+					cylinder(h = 6, d = 1.6);
+			}
+	
+			// lower tab
+			hull() {
+				translate([-8, -8.6, 0])
+					cylinder(h = 11, d = 1.0);
+				translate([-18, -8.6, 0])
+					cylinder(h = 11, d = 1.0);
+			
+				translate([-8, -11.25, 0])
+					cylinder(h = 11, d = 1.0);
+				translate([-18, -11.25, 0])
+					cylinder(h = 11, d = 1.0);
+			
+			
+				translate([-8, -9.0, 2])
+					cylinder(h = 6, d = 1.6);
+				translate([-18, -9.0, 2])
+					cylinder(h = 6, d = 1.6);
+			
+				translate([-8, -11.25, 2])
+					cylinder(h = 6, d = 1.6);
+				translate([-18, -11.25, 2])
+					cylinder(h = 6, d = 1.6);
+			}
+	
+	
+			// main cover	
+			hull() {
+
+			
+				translate([-8, 11.25, 8])
+					cylinder(h = 1, d = 1.6);
+				translate([-18, 11.25, 8])
+					cylinder(h = 1, d = 1.6);
+			
+			
+				translate([-8, -11.25, 8])
+					cylinder(h = 1, d = 1.6);
+				translate([-18, -11.25, 8])
+					cylinder(h = 1, d = 1.6);
+			
+				translate([-8, 11.25, 9])
+					cylinder(h = 2, d = 1);
+				translate([-18, 11.25, 9])
+					cylinder(h = 2, d = 1);
+			
+			
+				translate([-8, -11.25, 9])
+					cylinder(h = 2, d = 1);
+				translate([-18, -11.25, 9])
+					cylinder(h = 2, d = 1);
+
+			}
+		}
+		
+		translate([-19,-2.2,6])
+		cube([12,4.4,2]);
+		
+		translate([-19,-8.1,6.5])
+		cube([12,6.1,2]);
+		
+		translate([-19,2.0,6.5])
+		cube([12,6.1,2]);
+		
+		translate([-13.5, 0,0])
+		cylinder(d = 4, h = 20);
+	}
+	
+	// raised bit to press on belt upper
+	hull() {
+		translate([-17, -6.5, 9]) 
+			sphere(h= 4);
+			
+		translate([-9, -6.5, 9]) 
+			sphere(h= 4);
+			
+		translate([-17, -3.5, 9]) 
+			sphere(h= 4);
+			
+		translate([-9, -3.5, 9]) 
+			sphere(h= 4);
+	}
+	
+	// raised bit to press on belt lower
+	hull() {
+		translate([-17, 6.5, 9.0]) 
+			sphere(h= 4);
+			
+		translate([-9, 6.5, 9.0]) 
+			sphere(h= 4);
+			
+		translate([-17, 3.5, 9.0]) 
+			sphere(h= 4);
+			
+		translate([-9, 3.5, 9.0]) 
+			sphere(h= 4);
+	}
+}
 
 // -----------------------------------------------------------------------------
 
 module Part_XC_BeltClamp() {
 
+	if (MultiPartMode == true) {
+		color("Snow")
+		translate([26, 0, 0])
+		Part_XC_ClampCover();
+	
+		color("Snow")
+		translate([0,0, 0])
+		Part_XC_ClampCover();
+	}
+
+	color("Gray")
 	// build up the clamp base and then carve out the bolts, belt teeth, etc.
 	difference() {
 	

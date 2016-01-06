@@ -15,7 +15,7 @@
 
 include <Dimensions.scad>
 
-$fn = 100;
+$fn = 20;
 
 // -----------------------------------------------------------------------------
 // Some internal switch values:
