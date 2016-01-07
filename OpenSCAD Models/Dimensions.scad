@@ -131,6 +131,13 @@ rpXC_BeltMount_ClampBoltOffset = rpXC_BeltMount_BoltOffset; // Rv2
 rpXC_BeltMount_ClampBoltLength = 10;		// Rv2
 rpXC_BeltMount_ClampBoltSize = hwM3_Bolt_AllenHeadSize;
 
+
+// Values for the blower case
+// -----------------------------------------------------------------------------
+
+rpXC_CenterModuleDepth = 22;
+rpXC_FrontBracketThickness = 4;
+
 // =============================================================================
 
 // HA_Hotend

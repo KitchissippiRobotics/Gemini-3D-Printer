@@ -118,6 +118,10 @@ module _BlowerCarveout() {
 		translate([-1, -52, 25])
 		rotate([90,0,90])
 		cylinder(h = 9, d = 3);
+		
+		translate([-1, -39, 25])
+		rotate([90,0,90])
+		cylinder(h = 9, d = 3);
 	}
 	
 	// left output channel
@@ -127,7 +131,7 @@ module _BlowerCarveout() {
 		rotate([90,0,90])
 		cylinder(h = 8, d = 3);
 		
-		translate([-12, -54, 25])
+		translate([-12, -52, 25])
 		rotate([90,0,90])
 		cylinder(h = 8, d = 3);
 	}

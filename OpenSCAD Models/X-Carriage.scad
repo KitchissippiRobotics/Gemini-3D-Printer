@@ -59,13 +59,13 @@ rotate([90,0,90])
 	Part_XC_CarriageBracket_Rear();
 	
 // =============================================================================
-// Render: XC_CarriageBracket_Rear
+// Render: XC_BlowerCase
 // =============================================================================
 
 include <XC_BlowerCase.scad>
 
 color(colourSecondary)
-translate([-15,0,-24])
+translate([-11,0,-24])
 rotate([90,0,90])
 	Part_XC_BlowerCase();
 
