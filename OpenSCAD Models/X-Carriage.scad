@@ -57,6 +57,17 @@ color(colourPrimary)
 translate([-rpXC_CarriageMount_BaseWidth  + rpXC_BeltMount_BoltHolderWidth,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBracket_Rear();
+	
+// =============================================================================
+// Render: XC_CarriageBracket_Rear
+// =============================================================================
+
+include <XC_BlowerCase.scad>
+
+color(colourSecondary)
+translate([-15,0,-24])
+rotate([90,0,90])
+	Part_XC_BlowerCase();
 
 // =============================================================================
 // Render: XC_CarriageBase
@@ -68,7 +79,7 @@ include <XC_CarriageBase.scad>
 
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
-color(colourPrimary)
+*color(colourPrimary)
 translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBase();
