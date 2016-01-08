@@ -81,7 +81,7 @@ include <XC_CarriageBase.scad>
 
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
-*color(colourPrimary)
+color(colourPrimary)
 translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBase();
@@ -140,12 +140,13 @@ rotate([0,180,90])
 // Render: XC_CarriageBeltClamp
 // =============================================================================
 
+
 include <XC_BeltClamp.scad>
 
 // ~~ Part No. XB-CB-ABS02 ~~ (XC_BeltClamp.stl)
-//color("Snow")
-	translate([0 - (rpXC_BeltMount_BaseOffset),0,rpXC_BeltMount_BoltOffset])
-	rotate([-90,0,90])
+color(colourPrimary)
+translate([0 - (rpXC_BeltMount_BaseOffset),0,rpXC_BeltMount_BoltOffset])
+rotate([-90,0,90])
 	Part_XC_BeltClamp();
 	
 // Mount Bolts for belt clamp and hotend assembly
@@ -170,6 +171,19 @@ translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset - 5, 0 + (rpXC_Be
 	rotate([0,-90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		
+// Belt clamp covers
+
+include <XC_BeltCover.scad>	
+color(colourSecondary)
+translate([-11 - (rpXC_BeltMount_BaseOffset),13,rpXC_BeltMount_BoltOffset])
+rotate([-90,0,-90])
+	Part_XC_BeltCover();
+	
+color(colourSecondary)
+translate([-11 - (rpXC_BeltMount_BaseOffset),-13,rpXC_BeltMount_BoltOffset])
+rotate([-90,0,-90])
+	Part_XC_BeltCover();
+		
 // Mount bolts for the belt clamp covers
 		
 // ~~ Part No. XC_BM-MB06 ~~ (M3x10)
@@ -184,9 +198,11 @@ translate([rpXC_BeltMount_ClampBoltDepth, 0 + (rpXC_BeltMount_ClampBoltSpacing /
 		
 // cover type bolts - experimental
 
-translate([24, 0, 4])
+*translate([24, 0, 4])
 	rotate([0,90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 10);
+		
+
 
 // =============================================================================
 // Placement: J Head Hotend

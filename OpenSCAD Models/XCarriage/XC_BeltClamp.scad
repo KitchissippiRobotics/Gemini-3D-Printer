@@ -243,17 +243,6 @@ module Part_XC_ClampCover() {
 
 module Part_XC_BeltClamp() {
 
-	if (MultiPartMode == true) {
-		color("Snow")
-		translate([26, 0, 0])
-		Part_XC_ClampCover();
-	
-		color("Snow")
-		translate([0,0, 0])
-		Part_XC_ClampCover();
-	}
-
-	color("Gray")
 	// build up the clamp base and then carve out the bolts, belt teeth, etc.
 	difference() {
 	
