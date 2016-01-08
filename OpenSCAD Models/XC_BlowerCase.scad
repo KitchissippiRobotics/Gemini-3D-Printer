@@ -224,7 +224,7 @@ module _BlowerCase_BoltMount(_boxEdgeDiameter = 6) {
 		// attachment bolt point
 		translate([36 -BlowerXOffset,-20.5,12])
 		rotate([90,0,0])
-		_BoltBase(5.5 + rpDefaultBevel, _boxEdgeDiameter, BBStyle_Round);
+		_BoltBase(5.0 + rpDefaultBevel, _boxEdgeDiameter, BBStyle_Round);
 		
 		// top front right edge
 		translate([12 + BlowerCaseExtension -BlowerXOffset,-21,rpXC_CenterModuleDepth - (_boxEdgeDiameter / 2)])

@@ -16,8 +16,8 @@ include <Dimensions.scad>
 
 MultiPartMode = true;
 
-colourPrimary = "Green";
-colourSecondary = "Snow";
+colourPrimary = "Snow";
+colourSecondary = "Green";
 
 // Parts List for XC Assembly
 // -----------------------------------------------------------------------------

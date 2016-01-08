@@ -155,7 +155,7 @@ module _BlowerCarveout() {
 		
 	translate([36,-55.5,16])
 		rotate([90,0,0])
-		cylinder(h = 5, d = 9.2, $fn = 6);
+		cylinder(h = 5, d = 8.8, $fn = 6);
 		
 		
 	translate([36,-37.5,16])
