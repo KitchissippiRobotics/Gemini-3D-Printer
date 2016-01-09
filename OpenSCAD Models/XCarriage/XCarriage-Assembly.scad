@@ -81,7 +81,7 @@ include <XC_CarriageBase.scad>
 
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
-color(colourPrimary)
+color(colourSecondary)
 translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBase();
@@ -229,14 +229,14 @@ rotate([0,180,90])
 color("Gold")
 %translate([hwHA_Hotend_Offset,
 			(hwHA_Hotend_Spacing /2),
-			9.5])
+			11.5])
 rotate([0,0,0])
 import("../Vitamins/pushfit.stl", convexity=3);
 
 color("Gold")
 %translate([hwHA_Hotend_Offset,
 			-(hwHA_Hotend_Spacing /2),
-			9.5])
+			11.5])
 rotate([0,0,0])
 import("../Vitamins/pushfit.stl", convexity=3);
 	
