@@ -82,26 +82,26 @@ include <XC_CarriageBase.scad>
 // translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,0])
 
 color(colourSecondary)
-translate([-rpXC_CarriageMount_BaseWidth + rpXC_BeltMount_BoltHolderWidth ,0,10.1])
+translate([-rpXC_CarriageMount_BaseWidth / 2,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBase();
 
 // Four Mounting Bolts
 
 // ~~ Part No. XC-CB-MB01 ~~ (M3x10)
-translate([0 - (hwLR_Carriage_BoltLength / 2), 0 - (hwLR_Carriage_BoltWidth / 2), 0 - hwLR_Carriage_BoltDepth])
+translate([0 - (hwLR_Carriage_BoltWidth / 2), 0 - (hwLR_Carriage_BoltLength / 2), 0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
 	
 // ~~ Part No. XC-CB-MB02 ~~ (M3x10)
-translate([0 + (hwLR_Carriage_BoltLength / 2), 0 - (hwLR_Carriage_BoltWidth / 2),  0 - hwLR_Carriage_BoltDepth])
+translate([0 + (hwLR_Carriage_BoltWidth / 2), 0 - (hwLR_Carriage_BoltLength / 2),  0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
 	
 // ~~ Part No. XC-CB-MB03 ~~ (M3x10)
-translate([0 - (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2),  0 - hwLR_Carriage_BoltDepth])
+translate([0 - (hwLR_Carriage_BoltWidth / 2), 0 + (hwLR_Carriage_BoltLength / 2),  0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
 	
 // ~~ Part No. XC-CB-MB04 ~~ (M3x10)
-translate([0 + (hwLR_Carriage_BoltLength / 2), 0 + (hwLR_Carriage_BoltWidth / 2),  0 - hwLR_Carriage_BoltDepth])
+translate([0 + (hwLR_Carriage_BoltWidth / 2), 0 + (hwLR_Carriage_BoltLength / 2),  0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
 	
 // =============================================================================

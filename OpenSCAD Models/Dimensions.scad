@@ -31,8 +31,8 @@ include <CommonHardware.scad>
 // Related Carriage Bolt Dimensions - This is the interface for attaching things
 // to the linear slide on the HiWin style rail system
 
-hwLR_Carriage_BoltWidth = 10.0;			// see above reference diagram
-hwLR_Carriage_BoltLength = 15.0;			// see above reference diagram
+hwLR_Carriage_BoltWidth = 15.0;			// see above reference diagram
+hwLR_Carriage_BoltLength = 10.0;			// see above reference diagram
 hwLR_Carriage_BoltDepth = 3.5;			// depth the bolt screws within the carriage
 hwLR_Carriage_BoltDiameter = hwM3_Bolt_ShaftDiameter;
 
@@ -60,7 +60,7 @@ rpXC_CarriageMount_BoltSize = hwM3_Bolt_AllenHeadSize;
 
 rpXC_CarriageMount_BaseHeight = 9.5;		// Rv2
 rpXC_CarriageMount_BaseLength = 30;			// Rv2 = 39.0
-rpXC_CarriageMount_BaseWidth = 20.8;		// Rv2 = 28.5
+rpXC_CarriageMount_BaseWidth = 22;		// Rv2 = 28.5
 rpXC_CarriageMount_BaseOffset = 17.2;
 
 rpXC_CarriageMount_BaseSpacing = 1;		// extra width for HA attachement to clear the LR
