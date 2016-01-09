@@ -14,32 +14,7 @@
 // it's design with a different print orientation than it currently has.
 // *****************************************************************************
 
-// Revision & Design Notes
-// v3.0.1: Initial 3-point test
-// v3.1.0: Alternate design, automatic angle calculation, switch and fan holder test
-// v3.1.1: Built on alternative design
-//		- lay down base components, switch mount, bolt mount points, base of fan mount and then combine those
-//		- place bolt posts and fan mount components onto this base
-//		- carve out bolt holes from this part
-//		- airflow and wire routing considerations?
-//		x revise belt clamp component to match
-//		x revise hotend mount to match
-// v3.1.2: Based on above build concepts the shape has changed - triangle math is obselete
-// v3.2.0: Yet another rewrite:
-//		- Revert to original 3-point locating scheme
-//		- blower fan holder and output vents included
-//		- 
-// v3.3.0: Shell design
-//		- Mount points are connected to a tapering shell design
-//		- blower is mounted and ducting roughed out for print cooling
-//		- cutouts for x linear rail
-//	v3.3.1: Clean shell design
-//		- Smoothed edges
-//		- venting and logo testing on lower portion
-//		- basic test fitting of parts
-//	v3.3.2: 
-
-// include <Dimensions.scad> - included from XC_Common.scad
+include <../Dimensions.scad>
 include <XC_Common.scad>
 
 BlowerXOffset = 10;
@@ -57,461 +32,42 @@ if (MultiPartMode == undef) {
 	EnableSupport = true;
 	
 	Part_XC_CarriageBase();
-	//_XCCB_BlowerSpace();
 } else {
 	EnableSupport = false;
-}
-
-// -----------------------------------------------------------------------------
-// Just Draw the bolt bases
-// -----------------------------------------------------------------------------
-
-module _XCCB_BoltBases(baseBBStyle) {
-
-/*
-	// top left assembly bolt mount base
-	translate([-boltSpacing/2, 0, 0]) {
-		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
-		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
-	}
-*/	
-	// bottom left assembly bolt mount base
-	*translate([-boltSpacing/2, -lowerBoltOffset, 0]) {
-		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
-		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
-	}
-/*	
-	// top right assembly bolt mount base
-	translate([boltSpacing/2, 0, 0]) {
-		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
-		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
-	}
-*/	
-	// bottom right assembly bolt mount base
-	*translate([boltSpacing/2, -lowerBoltOffset, 0]) {
-		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
-		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
-	}
-	
-	// bottom center assembly bolt mount base
-	*translate([0, -lowerBoltOffset, 0]) {
-		_BoltBase(boltDiameter + rpDefaultBevel, _baseThickness, baseBBStyle);
-		_BoltBase(boltDiameter + rpDefaultBevel * 2, _baseThickness - rpDefaultBevel + 0.15, BBStyle_Round);
-	}
-	
-	
-	// switch holder lower screw base
-	*hull() {
-		// make a rectangular-ish space
-		// lower
-		translate([switchXOffset + 3, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
-			_BoltBase(1, _baseThickness - 0.5, BBStyle_Round);
-		translate([switchXOffset - 3, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
-			_BoltBase(1, _baseThickness - 0.5, BBStyle_Round);
-		// upper
-		translate([switchXOffset + 3, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
-			_BoltBase(1, _baseThickness - 0.5, BBStyle_Round);
-		translate([switchXOffset - 3, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
-			_BoltBase(1, _baseThickness - 0.5, BBStyle_Round);
-	
-		// switch holder lower screw base
-		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
-			_BoltBase(hwMicroSwitch_ScrewHeadDiameter - 0.5, _baseThickness, BBStyle_Round);
-	
-		// switch holder upper screw base
-		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
-			_BoltBase(hwMicroSwitch_ScrewHeadDiameter - 0.5, _baseThickness, BBStyle_Round);
-	}
-}
-
-// -----------------------------------------------------------------------------
-// creates a shape for clearance of the linear rail to be carved out of the part
-// -----------------------------------------------------------------------------
-
-module _HIWINClearance() {
-	
-				
-	union() {
-			// cut out space for Hiwin carriage, clearance of the bar and mount bolts
-			
-	// carriage carve out
-				translate([	0,
-							-22.5,
-							rpXC_CarriageMount_BaseWidth /2 - rpXC_BeltMount_BoltHolderWidth])
-					cube(size= [9,
-								45,
-								rpXC_CarriageMount_BaseWidth],
-						center = false);		
-			hull() {
-			
-	translate([3.5, 50,7])
-	rotate([90,0,0])
-				cylinder(h = 100, d = 4);
-				
-	translate([3.5, 50,34])
-	rotate([90,0,0])
-				cylinder(h = 100, d = 4);			
-				
-	translate([15,50,7])
-	rotate([90,0,0])
-				cylinder(h = 100, d = 4);
-	translate([15,50,34])
-	rotate([90,0,0])
-				cylinder(h = 100, d = 4);
-				
-			
-				
-					
-				// bar carve out
-
-				translate([11.5,
-							0,
-							rpXC_CarriageMount_BaseWidth /2 + 5.5])
-					cube(size= [3.2,
-								100,
-								rpXC_CarriageMount_BaseWidth],
-						center = true);
-			
-				translate([11.5,
-							0,
-							rpXC_CarriageMount_BaseWidth /2 + 5.5])
-					cube(size= [5,
-								100,
-								rpXC_CarriageMount_BaseWidth],
-						center = true);
-			
-				// clearance for bar/rail mounting bolts	
-				translate([16.5,
-							0,
-							rpXC_CarriageMount_BaseWidth /2 + 5.5])
-					cube(size= [5,
-								100,
-								3],
-						center = true);
-
-			}
-}
-}
-
-// -----------------------------------------------------------------------------
-// Just Draw the skeleton frame between the bolt bases
-// -----------------------------------------------------------------------------
-
-module _XCCB_BoltSkeleton(baseBBStyle) {
-
-		*hull() {
-			translate([boltSpacing/2, 0, 0])
-				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-				
-			
-			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
-				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-		}
-		
-		*hull() {
-			translate([0, -lowerBoltOffset, 0])
-				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
-				
-			translate([switchXOffset + 2, -lowerBoltOffset, 0])
-				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
-		}
-		
-		hull() {
-			translate([boltSpacing/2, -lowerBoltOffset, 0])
-				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
-				
-			translate([10, -5, 0])
-				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
-		}
-		
-		hull() {
-			translate([boltSpacing/2, 0, 0])
-			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-			translate([10, -5, 0])
-			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-		}
-		
-		hull() {
-			translate([-boltSpacing/2, 0, 0])
-			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-			translate([-10, -5, 0])
-			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-		}
-		
-		hull() {
-		// top left assembly bolt mount base
-		translate([-boltSpacing/2, -lowerBoltOffset, 0])
-			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-			
-		// top right assembly bolt mount base
-		translate([-10, -5, 0])
-			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-		}
-
-	
 }
 
 // -----------------------------------------------------------------------------
 // Just Draw the bolt posts
 // -----------------------------------------------------------------------------
 
-module _XCCB_BoltPosts() {
+module _CarriageBase_BoltPosts() {
 	// top left assembly bolt mount base
 	translate([-boltSpacing/2, 0, 0])
-		cylinder(h = 26,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 1);
+		cylinder(h = 26,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness);
 		
 	// top right assembly bolt mount base
 	translate([boltSpacing/2, 0, 0])
-		cylinder(h = 26,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 1);
+		cylinder(h = 26,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness);
 			
 }
 
-// -----------------------------------------------------------------------------
-// Wiring Access hole at top of carriage
-// -----------------------------------------------------------------------------
-
-module _XCCB_WiringAccessHole() {
+module _CarriageBase_LinearMount() {
+	// bulk for bolts to mount through
 	hull() {
-		translate([6, 12, 7])
-		rotate([90,0,0])
-		cylinder(h = 10, d = 6);
-
-		translate([-6, 12, 7])
-		rotate([90,0,0])
-		cylinder(h = 10, d = 6);
-
-		translate([6, 12, 30])
-		rotate([90,0,0])
-		cylinder(h = 10, d = 6);
-
-		translate([-6, 12, 30])
-		rotate([90,0,0])
-		cylinder(h = 10, d = 6);
+		translate([8, -6, 8])
+			cylinder(h = 15, d = 12, $fn = gcFacetLarge);
+	
+		translate([-8, -6, 8])
+			cylinder(h = 15, d = 12, $fn = gcFacetLarge);
+		
+	
+		translate([8, -6, 0])
+			cylinder(h = 26, d = 10, $fn = gcFacetLarge);
+	
+		translate([-8, -6, 0])
+			cylinder(h = 26, d = 10, $fn = gcFacetLarge);
+		
 	}
-}
-
-
-
-// -----------------------------------------------------------------------------
-// creates a block of vent cutouts
-// -----------------------------------------------------------------------------
-
-module _XCCB_VentBlock(_blockRise = 0.66) {
-	_blockHeight = 0.5;
-	_blockWidth = 2;
-	_blockSpace = 4;
-	//_blockRise = 0.66;
-
-	translate([0,-2,0])
-	cube([_blockWidth, 10, _blockHeight]);
-	
-	*translate([_blockSpace,0,0])
-	cube([_blockWidth, 10, _blockHeight]);
-	
-	*translate([_blockSpace * 2,0,0])
-	cube([_blockWidth, 10, _blockHeight]);
-	
-	translate([_blockSpace / 2,-2,_blockHeight + _blockRise])
-	cube([_blockWidth, 10, _blockHeight]);
-	
-	*translate([_blockSpace / 2 + _blockSpace,0,_blockHeight + _blockRise])
-	cube([_blockWidth, 10, _blockHeight]);
-	
-	*translate([_blockSpace / 2 + _blockSpace * 2,0,_blockHeight + _blockRise])
-	cube([_blockWidth, 10, _blockHeight]);
-	
-
-}
-
-// -----------------------------------------------------------------------------
-// creates the top vent cutouts - this could be combined with a design or text
-// -----------------------------------------------------------------------------
-
-module _XCCB_TopVents(_flipText = true) {
-	_drawText = true;
-	
-		for (i = [0 : 1 : 8]) {
-		
-		translate([5.5,0,i * 3 - 2])
-		_XCCB_VentBlock(1);
-		
-		translate([-6,0,i * 3 - 2 - 0.5])
-		_XCCB_VentBlock(1);
-		}
-
-	if (_flipText == true) {
-		translate([-0.4, -0.2, -2])
-		rotate([0,85,-90])
-		scale([1.15,1,1])
-		linear_extrude(height = 2)
-			mirror([1,0,0])
-			text("Gemini", font="Phosphate:style=Solid", size = 5);
-			
-			
-	} else {
-	
-		translate([-1, 1.5, 23])
-		rotate([0,85,-90])
-		scale([1.15,1,1])
-		linear_extrude(height = 1.5)
-			mirror([0,0,0])
-			text("Gemini", font="Phosphate:style=Solid", size = 5);
-	}
-	
-}
-
-// -----------------------------------------------------------------------------
-// creates the bottom vent cutouts - this could be combined with a design or text
-// -----------------------------------------------------------------------------
-
-module _XCCB_BottomVents(_drawText = true) {
-
-		for (i = [0 : 1 : 9]) {
-		
-		translate([6,0,i * 3 - 2])
-		_XCCB_VentBlock(1);
-		
-		translate([0,0,i * 3 - 2 - .25])
-				_XCCB_VentBlock(1);
-		
-		translate([-6,0,i * 3 - 2 - 0.5])
-		_XCCB_VentBlock(1);
-		
-		if (i < 6)
-			translate([-12,0,i * 3 - 2 - 0.75])
-		_XCCB_VentBlock(1);
-		
-		}
-		
-
-	if (_drawText == true) {
-		translate([0.25, 0.25, 0.75])
-		rotate([0,84,-90])
-		scale([1.15,1,1])
-		linear_extrude(height = 2)
-			mirror([1,0,0])
-			text("Gemini", font="Phosphate:style=Solid", size = 4.5);
-			
-			
-	}
-	
-}
-
-
-// -----------------------------------------------------------------------------
-// Shell around the main components
-// -----------------------------------------------------------------------------
-
-module _XCCB_Shell() {
-	difference() {
-
-		STYLE_SCALE = 1.0;
-		STYLE_SIZE = 4.33;	// 4.33 for 5 stacks in 26mm
-
-		// shaped stack of the outline design
-		$fn = 50;	
-	
-		*hull() { // union() : switch to hull() if a less stylized design is desired
-			translate([0, - lowerBoltOffset /2, 0])
-			scale([1 - 0.00,1 - 0.00,1])
-			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase_Base(0);
-
-			
-				
-			translate([0, - lowerBoltOffset /2, 6 * STYLE_SIZE])
-			scale([0.9,1,1])
-			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase_Upper();
-				
-			translate([0, - lowerBoltOffset /2, 7 * STYLE_SIZE])
-			scale([0.85,1 + 0.00,1])
-			linear_extrude(height = STYLE_SIZE, scale=STYLE_SCALE)
-				_XCCB_OutlineCase_Upper();
-				
-			
-				
-			*union() {
-			// Draw the case to hold the blower fan here
-			
-			// border around access hole with access hole cut out for wiring to exit
-			hull() {
-				translate([11,9.6,0])			
-				cylinder(h = 32, r = 2);
-			
-				translate([-11,9.6,0])			
-				cylinder(h = 32, r = 2);
-			}
-			
-			// border around access hole for hiwin rail
-			
-			}
-			
-		} // union
-		
-		// -- vent design testing
-		translate([26,-42,4.33])
-		rotate([0,0,78])
-			_XCCB_BottomVents(false);
-		
-		mirror([1,0,0])	
-		translate([26,-42,4.33])
-		rotate([0,0,78])
-			_XCCB_BottomVents(false);
-		
-		mirror([1,0,0])
-		translate([28,-4,4.33])
-		rotate([0,0,100])
-			_XCCB_TopVents(true);
-		
-		translate([28,-4,4.33])
-		rotate([0,0,100])
-			_XCCB_TopVents(false);
-			
-	
-		// carve out center, leaving just a shell
-		union() {
-			translate([0, - lowerBoltOffset /2, -0.1])
-			scale([0.8, 0.8, 1])	
-				linear_extrude(height = 2.2, scale=1)
-					_XCCB_OutlineCase_Base();
-	
-			hull() {
-			translate([0, - lowerBoltOffset /2, 1])
-			scale([0.9, 0.9, 1])	
-				linear_extrude(height = 1, scale=1)
-					_XCCB_OutlineCase_Base();
-					
-			translate([0, - lowerBoltOffset /2, 35])
-			scale([0.8, 0.9, 1])	
-				linear_extrude(height = 1, scale=1)
-					_XCCB_OutlineCase_Upper();
-			}
-				
-						// cut out space for HA_CarriageBase to insert
-			
-			difference() {
-			translate([0, - lowerBoltOffset /2, 26])
-			scale([0.85, 0.95, 1])	
-				linear_extrude(height = 12, scale=1)
-					_XCCB_OutlineCase_Upper();
-					
-			translate([-40,-60,25])
-				cube([80,40,20]);
-			}
-					
-		} // union
-		
-	} // difference
-	
-	
-
-	union() {
-		// Draw the case to hold the blower fan here
-		_XCCB_BlowerCase();
-		
-		
-	}	
 }
 
 // -----------------------------------------------------------------------------
@@ -520,45 +76,16 @@ module _XCCB_Shell() {
 
 module Part_XC_CarriageBase() {
 
-*_XCCB_TopVents();
-
 	difference() {
 		union() {
 			// start with the base elements
-			*_XCCB_BoltSkeleton(BBStyle_Round);
-			*_XCCB_BoltBases(BBStyle_Taper);
-			_XCCB_BoltPosts();
-		
-			// case skin
-			*_XCCB_Shell();	
-			
-			*translate([0 - BlowerXOffset,0,0])
-				_XCCB_BlowerCase();
-			
+			_CarriageBase_BoltPosts();
+	
 			_width = 35;
 			
 			// mount to hiwin carriage
 			
-			// bulk for bolts to mount through
-			hull() {
-				translate([8, -6, 4])
-				cylinder(h = 14, d = 8);
-			
-				translate([-8, -6, 4])
-				cylinder(h = 14, d = 8);
-			
-				translate([8, -6, 0])
-				cylinder(h = 26, d = 6);
-			
-				translate([-8, -6, 0])
-				cylinder(h = 26, d = 6);
-				
-				translate([8, -7, 0])
-				cylinder(h = 26, d = 6);
-			
-				translate([-8, -7, 0])
-				cylinder(h = 26, d = 6);
-			}
+			_CarriageBase_LinearMount();
 			
 			// wings for bolt post to meet with
 			*hull() {
@@ -656,12 +183,6 @@ module Part_XC_CarriageBase() {
 				_XC_CB_BoltCarveouts();
 			}
 		
-			// Carve out space for blower and output channels
-			translate([0 - BlowerXOffset,-1,0])
-				_XCCB_BlowerSpace();	
-			
-			_XCCB_WiringAccessHole();
-			
 			
 			hull() {
 				translate([12, -22, 40])

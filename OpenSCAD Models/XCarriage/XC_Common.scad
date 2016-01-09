@@ -379,3 +379,71 @@ module _BoltBase(shaftSize, baseThickness, style = BBStyle_Simple) {
 }
 
 
+// -----------------------------------------------------------------------------
+// creates a shape for clearance of the linear rail to be carved out of the part
+// -----------------------------------------------------------------------------
+
+module _HIWINClearance() {
+	
+				
+	union() {
+			// cut out space for Hiwin carriage, clearance of the bar and mount bolts
+			
+	// carriage carve out
+				translate([	0,
+							-22.5,
+							rpXC_CarriageMount_BaseWidth /2 - rpXC_BeltMount_BoltHolderWidth])
+					cube(size= [9,
+								45,
+								rpXC_CarriageMount_BaseWidth],
+						center = false);		
+			hull() {
+			
+	translate([3.5, 50,7])
+	rotate([90,0,0])
+				cylinder(h = 100, d = 4);
+				
+	translate([3.5, 50,34])
+	rotate([90,0,0])
+				cylinder(h = 100, d = 4);			
+				
+	translate([15,50,7])
+	rotate([90,0,0])
+				cylinder(h = 100, d = 4);
+	translate([15,50,34])
+	rotate([90,0,0])
+				cylinder(h = 100, d = 4);
+				
+			
+				
+					
+				// bar carve out
+
+				translate([11.5,
+							0,
+							rpXC_CarriageMount_BaseWidth /2 + 5.5])
+					cube(size= [3.2,
+								100,
+								rpXC_CarriageMount_BaseWidth],
+						center = true);
+			
+				translate([11.5,
+							0,
+							rpXC_CarriageMount_BaseWidth /2 + 5.5])
+					cube(size= [5,
+								100,
+								rpXC_CarriageMount_BaseWidth],
+						center = true);
+			
+				// clearance for bar/rail mounting bolts	
+				translate([16.5,
+							0,
+							rpXC_CarriageMount_BaseWidth /2 + 5.5])
+					cube(size= [5,
+								100,
+								3],
+						center = true);
+
+			}
+}
+}
