@@ -67,20 +67,20 @@ module Part_XC_CarriageBase() {
 		zOffset = (rpXC_CenterModuleDepth / 2) - (hwLR_Carriage_BoltWidth / 2);
 		
 		
-		translate([- hwLR_Carriage_BoltLength / 2, _yOffset - rpXC_CarriageMount_BoltLength + hwLR_Carriage_BoltDepth - 1, zOffset])
-			rotate([-90,0,0])
+		translate([-hwLR_Carriage_BoltLength / 2, _yOffset - rpXC_CarriageMount_BoltLength + hwLR_Carriage_BoltDepth - 1, zOffset])
+		rotate([-90,0,0])
 			Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 20);
 			
 		translate([- hwLR_Carriage_BoltLength / 2, _yOffset - rpXC_CarriageMount_BoltLength + hwLR_Carriage_BoltDepth - 1, zOffset + hwLR_Carriage_BoltWidth])
-			rotate([-90,0,0])
+		rotate([-90,0,0])
 			Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 20);
 			
 		translate([hwLR_Carriage_BoltLength / 2, _yOffset - rpXC_CarriageMount_BoltLength + hwLR_Carriage_BoltDepth - 1, zOffset])
-			rotate([-90,0,0])
+		rotate([-90,0,0])
 			Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 20);
 			
 		translate([hwLR_Carriage_BoltLength / 2, _yOffset - rpXC_CarriageMount_BoltLength + hwLR_Carriage_BoltDepth - 1, zOffset + hwLR_Carriage_BoltWidth])
-			rotate([-90,0,0])
+		rotate([-90,0,0])
 			Carve_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength, 20);	
 	}
 			
