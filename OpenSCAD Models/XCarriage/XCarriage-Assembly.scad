@@ -41,12 +41,12 @@ colourSecondary = "Green";
 // Render: XC_CarriageBracket_Front
 // =============================================================================
 
-//include <XC_CarriageBracket.scad>
+include <XC_FrontBracket.scad>
 
-//color("Black")
-/*translate([rpXC_CarriageMount_BaseWidth / 2,0,10.1])
-rotate([90,0,90])
-	Part_XC_CarriageBracket_Front();*/
+color(colourSecondary)
+translate([rpXC_CarriageMount_BaseWidth / 2 + rpXC_FrontBracketThickness,0,10.1])
+rotate([90,0,-90])
+	Part_XC_FrontBracket();
 	
 	
 // =============================================================================
@@ -104,6 +104,8 @@ translate([0 - (hwLR_Carriage_BoltWidth / 2), 0 + (hwLR_Carriage_BoltLength / 2)
 translate([0 + (hwLR_Carriage_BoltWidth / 2), 0 + (hwLR_Carriage_BoltLength / 2),  0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
 	
+	
+	
 // =============================================================================
 // Render: HA_CarriageBase
 // =============================================================================	
@@ -111,7 +113,7 @@ translate([0 + (hwLR_Carriage_BoltWidth / 2), 0 + (hwLR_Carriage_BoltLength / 2)
 include <XC_HotendMount.scad>
 
 color(colourPrimary)
-translate([10.5 + 4,0,10.1])
+translate([rpXC_CarriageMount_BaseWidth / 2 + rpXC_FrontBracketThickness,0,10.1])
 rotate([90,0,90])
 	Part_HA_CarriageBase();
 
