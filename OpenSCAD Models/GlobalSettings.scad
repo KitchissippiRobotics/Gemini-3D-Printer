@@ -16,7 +16,7 @@
 // Global Settings - Edit These
 // =============================================================================
 
-gRender_Resolution = 1;		// resolution of curves 		- default = 1
+gRender_Resolution = 2;		// resolution of curves 		- default = 1
 gRender_Clearance = 0.2;	// mm of clearance around bolts - default = 0.2
 
 gNozzle_Size = 0.5;			// nozzle size the parts will be printed on
