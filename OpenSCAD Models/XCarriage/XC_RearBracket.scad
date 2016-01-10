@@ -32,18 +32,75 @@ if (MultiPartMode == undef) {
 }
 
 // -----------------------------------------------------------------------------
-// Create the part
+// Put it all together and carve out the hardware clearances
 // -----------------------------------------------------------------------------
 
 module Part_XC_RearBracket() {
+
+	yOffset = -6;
+
 	difference() {
 		union() {
-			_BracketBase(9.75);
-			_BracketSkeleton(2);
-			_BracketSwitchMount(8);
+
+			_RearBracket_BoltPosts();	
+			_RearBracket_LinearMount();
+			_RearBracket_Wing();
+			mirror([1,0,0])
+				_RearBracket_Wing();
+				
+			_RearBracket_LowerBrace();
+			mirror([1,0,0])
+				_RearBracket_LowerBrace();
+				
+			_BracketSwitchMount();
+				
 		}
 		
-		_Bracket_BoltCarveouts();
+		hull() {
+			translate([-8, yOffset, -0.1])
+						cylinder(h = rpXC_RearBracketThickness + 0.1, d = 5);
+						
+			translate([8, yOffset, 0])
+						cylinder(h = rpXC_RearBracketThickness + 0.1, d = 5);
+		}
+		
+		// XC Mounting Bolts
+		translate([rpXC_BeltMount_BoltSpacing / 2, 0, -5])
+			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
+			
+		translate([-rpXC_BeltMount_BoltSpacing / 2, 0, -5])
+			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
+			
+		// XC Mounting Bolts
+		translate([rpXC_BeltMount_BoltSpacing / 2, -lowerBoltOffset, -5])
+			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
+			
+		translate([-rpXC_BeltMount_BoltSpacing / 2, -lowerBoltOffset, -5])
+			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
+			
+		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
+				cylinder(h=10, d= 3.2);
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
+				cylinder(h=10, d= 3.2);
+				
+		// switch screw access carve out
+		hull() {
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 2])
+			cylinder(h=30, d= 1);
+		
+		
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 2])
+			cylinder(h=5, d= 8.5);
+		}
+		
+		hull() {
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 2])
+			cylinder(h=30, d= 1);
+		
+		
+			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 2])
+			cylinder(h=5, d= 8.5);
+		}
 		
 		translate([-BlowerXOffset, -1, 0])
 		_BlowerCarveout();
@@ -59,238 +116,106 @@ module Part_XC_RearBracket() {
 			translate([-3,-12,0])
 				sphere(d = 4);
 			}
-		
-		*translate([-22,-58.5,-10])
-		cube([60,20, 60]);
-		
-		*translate([-26,-58.5,5])
-		cube([60,20, 60]);
 	}
 }
 
 // -----------------------------------------------------------------------------
-// Just Draw the bolt bases
+// Just Draw the bolt posts
 // -----------------------------------------------------------------------------
 
-module _BracketBase(_baseDiameter = 12) {
-	*difference() {
-		union() {
-			// top left assembly bolt mount base
-			translate([-boltSpacing/2, 0, 2])
-				cylinder(h = 4, d1 = _baseDiameter + 6, d2 = _baseDiameter + 5);
-			translate([-boltSpacing/2, 0, 0])
-				cylinder(h = 2, d1 = _baseDiameter + 5, d2 = _baseDiameter + 6);
-				
-			// bottom left assembly bolt mount base
-			translate([-boltSpacing/2, -lowerBoltOffset, 2]) 
-				cylinder(h = 4, d1 = _baseDiameter + 6, d2 = _baseDiameter + 5);
-			translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
-				cylinder(h = 2, d1 = _baseDiameter + 5, d2 = _baseDiameter + 6);
-	
-			// top right assembly bolt mount base
-			translate([boltSpacing/2, 0, 2]) 
-				cylinder(h = 4, d1 = _baseDiameter + 6, d2 = _baseDiameter + 5);
-			translate([boltSpacing/2, 0, 0]) 
-				cylinder(h = 2, d1 = _baseDiameter + 5, d2 = _baseDiameter + 6);
-	
-			// bottom right assembly bolt mount base
-			translate([boltSpacing/2, -lowerBoltOffset, 2]) 
-				cylinder(h = 4, d1 = _baseDiameter + 6, d2 = _baseDiameter + 5);
-			translate([boltSpacing/2, -lowerBoltOffset, 0]) 
-				cylinder(h = 2, d1 = _baseDiameter + 5, d2 = _baseDiameter + 6);
-		}
-		
-		hull() {
-			// top left assembly bolt mount base
-			translate([-boltSpacing/2, 0, 5])
-				cylinder(h = 5, d = _baseDiameter + 1);
-		
-			// top right assembly bolt mount base
-			translate([boltSpacing/2, 0, 5]) 
-				cylinder(h = 5, d = _baseDiameter + 1);
-			
-			// bottom left assembly bolt mount base
-			translate([-boltSpacing/2, -lowerBoltOffset, 5]) 
-				cylinder(h = 5, d = _baseDiameter + 1);
-			
-			// bottom right assembly bolt mount base
-			translate([boltSpacing/2, -lowerBoltOffset, 5]) 
-				cylinder(h = 5, d = _baseDiameter + 1);
-		}
-		
-		*hull() {
-			// top left assembly bolt mount base
-			translate([-boltSpacing/2, 0, 0])
-				cylinder(h = 5, d = _baseDiameter);
-		
-			// top right assembly bolt mount base
-			translate([boltSpacing/2, 0, 0]) 
-				cylinder(h = 5, d = _baseDiameter);
-			
-			// bottom left assembly bolt mount base
-			translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
-				cylinder(h = 5, d = _baseDiameter);
-			
-			// bottom right assembly bolt mount base
-			translate([boltSpacing/2, -lowerBoltOffset, 0]) 
-				cylinder(h = 5, d = _baseDiameter);
-		}
-		
-	}
-
+module _RearBracket_BoltPosts() {
 	// top left assembly bolt mount base
 	translate([-boltSpacing/2, 0, 0])
-		cylinder(h = 4.5, d1 = _baseDiameter + 1, d2 = _baseDiameter);
-	
-	// bottom left assembly bolt mount base
-	translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
-		cylinder(h = 4.5, d = _baseDiameter);
-	
+		cylinder(	h = rpXC_RearBracketThickness,	
+					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
+					$fn = gcFacetLarge);
+		
 	// top right assembly bolt mount base
-	translate([boltSpacing/2, 0, 0]) 
-		cylinder(h = 4.5, d1 = _baseDiameter + 1, d2 = _baseDiameter);
-	
+	translate([boltSpacing/2, 0, 0])
+		cylinder(	h = rpXC_RearBracketThickness,	
+					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
+					$fn = gcFacetLarge);
+					
+	// bottom left assembly bolt mount base
+	translate([-boltSpacing/2, -lowerBoltOffset, 0])
+		cylinder(	h = rpXC_RearBracketThickness,	
+					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
+					$fn = gcFacetLarge);
+		
 	// bottom right assembly bolt mount base
-	translate([boltSpacing/2, -lowerBoltOffset, 0]) 
-		cylinder(h = 4.5, d = _baseDiameter);
+	translate([boltSpacing/2, -lowerBoltOffset, 0])
+		cylinder(	h = rpXC_RearBracketThickness,	
+					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
+					$fn = gcFacetLarge);
+			
 }
 
-module _BracketSkeleton(_baseDiameter = 12) {
-	*hull() {
-		// top left assembly bolt mount base
-		translate([-boltSpacing/2, -20, 0])
-			_BoltBase(0, 4, BBStyle_Round);
-			
-		// bottom left assembly bolt mount base
-		translate([-boltSpacing/2, -lowerBoltOffset + 2, 0]) 
-			_BoltBase(0, 4, BBStyle_Round);
-			
-		// top right assembly bolt mount base
-		translate([boltSpacing/2, -20, 0]) 
-			_BoltBase(0, 4, BBStyle_Round);
-			
-		// bottom right assembly bolt mount base
-		translate([boltSpacing/2, -lowerBoltOffset +2, 0]) 
-			_BoltBase(0, 4, BBStyle_Round);
-	}
-	
-	// top right brace
+// -----------------------------------------------------------------------------
+// Linear Mount
+// -----------------------------------------------------------------------------
+
+module _RearBracket_LinearMount(_yOffset = -6) {
+
+	// some calculations used in the module
+	centerSize = rpXC_CenterModuleDepth / 3;
+
+	// block for bolts to mount through
 	hull() {
-		// top left assembly bolt mount base
-		translate([boltSpacing/2, 0, 0])
-			_BoltBase(0, 4.5, BBStyle_Round);
-		
-		translate([8, -7, 0])
-				_BoltBase(0, 4.5, BBStyle_Round);	
-				
-		translate([boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
-			_BoltBase(0, 4.5, BBStyle_Round);	
+		translate([8, _yOffset, 0])
+			cylinder(h = rpXC_RearBracketThickness, d1 = 9, d2 = 10, $fn = gcFacetLarge);
+
+		translate([-8, _yOffset, 0])
+			cylinder(h = rpXC_RearBracketThickness, d1 = 9, d2 = 10, $fn = gcFacetLarge);
+	}
+}
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+
+module _RearBracket_LowerBrace(_yOffset = -6) {
+	// -- lower portion of the wing
+	hull() {
+		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0])
+			cylinder(h = rpXC_RearBracketThickness /2,	d1 = 10, d2 = 8);
+
+		translate([-8, _yOffset, 0])
+				cylinder(h = rpXC_RearBracketThickness, d1 = 9, d2 = 7);
 	}
 
-	// top left brace
+	// -- connect lower portion of the wing to lower bolt
 	hull() {
-		// top left assembly bolt mount base
+		translate([-boltSpacing/2, -lowerBoltOffset /2 -3, 0])
+			cylinder(h = rpXC_RearBracketThickness /2,	d1 = 10, d2 = 8);
+
+		translate([-boltSpacing/2, -lowerBoltOffset, 0])
+				cylinder(h = rpXC_RearBracketThickness, d = 8);
+	}
+}
+
+// -----------------------------------------------------------------------------
+// Wing to attach the linear carriage mount to the bolt post 
+// - left side, mirror to get right side
+// -----------------------------------------------------------------------------
+
+module _RearBracket_Wing(_yOffset = -6) {
+
+	// -- base portion of the wing
+	hull() {
 		translate([-boltSpacing/2, 0, 0])
-			_BoltBase(0, 4.5, BBStyle_Round);
+			cylinder(h = rpXC_RearBracketThickness,	d1 = 2.5, d2 = 4);
+
+		translate([-8, _yOffset, 0])
+				cylinder(h = rpXC_RearBracketThickness, d1 = 4.5, d2 = 6);
 		
-		translate([-8, -7, 0])
-				_BoltBase(0, 4.5, BBStyle_Round);	
-			
-		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
-			_BoltBase(0, 4.5, BBStyle_Round);	
-		
-	}
-	
-	hull() {
-		// bottom left assembly bolt mount base
-		translate([boltSpacing/2, -6, 0]) 
-			_BoltBase(0.75, 4.5, BBStyle_Round);
-			
-		// bottom left assembly bolt mount base
-		translate([-boltSpacing/2, -6, 0]) 
-			_BoltBase(0.75, 4.5, BBStyle_Round);
-		
-	}
-	
-	*hull() {
-		translate([8, -7, 0])
-				_BoltBase(0, 2, BBStyle_Round);
-				
-		// bottom left assembly bolt mount base
-		translate([boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
-			_BoltBase(0, 2, BBStyle_Round);
-			
-		translate([boltSpacing/2, -lowerBoltOffset, 0]) 
-			_BoltBase(4, 2, BBStyle_Round);
-	}
-	
-	
-	*hull() {
-		translate([-8, -7, 0])
-				_BoltBase(0, 4.5, BBStyle_Round);
-			
-		// bottom left assembly bolt mount base
-		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
-			_BoltBase(0, 4.5, BBStyle_Round);
-	}
-	
-	*hull() {
-		translate([8, -7, 0])
-				_BoltBase(0, 4.5, BBStyle_Round);
-			
-		// bottom left assembly bolt mount base
-		translate([boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
-			_BoltBase(0, 4.5, BBStyle_Round);
-	}
-	
-	hull() {
-		translate([8, -6, 0])
-			cylinder(h = 4.5, d = 8);
-				
-		translate([-8, -6, 0])
-			cylinder(h = 4.5, d = 8);
-				
-		/*translate([10, -12, 0])
-				_BoltBase(2.5, 2, BBStyle_Round);
-		translate([-10, -12, 0])
-				_BoltBase(2.5, 2, BBStyle_Round);*/
-	}
-	// right side vertical brace
-	hull() {
-	
-		// top right assembly bolt mount base
-		translate([boltSpacing/2, 0, 0]) 
-			_BoltBase(4, 4.5, BBStyle_Round);
-			
-		// bottom right assembly bolt mount base
-		translate([boltSpacing/2, -lowerBoltOffset, 0]) 
-			_BoltBase(4, 4.5, BBStyle_Round);
-	}
-	
-	// left side vertical brace
-	hull() {
-	
-		// top right assembly bolt mount base
-		translate([-boltSpacing/2, 0, 0]) 
-			_BoltBase(4, 4.5, BBStyle_Round);
-			
-		// bottom right assembly bolt mount base
-		translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
-			_BoltBase(4, 4.5, BBStyle_Round);
-	}
-	
-	// bottom side vertical brace
-	hull() {
-	
-		// bottom right assembly bolt mount base
-		translate([boltSpacing/2, -lowerBoltOffset - 1, 0]) 
-			_BoltBase(2, 4.5, BBStyle_Round);
-			
-		// bottom right assembly bolt mount base
-		translate([-boltSpacing/2, -lowerBoltOffset - 1, 0]) 
-			_BoltBase(2, 4.5, BBStyle_Round);
-	}
+		translate([-8, _yOffset  -2, 0])
+				cylinder(h = rpXC_RearBracketThickness / 2, d = 5);
+	}		
 }
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
 
 module _BracketSwitchMount(_baseDiameter = 10) {
 	// switch holder lower screw base
@@ -301,77 +226,23 @@ module _BracketSwitchMount(_baseDiameter = 10) {
 		// make a rectangular-ish space
 		// lower
 		translate([switchXOffset + 3, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
-			_BoltBase(1, 5 - 0.5, BBStyle_Round);
+			_BoltBase(1, rpXC_RearBracketThickness - 2, BBStyle_Round);
 		translate([switchXOffset - 3, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
-			_BoltBase(1, 5 - 0.5, BBStyle_Round);
+			_BoltBase(1, rpXC_RearBracketThickness - 2, BBStyle_Round);
 		// upper
 		translate([switchXOffset + 3, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
-			_BoltBase(1, 5 - 0.5, BBStyle_Round);
+			_BoltBase(1, rpXC_RearBracketThickness - 2, BBStyle_Round);
 		translate([switchXOffset - 3, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
-			_BoltBase(1, 5 - 0.5, BBStyle_Round);
+			_BoltBase(1, rpXC_RearBracketThickness - 2, BBStyle_Round);
 	
 		// switch holder lower screw base
 		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
-			_BoltBase(hwMicroSwitch_ScrewHeadDiameter - 0.5, 5, BBStyle_Round);
+			_BoltBase(hwMicroSwitch_ScrewHeadDiameter - 0.5, rpXC_RearBracketThickness - 1, BBStyle_Round);
 	
 		// switch holder upper screw base
 		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
-			_BoltBase(hwMicroSwitch_ScrewHeadDiameter - 0.5, 5, BBStyle_Round);
+			_BoltBase(hwMicroSwitch_ScrewHeadDiameter - 0.5, rpXC_RearBracketThickness - 1, BBStyle_Round);
 	}
 	
-}
-
-module _Bracket_BoltCarveouts() {
-	_boltDiameter = 4.5;
-	
-	// top left assembly bolt mount base
-	translate([-boltSpacing/2, 0, 0])
-		cylinder(h = 6, d = _boltDiameter);
-	
-	// bottom left assembly bolt mount base
-	translate([-boltSpacing/2, -lowerBoltOffset, 0]) 
-		cylinder(h = 6, d = _boltDiameter);
-	
-	// top right assembly bolt mount base
-	translate([boltSpacing/2, 0, 0]) 
-		cylinder(h = 6, d = _boltDiameter);
-	
-	// bottom right assembly bolt mount base
-	translate([boltSpacing/2, -lowerBoltOffset, 0]) 
-		cylinder(h = 6, d = _boltDiameter);
-		
-	/*translate([boltSpacing/2, -lowerBoltOffset, 3]) 
-		cylinder(h = 5, d = 9.5, $fn = 6);*/
-		
-	// switch screw carve out
-			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])
-				cylinder(h=10, d= 3.2);
-			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
-				cylinder(h=10, d= 3.2);
-				
-				
-// switch screw access carve out
-			hull() {
-				translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 2])
-				cylinder(h=30, d= 1);
-			
-			
-				translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 2])
-				cylinder(h=5, d= 8.5);
-			}
-			
-			hull() {
-				translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 2])
-				cylinder(h=30, d= 1);
-			
-			
-				translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 2])
-				cylinder(h=5, d= 8.5);
-			}
-}
-
-module Part_XC_CarriageBracket_Front() {
-		//_BracketBase(9);
-		
 }
 

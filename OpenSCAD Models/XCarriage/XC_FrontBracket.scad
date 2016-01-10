@@ -36,6 +36,9 @@ if (MultiPartMode == undef) {
 // -----------------------------------------------------------------------------
 
 module Part_XC_FrontBracket() {
+
+	yOffset = -6;
+
 	difference() {
 		union() {
 
@@ -45,6 +48,18 @@ module Part_XC_FrontBracket() {
 			mirror([1,0,0])
 				_FrontBracket_Wing();
 				
+			_FrontBracket_LowerBrace();
+			mirror([1,0,0])
+				_FrontBracket_LowerBrace();
+				
+		}
+		
+		hull() {
+			translate([-8, yOffset, -0.1])
+						cylinder(h = rpXC_FrontBracketThickness + 0.1, d = 5);
+						
+			translate([8, yOffset, 0])
+						cylinder(h = rpXC_FrontBracketThickness + 0.1, d = 5);
 		}
 		
 		// XC Mounting Bolts
@@ -59,8 +74,7 @@ module Part_XC_FrontBracket() {
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 			
 		translate([-rpXC_BeltMount_BoltSpacing / 2, -lowerBoltOffset, -5])
-			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
-		
+			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);	
 	}
 }
 
@@ -111,10 +125,31 @@ module _FrontBracket_LinearMount(_yOffset = -6) {
 
 		translate([-8, _yOffset, 0])
 			cylinder(h = rpXC_FrontBracketThickness, d1 = 9, d2 = 10, $fn = gcFacetLarge);
-
-	
 	}
-	
+}
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+
+module _FrontBracket_LowerBrace(_yOffset = -6) {
+	// -- lower portion of the wing
+	hull() {
+		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0])
+			cylinder(h = rpXC_FrontBracketThickness /2,	d1 = 10, d2 = 8);
+
+		translate([-8, _yOffset, 0])
+				cylinder(h = rpXC_FrontBracketThickness, d1 = 9, d2 = 7);
+	}
+
+	// -- connect lower portion of the wing to lower bolt
+	hull() {
+		translate([-boltSpacing/2, -lowerBoltOffset /2 -3, 0])
+			cylinder(h = rpXC_FrontBracketThickness /2,	d1 = 10, d2 = 8);
+
+		translate([-boltSpacing/2, -lowerBoltOffset, 0])
+				cylinder(h = rpXC_FrontBracketThickness, d = 8);
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -123,38 +158,16 @@ module _FrontBracket_LinearMount(_yOffset = -6) {
 // -----------------------------------------------------------------------------
 
 module _FrontBracket_Wing(_yOffset = -6) {
-	
+
 	// -- base portion of the wing
 	hull() {
 		translate([-boltSpacing/2, 0, 0])
-			cylinder(h = rpXC_FrontBracketThickness,	d1 = 3, d2 = 4);
-		
+			cylinder(h = rpXC_FrontBracketThickness,	d1 = 2.5, d2 = 4);
+
 		translate([-8, _yOffset, 0])
-				cylinder(h = rpXC_FrontBracketThickness, d1 = 5, d2 = 6);
-				
-
-	}
-	
-	// -- lower portion of the wing
-	hull() {
-		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0])
-			cylinder(h = rpXC_FrontBracketThickness /2,	d1 = 10, d2 = 8);
+				cylinder(h = rpXC_FrontBracketThickness, d1 = 4.5, d2 = 6);
 		
-		translate([-8, _yOffset, 0])
-				cylinder(h = rpXC_FrontBracketThickness, d1 = 9, d2 = 7);
-				
-
-	}
-	
-	// -- connect lower portion of the wing to lower bolt
-	hull() {
-		translate([-boltSpacing/2, -lowerBoltOffset /2 -3, 0])
-			cylinder(h = rpXC_FrontBracketThickness /2,	d1 = 10, d2 = 8);
-		
-		translate([-boltSpacing/2, -lowerBoltOffset, 0])
-				cylinder(h = rpXC_FrontBracketThickness, d1 = 6, d2 = 5);
-				
-
-	}
-		
+		translate([-8, _yOffset  -2, 0])
+				cylinder(h = rpXC_FrontBracketThickness / 2, d = 5);
+	}		
 }

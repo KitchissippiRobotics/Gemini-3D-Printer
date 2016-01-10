@@ -92,12 +92,12 @@ module _BlowerCase_BoltPosts() {
 	
 	// left assembly bolt 
 	translate([-boltSpacing/2, 0, 0])
-		cylinder(h = rpXC_CenterModuleDepth,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 1);
+		cylinder(h = rpXC_CenterModuleDepth,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);
 			
 	hull() {
 		// central bolt post
 		translate([boltSpacing/2, 0, 0])
-			cylinder(h = rpXC_CenterModuleDepth,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 1);		
+			cylinder(h = rpXC_CenterModuleDepth,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);		
 											
 		// bulge for support around blower mount bolt			
 		translate([boltSpacing/2, 0, _baseThickness])

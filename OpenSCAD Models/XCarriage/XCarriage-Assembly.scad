@@ -55,8 +55,8 @@ rotate([90,0,-90])
 	
 include <XC_RearBracket.scad>	
 	
-color(colourPrimary)
-translate([-rpXC_CarriageMount_BaseWidth  + rpXC_BeltMount_BoltHolderWidth,0,10.1])
+color(colourSecondary)
+translate([-rpXC_CarriageMount_BaseWidth / 2 - rpXC_RearBracketThickness,0,10.1])
 rotate([90,0,90])
 	Part_XC_RearBracket();
 	

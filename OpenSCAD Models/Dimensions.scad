@@ -137,6 +137,7 @@ rpXC_BeltMount_ClampBoltSize = hwM3_Bolt_AllenHeadSize;
 
 rpXC_CenterModuleDepth = 22;
 rpXC_FrontBracketThickness = 4;
+rpXC_RearBracketThickness = 4.5;
 
 // =============================================================================
 
