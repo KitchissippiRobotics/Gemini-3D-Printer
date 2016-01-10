@@ -9,17 +9,15 @@
 // XC_CarriageBase.scad
 // Part No. XB-CB-ABS01
 // Generates XC_CarriageBase.stl
-// -----------------------------------------------------------------------------
-// Note that there is some rotation done in the part module - this part started
-// it's design with a different print orientation than it currently has.
 // *****************************************************************************
 
 include <../Dimensions.scad>
 include <XC_Common.scad>
 
-// -----------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Default Usage:	
 // Part_XC_CarriageBase();
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // Determine if MultiPartMode is enabled - if not, render the part automatically
 // and enable support material (if it is defined)
@@ -113,29 +111,27 @@ module _CarriageBase_BoltPosts() {
 // -----------------------------------------------------------------------------
 
 module _CarriageBase_LinearMount(_yOffset = -6) {
+
+	// some calculations used in the module
 	centerSize = rpXC_CenterModuleDepth / 3;
 
-	difference() {
-		// bulk for bolts to mount through
-		hull() {
-			translate([8, _yOffset, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
-				cylinder(h = centerSize, d = 12, $fn = gcFacetLarge);
-	
-			translate([-8, _yOffset, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
-				cylinder(h = centerSize, d = 12, $fn = gcFacetLarge);
-		
-	
-			translate([8, _yOffset, 0])
-				cylinder(h = rpXC_CenterModuleDepth, d = 10, $fn = gcFacetLarge);
-	
-			translate([-8, _yOffset, 0])
-				cylinder(h = rpXC_CenterModuleDepth, d = 10, $fn = gcFacetLarge);
-		
-		}
-		
+	// block for bolts to mount through
+	hull() {
+		translate([8, _yOffset, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
+			cylinder(h = centerSize, d = 12, $fn = gcFacetLarge);
 
-			
+		translate([-8, _yOffset, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
+			cylinder(h = centerSize, d = 12, $fn = gcFacetLarge);
+	
+
+		translate([8, _yOffset, 0])
+			cylinder(h = rpXC_CenterModuleDepth, d = 10, $fn = gcFacetLarge);
+
+		translate([-8, _yOffset, 0])
+			cylinder(h = rpXC_CenterModuleDepth, d = 10, $fn = gcFacetLarge);
+	
 	}
+	
 }
 
 // -----------------------------------------------------------------------------
@@ -182,6 +178,7 @@ module _CarriageBase_Wing(_yOffset = -6) {
 // -----------------------------------------------------------------------------
 
 module _CarriageBase_WingCarveout(_yOffset = -6) {
+
 	// some calculations used in the module
 	carveOffset = (hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness) / 2;
 	centerSize = rpXC_CenterModuleDepth / 3;
