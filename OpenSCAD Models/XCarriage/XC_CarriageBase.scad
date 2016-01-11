@@ -186,10 +186,10 @@ module _CarriageBase_WingCarveout(_yOffset = -6) {
 	hull() {
 			// top left assembly bolt mount base
 			translate([-boltSpacing/2 +  carveOffset, 3, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
-				cylinder(h = centerSize,	d = 4);
+				cylinder(h = centerSize,	d = 8);
 				
 			translate([-8 - carveOffset, _yOffset + 6, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
-					cylinder(h = centerSize, d = 4);
+					cylinder(h = centerSize, d = 8);
 										
 				
 			translate([-boltSpacing/2 +  carveOffset, 3, 2])

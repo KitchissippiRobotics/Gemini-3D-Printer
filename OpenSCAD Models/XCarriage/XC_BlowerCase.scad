@@ -60,9 +60,7 @@ module Part_XC_BlowerCase() {
 			
 		// Carve out space for blower and output channels
 		translate([0 - BlowerXOffset,yOffsetTemp -1, -4])
-			_BlowerCarveout();
-			
-		
+			_BlowerCarveout();		
 			
 		// carve out left bolt hole
 		translate([-boltSpacing/2, 0, 0])
@@ -259,11 +257,7 @@ module _BlowerCase_OutputVents(_boxEdgeDiameter = 6) {
 		translate([-20, -26, 22.5])
 		sphere(d = 5);
 		
-		*translate([-13 -BlowerXOffset, -18, 25])
-		rotate([90,0,90])
-		cylinder(h = 22, d = 6.5);
-		
-		translate([-14.5 -BlowerXOffset, -18, 0])
+		translate([-14.5 -BlowerXOffset, -18, 2])
 		rotate([90,0,90])
 		cylinder(h = 23.5, d = 2);
 		
@@ -286,12 +280,9 @@ module _BlowerCase_OutputVents(_boxEdgeDiameter = 6) {
 		translate([20, -26, 22.5])
 		sphere(d = 5);
 		
-		*translate([-13 -BlowerXOffset, -18, 25])
-		rotate([90,0,90])
-		cylinder(h = 22, d = 6.5);
 		
 		// 
-		translate([10 -BlowerXOffset, -18, 0])
+		translate([10 -BlowerXOffset, -18, 2])
 		rotate([90,0,90])
 		cylinder(h = 23.5, d = 2);
 		

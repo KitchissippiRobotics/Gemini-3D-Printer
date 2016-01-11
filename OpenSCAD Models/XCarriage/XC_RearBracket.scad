@@ -55,15 +55,7 @@ module Part_XC_RearBracket() {
 			_BracketSwitchMount();
 				
 		}
-		
-		hull() {
-			translate([-8, yOffset, -0.1])
-						cylinder(h = rpXC_RearBracketThickness + 0.1, d = 5);
-						
-			translate([8, yOffset, 0])
-						cylinder(h = rpXC_RearBracketThickness + 0.1, d = 5);
-		}
-		
+			
 		// XC Mounting Bolts
 		translate([rpXC_BeltMount_BoltSpacing / 2, 0, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
