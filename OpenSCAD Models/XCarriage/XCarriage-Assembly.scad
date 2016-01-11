@@ -43,7 +43,7 @@ colourSecondary = "Green";
 
 include <XC_FrontBracket.scad>
 
-color(colourSecondary)
+color(colourPrimary)
 translate([rpXC_CarriageMount_BaseWidth / 2 + rpXC_FrontBracketThickness,0,10.1])
 rotate([90,0,-90])
 	Part_XC_FrontBracket();
@@ -55,7 +55,7 @@ rotate([90,0,-90])
 	
 include <XC_RearBracket.scad>	
 	
-color(colourSecondary)
+color(colourPrimary)
 translate([-rpXC_CarriageMount_BaseWidth / 2 - rpXC_RearBracketThickness,0,10.1])
 rotate([90,0,90])
 	Part_XC_RearBracket();
@@ -216,7 +216,7 @@ include <../Vitamins/hotend-jhead.scad>
 %translate([hwHA_Hotend_Offset,
 			-(hwHA_Hotend_Spacing /2),
 			-hwHA_Hotend_VerticalOffset])
-rotate([0,180,90])
+rotate([0,180,0])
 	hotend_jhead();
 	
 // ~~~ Part No. XC-HA-HOTENDS.COM-02 ~~~ (J-Head from hotends.com)
@@ -224,7 +224,7 @@ rotate([0,180,90])
 %translate([hwHA_Hotend_Offset,
 			(hwHA_Hotend_Spacing /2),
 			-hwHA_Hotend_VerticalOffset])
-rotate([0,180,90])
+rotate([0,180,180])
 	hotend_jhead();
 	
 // pushfit
