@@ -169,7 +169,7 @@ module _RearBracket_LowerBrace(_yOffset = -6) {
 	// -- lower portion of the wing
 	hull() {
 		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0])
-			cylinder(h = rpXC_RearBracketThickness /2,	d1 = 10, d2 = 8);
+			cylinder(h = rpXC_RearBracketThickness -1,	d1 = 10, d2 = 8);
 
 		translate([-8, _yOffset, 0])
 				cylinder(h = rpXC_RearBracketThickness, d1 = 9, d2 = 7);
@@ -178,7 +178,7 @@ module _RearBracket_LowerBrace(_yOffset = -6) {
 	// -- connect lower portion of the wing to lower bolt
 	hull() {
 		translate([-boltSpacing/2, -lowerBoltOffset /2 -3, 0])
-			cylinder(h = rpXC_RearBracketThickness /2,	d1 = 10, d2 = 8);
+			cylinder(h = rpXC_RearBracketThickness -1,	d1 = 10, d2 = 8);
 
 		translate([-boltSpacing/2, -lowerBoltOffset, 0])
 				cylinder(h = rpXC_RearBracketThickness, d = 8);
@@ -218,14 +218,14 @@ module _BracketSwitchMount(_baseDiameter = 10) {
 		// make a rectangular-ish space
 		// lower
 		translate([switchXOffset + 3, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
-			_BoltBase(1, rpXC_RearBracketThickness - 2, BBStyle_Round);
+			_BoltBase(1, rpXC_RearBracketThickness - 1, BBStyle_Round);
 		translate([switchXOffset - 3, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2 - 3, 0])
-			_BoltBase(1, rpXC_RearBracketThickness - 2, BBStyle_Round);
+			_BoltBase(1, rpXC_RearBracketThickness - 1, BBStyle_Round);
 		// upper
 		translate([switchXOffset + 3, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
-			_BoltBase(1, rpXC_RearBracketThickness - 2, BBStyle_Round);
+			_BoltBase(1, rpXC_RearBracketThickness - 1, BBStyle_Round);
 		translate([switchXOffset - 3, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2 + 3, 0])
-			_BoltBase(1, rpXC_RearBracketThickness - 2, BBStyle_Round);
+			_BoltBase(1, rpXC_RearBracketThickness - 1, BBStyle_Round);
 	
 		// switch holder lower screw base
 		translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset - hwMicroSwitch_HoleSpacing /2, 0])

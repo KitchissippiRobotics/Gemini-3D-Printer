@@ -109,9 +109,16 @@ module _BlowerCarveout() {
 		cylinder(h = 9, d = 3);
 	}
 	
+	// hole spacing is centred around the expected 24mm spacing from the initial 
+	// design spec - do some mods to adjust for alternative spacing
+	
+	outOffset = (24 -  hwHA_Hotend_Spacing) /2;
+	
 	hull() {
+		
+	
 		// right output hole
-		translate([6 + BlowerXOffset, -61, 28])
+		translate([6 + BlowerXOffset -outOffset, -61, 28])
 		rotate([90,0,90])
 		cylinder(h = 12, d = 1.5);
 		
@@ -138,7 +145,7 @@ module _BlowerCarveout() {
 	
 	hull() {
 		// left output hole
-		translate([-18 + BlowerXOffset, -61, 28])
+		translate([-18 + BlowerXOffset + outOffset, -61, 28])
 		rotate([90,0,90])
 		cylinder(h = 12, d = 1.5);
 		

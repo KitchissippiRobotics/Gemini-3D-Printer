@@ -145,7 +145,8 @@ rpXC_RearBracketThickness = 4.5;
 // -----------------------------------------------------------------------------
 
 // spacing for the hotends
-hwHA_Hotend_Spacing = 24;	// Rv2 = 25
+
+hwHA_Hotend_Spacing = 20;	// Rv2 = 25
 
 // forward offset from zero point on X-Carriage
 hwHA_Hotend_Offset = 24;	// Rv2 = 27.4

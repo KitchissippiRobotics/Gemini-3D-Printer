@@ -248,14 +248,24 @@ module _BlowerCase_BoltMount(_boxEdgeDiameter = 6) {
 // -----------------------------------------------------------------------------
 
 module _BlowerCase_OutputVents(_boxEdgeDiameter = 6) {
+
+	// hole spacing is centred around the expected 24mm spacing from the initial 
+	// design spec - do some mods to adjust for alternative spacing
+	
+	outOffset = (24 -  hwHA_Hotend_Spacing) /2;
+
 		// left output
 	hull() {
 		// rounded sections around left output hole
 		translate([-2, -26, 22.5])
 		sphere(d = 5);
 		
-		translate([-20, -26, 22.5])
+		translate([-19 + outOffset, -26, 22.5])
 		sphere(d = 5);
+		
+		// top front left edge
+		translate([-12 - BlowerXOffset,-21,rpXC_CenterModuleDepth])
+		sphere(d = _boxEdgeDiameter);
 		
 		translate([-14.5 -BlowerXOffset, -18, 2])
 		rotate([90,0,90])
@@ -273,11 +283,13 @@ module _BlowerCase_OutputVents(_boxEdgeDiameter = 6) {
 		
 	// right output
 	hull() {
+		// 
+	
 		// rounded sections around right output hole
 		translate([2, -26, 22.5])
 		sphere(d = 5);
 	
-		translate([20, -26, 22.5])
+		translate([19 - outOffset, -26, 22.5])
 		sphere(d = 5);
 		
 		
