@@ -51,10 +51,10 @@ module Part_XC_CarriageBase() {
 		}
 		
 		// XC Mounting Bolts
-		translate([rpXC_BeltMount_BoltSpacing / 2, 0, -5])
+		translate([rpXC_UpperMount_BoltSpacing / 2, 0, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 			
-		translate([-rpXC_BeltMount_BoltSpacing / 2, 0, -5])
+		translate([-rpXC_UpperMount_BoltSpacing / 2, 0, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		
 		// Cut flat section off where it meets the linear carriage
@@ -93,13 +93,13 @@ module Part_XC_CarriageBase() {
 
 module _CarriageBase_BoltPosts() {
 	// top left assembly bolt mount base
-	translate([-boltSpacing/2, 0, 0])
+	translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
 		cylinder(	h = rpXC_CenterModuleDepth,	
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
 		
 	// top right assembly bolt mount base
-	translate([boltSpacing/2, 0, 0])
+	translate([rpXC_UpperMount_BoltSpacing/2, 0, 0])
 		cylinder(	h = rpXC_CenterModuleDepth,	
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
@@ -149,14 +149,14 @@ module _CarriageBase_Wing(_yOffset = -6) {
 	difference() {
 		// -- base portion of the wing
 		hull() {
-			translate([-boltSpacing/2, 0, 0])
+			translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
 				cylinder(h = rpXC_CenterModuleDepth,	d = 4);
 			
 			translate([-8, _yOffset, 0])
 					cylinder(h = rpXC_CenterModuleDepth, d = 6);
 					
 
-			translate([-boltSpacing/2, 0, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
+			translate([-rpXC_UpperMount_BoltSpacing/2, 0, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
 				cylinder(h = centerSize,	d = 6);
 			
 			translate([-8, _yOffset, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
@@ -185,14 +185,14 @@ module _CarriageBase_WingCarveout(_yOffset = -6) {
 	
 	hull() {
 			// top left assembly bolt mount base
-			translate([-boltSpacing/2 +  carveOffset, 3, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
-				cylinder(h = centerSize,	d = 8);
+			translate([-rpXC_UpperMount_BoltSpacing/2 +  carveOffset, 3, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
+				cylinder(h = centerSize,	d = 6);
 				
 			translate([-8 - carveOffset, _yOffset + 6, (rpXC_CenterModuleDepth / 2) - (centerSize / 2)])
-					cylinder(h = centerSize, d = 8);
+					cylinder(h = centerSize, d = 6);
 										
 				
-			translate([-boltSpacing/2 +  carveOffset, 3, 2])
+			translate([-rpXC_UpperMount_BoltSpacing/2 +  carveOffset, 3, 2])
 				cylinder(h = rpXC_CenterModuleDepth - 4,	d = 2);
 				
 					
@@ -203,7 +203,7 @@ module _CarriageBase_WingCarveout(_yOffset = -6) {
 			translate([-8 - carveOffset, _yOffset + 6, 0])
 					cylinder(h = rpXC_CenterModuleDepth, d = 1);
 					
-			translate([-boltSpacing/2 +  carveOffset, 3, 0])
+			translate([-rpXC_UpperMount_BoltSpacing/2 +  carveOffset, 3, 0])
 					cylinder(h = rpXC_CenterModuleDepth, d = 1);
 		}
 }

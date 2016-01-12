@@ -39,7 +39,7 @@ BlowerCaseExtension = 20;
 
 _baseThickness = rpDefaultBaseThickness + 5 /*+ rpDefaultBevel * 2*/;		// mm
 minimumThickness = 4; // mm
-boltSpacing = rpXC_BeltMount_BoltSpacing;		// mm
+boltSpacing = rpXC_LowerMount_BoltSpacing;		// mm
 boltDiameter = hwM4_Bolt_ShaftDiameter;
 lowerBoltOffset = rpXC_BeltMount_BoltOffset + rpXC_CarriageMount_LowerPointSpacing;	// mm
 bevelSize = rpDefaultBevel;	// mm

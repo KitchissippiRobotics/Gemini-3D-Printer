@@ -63,19 +63,19 @@ module Part_XC_BlowerCase() {
 			_BlowerCarveout();		
 			
 		// carve out left bolt hole
-		translate([-boltSpacing/2, 0, 0])
+		translate([-rpXC_LowerMount_BoltSpacing/2, 0, 0])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 0);
 		
 		// carve out right bolt hole
-		translate([boltSpacing/2, 0, 0])
+		translate([rpXC_LowerMount_BoltSpacing/2, 0, 0])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 0);
 			
 		// left assembly bolt mount base clearance
-		translate([-boltSpacing/2, 0, rpXC_CenterModuleDepth])
+		translate([-rpXC_LowerMount_BoltSpacing/2, 0, rpXC_CenterModuleDepth])
 			cylinder(h = rpXC_CenterModuleDepth - _baseThickness,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 2);
 			
 		// right assembly bolt mount base clearance
-		translate([boltSpacing/2, 0, rpXC_CenterModuleDepth])
+		translate([rpXC_LowerMount_BoltSpacing/2, 0, rpXC_CenterModuleDepth])
 			cylinder(h = rpXC_CenterModuleDepth - _baseThickness,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 2);
 			
 	}
@@ -89,16 +89,16 @@ module _BlowerCase_BoltPosts() {
 	// --- posts for bolts
 	
 	// left assembly bolt 
-	translate([-boltSpacing/2, 0, 0])
+	translate([-rpXC_LowerMount_BoltSpacing/2, 0, 0])
 		cylinder(h = rpXC_CenterModuleDepth,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);
 			
 	hull() {
 		// central bolt post
-		translate([boltSpacing/2, 0, 0])
+		translate([rpXC_LowerMount_BoltSpacing/2, 0, 0])
 			cylinder(h = rpXC_CenterModuleDepth,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness);		
 											
 		// bulge for support around blower mount bolt			
-		translate([boltSpacing/2, 0, _baseThickness])
+		translate([rpXC_LowerMount_BoltSpacing/2, 0, _baseThickness])
 			cylinder(h = 10,	d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 4,
 								d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 4);
 	}

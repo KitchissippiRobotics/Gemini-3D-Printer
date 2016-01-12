@@ -55,17 +55,17 @@ module Part_XC_FrontBracket() {
 		}
 		
 		// XC Mounting Bolts
-		translate([rpXC_BeltMount_BoltSpacing / 2, 0, -5])
+		translate([rpXC_UpperMount_BoltSpacing / 2, 0, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 			
-		translate([-rpXC_BeltMount_BoltSpacing / 2, 0, -5])
+		translate([-rpXC_UpperMount_BoltSpacing / 2, 0, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 			
 		// XC Mounting Bolts
-		translate([rpXC_BeltMount_BoltSpacing / 2, -lowerBoltOffset, -5])
+		translate([rpXC_LowerMount_BoltSpacing / 2, -lowerBoltOffset, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 			
-		translate([-rpXC_BeltMount_BoltSpacing / 2, -lowerBoltOffset, -5])
+		translate([-rpXC_LowerMount_BoltSpacing / 2, -lowerBoltOffset, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);	
 	}
 }
@@ -76,25 +76,25 @@ module Part_XC_FrontBracket() {
 
 module _FrontBracket_BoltPosts() {
 	// top left assembly bolt mount base
-	translate([-boltSpacing/2, 0, 0])
+	translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
 		cylinder(	h = rpXC_FrontBracketThickness,	
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
 		
 	// top right assembly bolt mount base
-	translate([boltSpacing/2, 0, 0])
+	translate([rpXC_UpperMount_BoltSpacing/2, 0, 0])
 		cylinder(	h = rpXC_FrontBracketThickness,	
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
 					
 	// bottom left assembly bolt mount base
-	translate([-boltSpacing/2, -lowerBoltOffset, 0])
+	translate([-rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset, 0])
 		cylinder(	h = rpXC_FrontBracketThickness,	
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
 		
 	// bottom right assembly bolt mount base
-	translate([boltSpacing/2, -lowerBoltOffset, 0])
+	translate([rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset, 0])
 		cylinder(	h = rpXC_FrontBracketThickness,	
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
@@ -127,7 +127,7 @@ module _FrontBracket_LinearMount(_yOffset = -6) {
 module _FrontBracket_LowerBrace(_yOffset = -6) {
 	// -- lower portion of the wing
 	hull() {
-		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0])
+		translate([-rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset /2 - 3, 0])
 			cylinder(h = rpXC_FrontBracketThickness -1,	d1 = 10, d2 = 8);
 
 		translate([-8, _yOffset, 0])
@@ -136,10 +136,10 @@ module _FrontBracket_LowerBrace(_yOffset = -6) {
 
 	// -- connect lower portion of the wing to lower bolt
 	hull() {
-		translate([-boltSpacing/2, -lowerBoltOffset /2 -3, 0])
+		translate([-rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset /2 -3, 0])
 			cylinder(h = rpXC_FrontBracketThickness -1,	d1 = 10, d2 = 8);
 
-		translate([-boltSpacing/2, -lowerBoltOffset, 0])
+		translate([-rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset, 0])
 				cylinder(h = rpXC_FrontBracketThickness, d = 8);
 	}
 }
@@ -153,7 +153,7 @@ module _FrontBracket_Wing(_yOffset = -6) {
 
 	// -- base portion of the wing
 	hull() {
-		translate([-boltSpacing/2, 0, 0])
+		translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
 			cylinder(h = rpXC_FrontBracketThickness,	d1 = 2.5, d2 = 4);
 
 		translate([-8, _yOffset, 0])

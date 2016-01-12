@@ -139,6 +139,11 @@ rpXC_CenterModuleDepth = 22;
 rpXC_FrontBracketThickness = 4;
 rpXC_RearBracketThickness = 4.5;
 
+rpXC_LowerMount_BoltSpacing = 52;	// space the bolts 52mm apart to fit around the blower
+
+
+rpXC_UpperMount_BoltSpacing = 40;	// space the bolts ??mm apart to fit around the carriage
+
 // =============================================================================
 
 // HA_Hotend

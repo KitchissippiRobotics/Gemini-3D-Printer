@@ -86,7 +86,7 @@ translate([-rpXC_CarriageMount_BaseWidth / 2,0,10.1])
 rotate([90,0,90])
 	Part_XC_CarriageBase();
 
-// Four Mounting Bolts
+// Four Mounting Bolts to attache base to the linear carriage
 
 // ~~ Part No. XC-CB-MB01 ~~ (M3x10)
 translate([0 - (hwLR_Carriage_BoltWidth / 2), 0 - (hwLR_Carriage_BoltLength / 2), 0 - hwLR_Carriage_BoltDepth])
@@ -115,7 +115,7 @@ include <XC_HotendMount.scad>
 color(colourPrimary)
 translate([rpXC_CarriageMount_BaseWidth / 2 + rpXC_FrontBracketThickness,0,10.1])
 rotate([90,0,90])
-	Part_HA_CarriageBase();
+	Part_XC_HotendMount();
 
 // =============================================================================
 // Render: X-Endstop Microswitch
@@ -155,22 +155,22 @@ rotate([-90,0,90])
 
 // upper bolts
 // ~~ Part No. XC_BM-MB05 ~~ (M4x40)
-translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
+translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 - (rpXC_UpperMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
 	rotate([0,-90,180])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		
 // ~~ Part No. XC_BM-MB06 ~~ (M4x40)
-translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset, 0 + (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
-	rotate([0,-90,0])
+translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 + (rpXC_UpperMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
+	rotate([0,-90,180])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		
 // lower bolts
-translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset - 5, 0 - (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing])
-	rotate([0,-90,0])
+translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing])
+	rotate([0,-90,180])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		
-translate([rpXC_BeltMount_BoltDepth- rpXC_BeltMount_BaseOffset - 5, 0 + (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing])
-	rotate([0,-90,0])
+translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 + (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing])
+	rotate([0,-90,180])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 		
 // Belt clamp covers

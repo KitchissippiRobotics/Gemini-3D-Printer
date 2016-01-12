@@ -57,10 +57,10 @@ module Part_XC_RearBracket() {
 		}
 			
 		// XC Mounting Bolts
-		translate([rpXC_BeltMount_BoltSpacing / 2, 0, -5])
+		translate([rpXC_UpperMount_BoltSpacing / 2, 0, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 			
-		translate([-rpXC_BeltMount_BoltSpacing / 2, 0, -5])
+		translate([-rpXC_UpperMount_BoltSpacing / 2, 0, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 			
 		// XC Mounting Bolts
@@ -117,13 +117,13 @@ module Part_XC_RearBracket() {
 
 module _RearBracket_BoltPosts() {
 	// top left assembly bolt mount base
-	translate([-boltSpacing/2, 0, 0])
+	translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
 		cylinder(	h = rpXC_RearBracketThickness,	
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
 		
 	// top right assembly bolt mount base
-	translate([boltSpacing/2, 0, 0])
+	translate([rpXC_UpperMount_BoltSpacing/2, 0, 0])
 		cylinder(	h = rpXC_RearBracketThickness,	
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
@@ -194,7 +194,7 @@ module _RearBracket_Wing(_yOffset = -6) {
 
 	// -- base portion of the wing
 	hull() {
-		translate([-boltSpacing/2, 0, 0])
+		translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
 			cylinder(h = rpXC_RearBracketThickness,	d1 = 2.5, d2 = 4);
 
 		translate([-8, _yOffset, 0])

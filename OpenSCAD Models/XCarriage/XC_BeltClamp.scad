@@ -33,10 +33,10 @@ module _XCBC_BeltMount() {
 	hull() {	
 		// right belt clamp base
 	
-		translate([-22, 7, 0])
+		translate([-20, 7, 0])
 		cylinder(h = rpXC_BeltMount_BaseThickness + 2, d = 5);
 		
-		translate([-22, -7, 0])
+		translate([-20, -7, 0])
 		cylinder(h = rpXC_BeltMount_BaseThickness + 2, d = 5);
 		
 		translate([-4.5, 7, 0])
@@ -47,10 +47,10 @@ module _XCBC_BeltMount() {
 		
 		// right belt clamp base
 	
-		translate([-22, 7, 2.0])
+		translate([-20, 7, 2.0])
 		cylinder(h = rpXC_BeltMount_BaseThickness - 1.5, d = 6);
 		
-		translate([-22, -7, 2.0])
+		translate([-20, -7, 2.0])
 		cylinder(h = rpXC_BeltMount_BaseThickness - 1.5, d = 6);
 		
 		translate([-4.5, 7, 2.0])
@@ -251,20 +251,20 @@ module Part_XC_BeltClamp() {
 			// --- bolt post bases - joined together
 			hull() {
 				// top right assembly bolt mount base
-				translate([boltSpacing/2, 0, rpXC_BeltMount_BaseThickness - 2]) 
-					_BoltBase(hwM4_Bolt_AllenHeadDiameter, 2, BBStyle_Round);
+				translate([rpXC_UpperMount_BoltSpacing/2, 0, rpXC_BeltMount_BaseThickness - 4]) 
+					_BoltBase(hwM4_Bolt_AllenHeadDiameter - 2, 4, BBStyle_Round);
 					
 				// top left assembly bolt mount base
-				translate([-boltSpacing/2, 0,rpXC_BeltMount_BaseThickness -  2]) 
-					_BoltBase(hwM4_Bolt_AllenHeadDiameter, 2, BBStyle_Round);
+				translate([-rpXC_UpperMount_BoltSpacing/2, 0,rpXC_BeltMount_BaseThickness -  4]) 
+					_BoltBase(hwM4_Bolt_AllenHeadDiameter - 2, 4, BBStyle_Round);
 					
 				// top left assembly bolt mount base
-				translate([-boltSpacing/2, 0, 0])
-					cylinder(h = 1,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 2);
+				translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
+					cylinder(h = 1,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness);
 		
 				// top right assembly bolt mount base
-				translate([boltSpacing/2, 0, 0])
-					cylinder(h = 1,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + gRender_Clearance + minimumThickness + 2);
+				translate([rpXC_UpperMount_BoltSpacing/2, 0, 0])
+					cylinder(h = 1,	d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness);
 			
 			translate([-4.5, 7, 0])
 			cylinder(h = 3, d = 8);
@@ -297,18 +297,18 @@ module Part_XC_BeltClamp() {
 			// -- carve out main mounting holes
 		
 			// left mounting hole
-			translate([rpXC_BeltMount_BoltSpacing / 2, 0, -rpXC_BeltMount_BoltDepth + 15])
+			translate([rpXC_UpperMount_BoltSpacing / 2, 0, -rpXC_BeltMount_BoltDepth + 15])
 				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 10);
 				
 				
-			translate([rpXC_BeltMount_BoltSpacing / 2, 0, 4])
+			translate([rpXC_UpperMount_BoltSpacing / 2, 0, 4])
 			cylinder(h = 5, d = 8.6, $fn = 6);
 			
-			translate([-rpXC_BeltMount_BoltSpacing / 2, 0, 4])
+			translate([-rpXC_UpperMount_BoltSpacing / 2, 0, 4])
 			cylinder(h = 5, d = 8.6, $fn = 6);
 									
 			// right mounting hole
-			translate([-rpXC_BeltMount_BoltSpacing / 2, 0, -rpXC_BeltMount_BoltDepth + 15])
+			translate([-rpXC_UpperMount_BoltSpacing / 2, 0, -rpXC_BeltMount_BoltDepth + 15])
 				Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 10);
 				
 			// -- carve out clamp mounting holes
