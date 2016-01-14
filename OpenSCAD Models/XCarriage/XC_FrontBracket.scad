@@ -128,7 +128,7 @@ module _FrontBracket_LowerBrace(_yOffset = -6) {
 	// -- lower portion of the wing
 	hull() {
 		translate([-rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset /2 - 3, 0])
-			cylinder(h = rpXC_FrontBracketThickness -1,	d1 = 10, d2 = 8);
+			cylinder(h = rpXC_FrontBracketThickness,	d1 = 10, d2 = 8);
 
 		translate([-8, _yOffset, 0])
 				cylinder(h = rpXC_FrontBracketThickness, d1 = 9, d2 = 7);
@@ -137,7 +137,7 @@ module _FrontBracket_LowerBrace(_yOffset = -6) {
 	// -- connect lower portion of the wing to lower bolt
 	hull() {
 		translate([-rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset /2 -3, 0])
-			cylinder(h = rpXC_FrontBracketThickness -1,	d1 = 10, d2 = 8);
+			cylinder(h = rpXC_FrontBracketThickness,	d1 = 10, d2 = 8);
 
 		translate([-rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset, 0])
 				cylinder(h = rpXC_FrontBracketThickness, d = 8);
