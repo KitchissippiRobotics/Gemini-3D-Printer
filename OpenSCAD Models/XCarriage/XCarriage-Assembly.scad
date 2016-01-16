@@ -17,7 +17,7 @@ include <../Dimensions.scad>
 MultiPartMode = true;
 
 colourPrimary = "Snow";
-colourSecondary = "Green";
+colourSecondary = "SeaGreen";
 
 // Parts List for XC Assembly
 // -----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ rotate([90,0,90])
 
 include <XC_BlowerCase.scad>
 
-color(colourSecondary)
+color(colourPrimary)
 translate([-11,0,-24])
 rotate([90,0,90])
 	Part_XC_BlowerCase();
@@ -281,6 +281,13 @@ translate([	hwHA_Fan_Offset - 7.8,
 			-39])
 	rotate([0, 90,0])
 		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
+		
+include <XC_FanMount.scad>
+
+color(colourPrimary)
+translate([hwHA_Fan_Offset- 5,0,0])
+rotate([90,0,-90])
+	Part_XC_FanMount();
 
 // =============================================================================
 // Placement: HiWin Linear Rail System
