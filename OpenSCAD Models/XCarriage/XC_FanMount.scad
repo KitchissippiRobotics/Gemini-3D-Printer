@@ -36,6 +36,8 @@ if (MultiPartMode == undef) {
 // -----------------------------------------------------------------------------
 
 module Part_XC_FanMount() {
+	nutInset = 1;
+	
 	difference() {
 		union() {
 			_FanMount_FanBase();
@@ -61,19 +63,19 @@ module Part_XC_FanMount() {
 			
 		// fan mount nuts
 		
-		translate([-16, -7, 2])
+		translate([-16, -7, nutInset])
 		rotate([0,0,0])
 				cylinder(h = 8, d1 = 6.6, d2 = 6.6, $fn = 6);
 				
-		translate([16, -7, 2])
+		translate([16, -7, nutInset])
 		rotate([0,0,0])
 				cylinder(h = 8, d1 = 6.6, d2 = 6.6, $fn = 6);
 		
-		translate([-16, -39, 2])
+		translate([-16, -39, nutInset])
 		rotate([0,0,-15])
 				cylinder(h = 8, d1 = 6.6, d2 = 6.6, $fn = 6);
 				
-		translate([16, -39, 2])
+		translate([16, -39, nutInset])
 		rotate([0,0,15])
 				cylinder(h = 8, d1 = 6.6, d2 = 6.6, $fn = 6);
 			
