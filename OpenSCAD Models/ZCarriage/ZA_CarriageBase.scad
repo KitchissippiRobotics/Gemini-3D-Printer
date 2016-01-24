@@ -34,36 +34,38 @@ if (MultiPartMode == undef) {
 // draw smooth rods
 
 /*if (MultiPartMode == false)*/ {
-	%translate([hwZA_RodXSpacing / 2, 0, 0])
+	%translate([hwZA_RodXSpacing / 2, -hwZA_RodYSpacing /2, 0])
 	cylinder(h = hwZA_RodLength, d = hwZA_RodDiameter);
 
-	%translate([-hwZA_RodXSpacing / 2, 0, 0])
+	%translate([-hwZA_RodXSpacing / 2, -hwZA_RodYSpacing /2, 0])
 	cylinder(h = hwZA_RodLength, d = hwZA_RodDiameter);
 
-	%translate([hwZA_RodXSpacing / 2, -hwZA_RodYSpacing, 0])
+	%translate([hwZA_RodXSpacing / 2, hwZA_RodYSpacing /2, 0])
 	cylinder(h = hwZA_RodLength, d = hwZA_RodDiameter);
 
-	%translate([-hwZA_RodXSpacing / 2, -hwZA_RodYSpacing, 0])
+	%translate([-hwZA_RodXSpacing / 2, hwZA_RodYSpacing /2, 0])
 	cylinder(h = hwZA_RodLength, d = hwZA_RodDiameter);
 
-	translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2, hwZA_BearingLength])
+	%translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2 +hwZA_RodYSpacing /2, hwZA_BearingLength])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 	
-	translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2, hwZA_BearingLength])
+	%translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2 +hwZA_RodYSpacing /2, hwZA_BearingLength])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 	
-	translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing - hwZA_BearingDiameter/2, hwZA_BearingLength])
+	%translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, hwZA_BearingLength])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 	
-	translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing - hwZA_BearingDiameter/2, hwZA_BearingLength])
+	%translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, hwZA_BearingLength])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 	
-	translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing - hwZA_BearingDiameter/2, hwZA_BearingLength *2 +2])
+	%translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, hwZA_BearingLength *2 +2])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 	
-	translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing - hwZA_BearingDiameter/2, hwZA_BearingLength *2 + 2])
+	%translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, hwZA_BearingLength *2 + 2])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 	
+	%translate([0,0,20])
+	rotate([0,180,0])
 	import("../Vitamins/leadscrew_bushing.stl", convexity=3);
 }
 
