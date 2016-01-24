@@ -161,6 +161,19 @@ hwHA_Fan_Offset = 40;		// Rv2 = 45
 hwHA_Fan_VertOffset = 0;
 
 // =============================================================================
+// Z Axis
+// -----------------------------------------------------------------------------
+
+hwZA_RodXSpacing = 148;
+hwZA_RodLength = 450;
+hwZA_RodYSpacing = 37.6;
+hwZA_RodDiameter = 12;
+
+hwZA_BearingDiameter = 21;
+hwZA_BearingLength = 30;
+
+
+// =============================================================================
 
 // Maths for the XC_CarriageBase Struts
 // This uses some basic trig to figure out what length and angle that the
