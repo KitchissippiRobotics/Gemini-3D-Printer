@@ -13,7 +13,7 @@
 
 include <../Dimensions.scad>
 
-_drawHardware = true;
+_drawHardware = false;
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Default Usage:	
