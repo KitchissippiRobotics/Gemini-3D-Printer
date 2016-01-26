@@ -43,18 +43,18 @@ module Part_ZA_BearingCap() {
 		}
 		
 		// carve out rods
-		translate([0, -hwZA_RodYSpacing /2, 0])
+		translate([0, -hwZA_RodYSpacing /2, -1])
 		cylinder(h = hwZA_RodLength, d = hwZA_RodDiameter);
 	
-		translate([0, hwZA_RodYSpacing /2, 0])
+		translate([0, hwZA_RodYSpacing /2, -1])
 		cylinder(h = hwZA_RodLength, d = hwZA_RodDiameter);
 		
 		// carve out rear bearings
-		translate([0, -hwZA_RodYSpacing /2, 4])
-		cylinder(h = hwZA_BearingLength, d = hwZA_BearingDiameter);
+		translate([0, -hwZA_RodYSpacing /2, 3])
+		cylinder(h = hwZA_BearingLength +2, d = hwZA_BearingDiameter + 0.2);
 		
-		translate([0, hwZA_RodYSpacing /2, 4])
-		cylinder(h = hwZA_BearingLength, d = hwZA_BearingDiameter);
+		translate([0, hwZA_RodYSpacing /2, 3])
+		cylinder(h = hwZA_BearingLength +2, d = hwZA_BearingDiameter + 0.2);
 		
 		translate([0,-50, -1])
 		cube([60,100,100]);
@@ -69,11 +69,11 @@ module Part_ZA_BearingCap() {
 			Carve_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 20, 20);
 			
 		// middle mounting bolts
-		translate([16, 0, 8.6])
+		translate([12, 0, 8.6])
 		rotate([0,-90,0])
 			Carve_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 20, 20);
 			
-		translate([16, 0, 34.1])
+		translate([12, 0, 34.1])
 		rotate([0,-90,0])
 			Carve_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 20, 20);
 			
@@ -94,11 +94,11 @@ module _BearingCap() {
 	_baseThickness = 4;
 	
 	hull() {
-		translate([0, -hwZA_RodYSpacing /2, _baseThickness])
-		cylinder(h = hwZA_BearingLength , d = hwZA_BearingDiameter + 3);
+		translate([0, -hwZA_RodYSpacing /2, _baseThickness - 2])
+		cylinder(h = hwZA_BearingLength +4 , d = hwZA_BearingDiameter + 4);
 	
-		translate([0, hwZA_RodYSpacing /2, _baseThickness])
-		cylinder(h = hwZA_BearingLength , d = hwZA_BearingDiameter + 3);
+		translate([0, hwZA_RodYSpacing /2, _baseThickness -2])
+		cylinder(h = hwZA_BearingLength +4, d = hwZA_BearingDiameter + 4);
 		
 		translate([0, -hwZA_RodYSpacing /2, 0])
 		cylinder(h = hwZA_BearingLength + _baseThickness , d = hwZA_BearingDiameter + 2);
