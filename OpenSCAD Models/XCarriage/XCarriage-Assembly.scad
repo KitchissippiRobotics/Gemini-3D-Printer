@@ -19,6 +19,13 @@ MultiPartMode = true;
 colourPrimary = "Snow";
 colourSecondary = "SeaGreen";
 
+if (AssemblyMode == undef) {
+	AssemblyMode = false;
+	Assembly_XCarriage();
+}
+
+module Assembly_XCarriage() {
+
 // Parts List for XC Assembly
 // -----------------------------------------------------------------------------
 
@@ -313,5 +320,4 @@ import("../Vitamins/hiwin12-carriage.stl", convexity=3);
 			-13.2])
 cube(size=[	19.1, 540, 3.2]);
 
-
-
+}

@@ -165,11 +165,11 @@ hwHA_Fan_VertOffset = 0;
 // -----------------------------------------------------------------------------
 
 hwZA_RodXSpacing = 148;
-hwZA_RodLength = 450;
+hwZA_RodLength = 500;
 hwZA_RodYSpacing = 37.6;
-hwZA_RodDiameter = 12 + .4;
+hwZA_RodDiameter = 12;
 
-hwZA_BearingDiameter = 21 + .4;
+hwZA_BearingDiameter = 21;
 hwZA_BearingLength = 30;
 hwZA_BearingZSpacing = 2;
 
@@ -183,7 +183,7 @@ hwZA_DriveRodDiameter = 8;
 hwZA_BushingZOffset = -hwZA_BushingLipHeight -4;
 
 
-hwZA_ArmWidth = 19.1 + .4;	// 3/4" square tubing
+hwZA_ArmWidth = 19.1;	// 3/4" square tubing
 hwZA_ArmLength = 457;	// 3' tube cut into halves
 hwZA_ArmSpacing = 100;
 hwZA_ArmYOffset = -42;
