@@ -59,10 +59,10 @@ if (_drawHardware) {
 	%translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, hwZA_BearingLength])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 	
-	%translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, hwZA_BearingLength *2 +hwZA_BearingZSpacing])
+	*translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, hwZA_BearingLength *2 +hwZA_BearingZSpacing])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 	
-	%translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, hwZA_BearingLength *2 + hwZA_BearingZSpacing])
+	*translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, hwZA_BearingLength *2 + hwZA_BearingZSpacing])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 	
 	
@@ -102,8 +102,16 @@ module Part_ZA_CarriageBase() {
 		cylinder(h = hwZA_BearingLength + 20, d = hwZA_BearingDiameter + 0.6);
 		
 		// carve out front bearings
+		/*hull() {
+			#translate([hwZA_RodXSpacing /2, hwZA_RodYSpacing /2, 0])
+			cylinder(h = hwZA_BearingLength + 1, d = hwZA_BearingDiameter + 0.6);
+			
+			translate([hwZA_RodXSpacing /2, hwZA_RodYSpacing /2, 0])
+			cylinder(h = hwZA_BearingLength + 4, d = hwZA_BearingDiameter + 0.6 - 4);
+		}*/
+		
 		translate([hwZA_RodXSpacing /2, hwZA_RodYSpacing /2, 0])
-		cylinder(h = hwZA_BearingLength + 20, d = hwZA_BearingDiameter + 0.6);
+		_BearingCarveOut();
 		
 		translate([-hwZA_RodXSpacing /2, hwZA_RodYSpacing /2, 0])
 		cylinder(h = hwZA_BearingLength + 20, d = hwZA_BearingDiameter + 0.6);
@@ -434,7 +442,16 @@ module _ZAxisArmTest() {
 
 
 
-
+module _BearingCarveOut() {
+	cylinder(h = hwZA_BearingLength +1, d = hwZA_BearingDiameter + 0.6);
+	
+	hull() {
+		cylinder(h = hwZA_BearingLength +1, d = hwZA_BearingDiameter + 0.4);
+		cylinder(h = hwZA_BearingLength + 4.75, d = hwZA_BearingDiameter + 0.6 - 4);
+	}
+	
+	cylinder(h = hwZA_BearingLength + 6, d = hwZA_BearingDiameter + 0.6 - 4);
+}
 
 
 
