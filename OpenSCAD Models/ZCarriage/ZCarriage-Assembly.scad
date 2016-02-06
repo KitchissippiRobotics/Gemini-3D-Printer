@@ -48,16 +48,16 @@ module Assembly_ZCarriage(_verticalPosition = 0) {
 	cylinder(h = hwZA_RodLength, d = hwZA_RodDiameter);
 
 	// bearings/bushings
-	translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2 +hwZA_RodYSpacing /2, 19.1 + 15 + _verticalPosition])
+	translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2 +hwZA_RodYSpacing /2, 19.1 + 14.5 + _verticalPosition])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 
-	translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2 +hwZA_RodYSpacing /2, 19.1 + 15 + _verticalPosition])
+	#translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2 +hwZA_RodYSpacing /2, 19.1 + 14.5 + _verticalPosition])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 
-	translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, 19.1 + 15 + _verticalPosition])
+	translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, 19.1 + 15.5 + _verticalPosition])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 
-	translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, 19.1 + 15 + _verticalPosition])
+	translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, 19.1 + 15.5 + _verticalPosition])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 
 	// doubled up bearings - not used in this version
