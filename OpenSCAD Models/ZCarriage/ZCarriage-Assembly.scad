@@ -51,7 +51,7 @@ module Assembly_ZCarriage(_verticalPosition = 0) {
 	translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2 +hwZA_RodYSpacing /2, 19.1 + 14.5 + _verticalPosition])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 
-	#translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2 +hwZA_RodYSpacing /2, 19.1 + 14.5 + _verticalPosition])
+	translate([-hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, - hwZA_BearingDiameter/2 +hwZA_RodYSpacing /2, 19.1 + 14.5 + _verticalPosition])
 	import("../Vitamins/LM12UU_Bearing.stl", convexity=3);
 
 	translate([hwZA_RodXSpacing / 2 + hwZA_BearingDiameter /2, -hwZA_RodYSpacing /2 - hwZA_BearingDiameter/2, 19.1 + 15.5 + _verticalPosition])
@@ -83,8 +83,8 @@ module Assembly_ZCarriage(_verticalPosition = 0) {
 
 	include <ZA_CarriageBase.scad>
 
-	//color(colourPrimary)
-	%translate([0,0,19.1 + _verticalPosition + 15])
+	color(colourPrimary)
+	translate([0,0,19.1 + _verticalPosition + 15])
 	rotate([0,180,0])
 		Part_ZA_CarriageBase();
 	

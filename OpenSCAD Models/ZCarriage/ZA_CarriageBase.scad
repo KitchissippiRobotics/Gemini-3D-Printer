@@ -14,7 +14,7 @@
 include <../Dimensions.scad>
 
 _drawHardware = false;
-
+//$fn = 200;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Default Usage:	
 // Part_ZA_CarriageBase();
@@ -78,6 +78,54 @@ if (_drawHardware) {
 }
 
 
+module _Fine_Tuner() {
+	// z fine tuning adjuster
+	hull() {		
+		translate([20, -15, -4])
+		cylinder(h = 5, d = 8);
+	
+		translate([20, -15, -4])
+		cylinder(h = 7, d = 6);
+	
+	
+		translate([26.5, 0, -4])
+		cylinder(h = 6, d = 12);
+	
+		translate([26.5, 0, -4])
+		cylinder(h = 8, d = 10);
+	}
+	
+	hull() {		
+		translate([20, 15, -4])
+		cylinder(h = 5, d = 8);
+	
+		translate([20, 15, -4])
+		cylinder(h = 7, d = 6);
+	
+	
+		translate([26.5, 0, -4])
+		cylinder(h = 6, d = 12);
+	
+		translate([26.5, 0, -4])
+		cylinder(h = 8, d = 10);
+	}
+	
+	hull() {		
+		translate([40, 0, -4])
+		cylinder(h = 5, d = 8);
+	
+		translate([40, 0, -4])
+		cylinder(h = 7, d = 6);
+	
+	
+		translate([26.5, 0, -4])
+		cylinder(h = 6, d = 12);
+	
+		translate([26.5, 0, -4])
+		cylinder(h = 8, d = 10);
+	}
+}
+
 // -----------------------------------------------------------------------------
 // Put it all together and carve out the hardware clearances
 // -----------------------------------------------------------------------------
@@ -85,21 +133,56 @@ if (_drawHardware) {
 module Part_ZA_CarriageBase() {
 	difference() {
 		union() {
+		
+			// central portion and arm boxes
 			_ZAxisArmTest();
 			mirror([1,0,0])
 				_ZAxisArmTest();
+			
+			
+			// draw bearing holders	
+			translate([hwZA_RodXSpacing /2, 0, -4]) {
+			_Base_BearingCapHalf();
+			mirror([0,1,0])
+				_Base_BearingCapHalf();
+			}
+			
+			translate([-hwZA_RodXSpacing /2, 0, -4]) 
+			mirror([1,0,0]) {
+			_Base_BearingCapHalf();
+			mirror([0,1,0])
+				_Base_BearingCapHalf();
+			}
+			
+			_Fine_Tuner();
+				
 		}
+		
+		translate([26.5, 0, -5.1])
+				cylinder(h = 5, d1 = 8.6, d2 = 8.6, $fn = 6);
+				
+		translate([26.5, 0, 2.0])
+			cylinder(h = 5, d = 11);
+		
+		translate([26.5, 0, 0.0])
+			cylinder(h = 10, d = 5);	
+			
+		
+		translate([hwZA_RodXSpacing /2,-50, -5])
+		cube([60,100,100]);
+		translate([-hwZA_RodXSpacing /2 -60,-50, -5])
+		cube([60,100,100]);
 
 		// carve out drive rod
 		translate([0,0, - 20])
 		cylinder(h = 100, d = hwZA_DriveRodDiameter + 0.5);
 		
 		// carve out rear bearings
-		translate([hwZA_RodXSpacing /2, -hwZA_RodYSpacing /2, 0])
+		/*translate([hwZA_RodXSpacing /2, -hwZA_RodYSpacing /2, 0])
 		cylinder(h = hwZA_BearingLength + 20, d = hwZA_BearingDiameter + 0.6);
 		
 		translate([-hwZA_RodXSpacing /2, -hwZA_RodYSpacing /2, 0])
-		cylinder(h = hwZA_BearingLength + 20, d = hwZA_BearingDiameter + 0.6);
+		cylinder(h = hwZA_BearingLength + 20, d = hwZA_BearingDiameter + 0.6);*/
 		
 		// carve out front bearings
 		/*hull() {
@@ -114,7 +197,16 @@ module Part_ZA_CarriageBase() {
 		_BearingCarveOut();
 		
 		translate([-hwZA_RodXSpacing /2, hwZA_RodYSpacing /2, 0])
-		cylinder(h = hwZA_BearingLength + 20, d = hwZA_BearingDiameter + 0.6);
+		_BearingCarveOut();
+		
+		translate([hwZA_RodXSpacing /2, -hwZA_RodYSpacing /2, 0])
+		_BearingCarveOut();
+		
+		translate([-hwZA_RodXSpacing /2, -hwZA_RodYSpacing /2, 0])
+		_BearingCarveOut();
+		
+		/*translate([-hwZA_RodXSpacing /2, hwZA_RodYSpacing /2, 0])
+		cylinder(h = hwZA_BearingLength + 20, d = hwZA_BearingDiameter + 0.6);*/
 		
 		// carve out doubled front bearings
 		/*translate([hwZA_RodXSpacing /2, hwZA_RodYSpacing /2, hwZA_BearingLength + hwZA_BearingZSpacing])
@@ -123,7 +215,7 @@ module Part_ZA_CarriageBase() {
 		translate([-hwZA_RodXSpacing /2, hwZA_RodYSpacing /2, hwZA_BearingLength + hwZA_BearingZSpacing])
 		cylinder(h = hwZA_BearingLength, d = hwZA_BearingDiameter);*/
 		
-		// carve out bushing
+		// carve center out bushing
 		translate([0,0,hwZA_BushingZOffset])
 		cylinder(h = hwZA_BushingHeight, d = hwZA_BushingDiameter + 0.6);
 		
@@ -165,15 +257,15 @@ module Part_ZA_CarriageBase() {
 			Carve_hw_Bolt_AllenHead(hwM4_Bolt_AllenHeadSize, 40, 10);
 			
 			
-		translate([30, 0, hwZA_ArmWidth /2])
+		translate([32, 0, hwZA_ArmWidth /2])
 			rotate([0,90,0])
 				cylinder(h = 5, d1 = 8.6, d2 = 8.6, $fn = 6);
 				
-		translate([30, 35, hwZA_ArmWidth /2])
+		translate([32, 35, hwZA_ArmWidth /2])
 			rotate([0,90,0])
 				cylinder(h = 5, d1 = 8.6, d2 = 8.6, $fn = 6);
 				
-		translate([30, -35, hwZA_ArmWidth /2])
+		translate([32, -35, hwZA_ArmWidth /2])
 			rotate([0,90,0])
 				cylinder(h = 5, d1 = 8.6, d2 = 8.6, $fn = 6);
 			
@@ -191,15 +283,15 @@ module Part_ZA_CarriageBase() {
 			Carve_hw_Bolt_AllenHead(hwM4_Bolt_AllenHeadSize, 40, 10);
 			
 			
-		translate([-35, 0, hwZA_ArmWidth /2])
+		translate([-37, 0, hwZA_ArmWidth /2])
 			rotate([0,90,0])
 				cylinder(h = 5, d1 = 8.6, d2 = 8.6, $fn = 6);
 				
-		translate([-35, 35, hwZA_ArmWidth /2])
+		translate([-37, 35, hwZA_ArmWidth /2])
 			rotate([0,90,0])
 				cylinder(h = 5, d1 = 8.6, d2 = 8.6, $fn = 6);
 				
-		translate([-35, -35, hwZA_ArmWidth /2])
+		translate([-37, -35, hwZA_ArmWidth /2])
 			rotate([0,90,0])
 				cylinder(h = 5, d1 = 8.6, d2 = 8.6, $fn = 6);	
 		
@@ -331,9 +423,9 @@ module _ZAxisArmTest() {
 		
 	translate([hwZA_ArmSpacing/2 - hwZA_ArmWidth/2 +2, 0, hwZA_ArmWidth /6])
 		cylinder(h = hwZA_ArmWidth / 1.5, d = _partThickness *2);
-	}
+	//}
 	
-	hull() {
+	//hull() {
 	translate([hwZA_ArmSpacing/2 - hwZA_ArmWidth/2,hwZA_ArmYOffset,-_baseThickness])
 		cylinder(h = _baseThickness + hwZA_ArmWidth, d = _partThickness);
 	
@@ -342,9 +434,9 @@ module _ZAxisArmTest() {
 		
 	translate([hwZA_ArmSpacing/2 - hwZA_ArmWidth/2 + 2,35, hwZA_ArmWidth /6])
 		cylinder(h = hwZA_ArmWidth /1.5, d = _partThickness *2);
-	}
+	//}
 	
-	hull() {
+	//hull() {
 	translate([hwZA_ArmSpacing/2 - hwZA_ArmWidth/2,hwZA_ArmYOffset,-_baseThickness])
 		cylinder(h = _baseThickness + hwZA_ArmWidth, d = _partThickness);
 	
@@ -378,8 +470,8 @@ module _ZAxisArmTest() {
 		translate([hwZA_ArmSpacing/2 + hwZA_ArmWidth/2,hwZA_ArmYOffset,-_baseThickness])
 		cylinder(h = _baseThickness + hwZA_ArmWidth, d = _partThickness);
 		
-		translate([0,0,-_baseThickness])
-		cylinder(h = hwZA_BushingHeight - hwZA_BushingLipHeight- _baseThickness, d = hwZA_BushingDiameter);
+		translate([0,-4,-_baseThickness])
+		cylinder(h = hwZA_BushingHeight - hwZA_BushingLipHeight- _baseThickness, d = hwZA_BushingDiameter + 2);
 	}
 	
 	// front support
@@ -395,7 +487,7 @@ module _ZAxisArmTest() {
 	}
 	
 	// bearing holder
-	difference() {
+	/*difference() {
 		hull() {
 		
 		// match up with cover piece - rear
@@ -436,11 +528,39 @@ module _ZAxisArmTest() {
 		
 		translate([hwZA_RodXSpacing / 2, -50, - _baseThickness -1])
 		cube([50, 100, _baseThickness + hwZA_ArmWidth + 20]);
-	}
+	}*/
 }
 
 
-
+module _Base_BearingCapHalf() {
+	
+	hull() {
+		// tapered larger section around bearings
+		translate([0, -hwZA_RodYSpacing /2, 2.5])
+			cylinder(h = hwZA_BearingLength +3 , d = hwZA_BearingDiameter + 6);
+		
+		translate([0, -hwZA_RodYSpacing /2, 0])
+			cylinder(h = hwZA_BearingLength + 8 , d = hwZA_BearingDiameter + 4);
+		
+		// tapered smaller section at ends
+		translate([0, -hwZA_RodYSpacing /2 - 12.5, 0])
+			cylinder(h = hwZA_BearingLength + 8 , d = 16);
+			
+		translate([-4, -hwZA_RodYSpacing /2 - 12.5, 0])
+			cylinder(h = hwZA_BearingLength + 7.5 , d = 19);
+		
+		translate([0, -hwZA_RodYSpacing /2 - 12.5, 2])
+			cylinder(h = hwZA_BearingLength + 4 , d = 17);
+			
+		translate([-4, -hwZA_RodYSpacing /2 - 12.5, 2])
+			cylinder(h = hwZA_BearingLength + 4 , d = 20);
+		
+		// cross joining bit to make it solid - matches above
+		translate([0, hwZA_RodYSpacing /2 + 12.5, 0])
+			cylinder(h = hwZA_BearingLength + 8 , d = 16);
+	}
+	
+}
 
 module _BearingCarveOut() {
 	cylinder(h = hwZA_BearingLength +1, d = hwZA_BearingDiameter + 0.6);
