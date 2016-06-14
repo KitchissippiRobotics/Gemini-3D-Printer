@@ -11,7 +11,7 @@
 
 include <../Dimensions.scad>
 
-// Enable multipart mode - this disables built in support material and automatic 
+// Enable multipart mode - this disables built in support material and automatic
 // rendering of the parts
 
 MultiPartMode = true;
@@ -21,7 +21,7 @@ colourSecondary = "SeaGreen";
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Default Usage:	
+// Default Usage:
 // Part_ZA_BearingCap();
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -87,12 +87,19 @@ module Assembly_ZCarriage(_verticalPosition = 0) {
 	translate([0,0,19.1 + _verticalPosition + 15])
 	rotate([0,180,0])
 		Part_ZA_CarriageBase();
-	
+
 	include <ZA_BearingCap.scad>
 
 	color(colourSecondary)
 	translate([-hwZA_RodXSpacing /2,0, _verticalPosition])
 	rotate([0,0,0])
 		Part_ZA_BearingCap();
-	
+
+	include <ZA_BaseStabilizer.scad>
+
+	color(colourSecondary)
+	translate([0,0,_verticalPosition])
+	rotate([0,180,0])
+		Part_ZA_BaseStabilizer();
+
 }
