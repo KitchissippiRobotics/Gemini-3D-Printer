@@ -19,7 +19,7 @@ include <CommonHardware.scad>
 // =============================================================================
 
 // Linear Rail Diagram - Top View
-//		
+//
 //		   Length
 //		*************						W
 // 	----* 	o	o	*----------------		i
@@ -48,6 +48,9 @@ hwLR_Guide_BoltDiameter = hwM3_Bolt_ShaftDiameter;
 // Spacing between the two bolts and vertical offset relative to the top face of the hwLR_Carriage
 // These measurements are taken from the Rv2 SketchUp design document
 
+// spacing for cross bar clearance
+hwXC_BarSpacing = 5.4;
+
 // XC_CarriageBase ~~~ Part No. XB-CB-ABS01
 // -----------------------------------------------------------------------------
 
@@ -72,16 +75,16 @@ rpXC_CarriageMount_BaseBevelHeight = 3;
 
 rpXC_CarriageMount_BoltHolderDiameter = 12;
 
-// Measurement of vertical clearance required for the X-Carriage to travel 
+// Measurement of vertical clearance required for the X-Carriage to travel
 // safely along the Y axis.
 // This measurement is taken from the top face of the HiWin carriage to a few mm
 // below the M3 bolt protruding from the bottom of the Y axis brace.
 
-rpXC_CarriageMount_LowerClearance = 18;
+rpXC_CarriageMount_LowerClearance = 18 - hwXC_BarSpacing;
 
 // The lower mount point on the X-Carriage must clear the bolt tip described above
 
-rpXC_CarriageMount_LowerPointSpacing = rpXC_CarriageMount_LowerClearance + rpXC_CarriageMount_BoltHolderDiameter / 2;
+rpXC_CarriageMount_LowerPointSpacing = rpXC_CarriageMount_LowerClearance + rpXC_CarriageMount_BoltHolderDiameter / 2  + hwXC_BarSpacing;
 
 
 // XC_BeltClamp ~~~ Part No. XB-CB-ABS02
@@ -142,23 +145,27 @@ rpXC_RearBracketThickness = 4.5;
 rpXC_LowerMount_BoltSpacing = 52;	// space the bolts 52mm apart to fit around the blower
 
 
-rpXC_UpperMount_BoltSpacing = 40;	// space the bolts ??mm apart to fit around the carriage
+rpXC_UpperMount_BoltSpacing = 52;	// space the bolts ??mm apart to fit around the carriage
 
 // =============================================================================
 
 // HA_Hotend
 // -----------------------------------------------------------------------------
 
+
+
 // spacing for the hotends
+
+
 
 hwHA_Hotend_Spacing = 20;	// Rv2 = 25
 
 // forward offset from zero point on X-Carriage
 hwHA_Hotend_Offset = 24;	// Rv2 = 27.4
-hwHA_Hotend_VerticalOffset = 3.0;
+hwHA_Hotend_VerticalOffset = 3.0 + hwXC_BarSpacing;
 
 hwHA_Fan_Offset = 40;		// Rv2 = 45
-hwHA_Fan_VertOffset = 0;
+hwHA_Fan_VertOffset = 0 + hwXC_BarSpacing;
 
 // =============================================================================
 // Z Axis
@@ -193,7 +200,7 @@ hwZA_ArmZOffset = 0;
 
 // Maths for the XC_CarriageBase Struts
 // This uses some basic trig to figure out what length and angle that the
-// struts for the triangular 3-point bolt mount should be at, given the spacing 
+// struts for the triangular 3-point bolt mount should be at, given the spacing
 // of the bolts
 
 calc_boltSpacing = rpXC_BeltMount_BoltSpacing /2;

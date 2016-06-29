@@ -12,7 +12,7 @@
 include <XC_Common.scad>
 $fn = 200;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Default Usage:	
+// Default Usage:
 // Part_XC_HotendMount();
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -22,7 +22,7 @@ $fn = 200;
 if (MultiPartMode == undef) {
 	MultiPartMode = false;
 	EnableSupport = true;
-	
+
 	*Part_HA_CarriageBase();
 	Part_XC_HotendMount();
 } else {
@@ -41,175 +41,175 @@ module Part_XC_HotendMount() {
 		union() {
 
 			_HotendMount_BoltPosts();
-			
+
 			_HotendMount_LowerBoltConnector();
 			mirror([1,0,0])
 			_HotendMount_LowerBoltConnector();
-			
+
 			hull() {
-			
+
 			translate([-hwHA_Hotend_Spacing /2, -8, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 			rotate([90,0,0])
 				cylinder(h = 5, d = 20);
-				
+
 			translate([hwHA_Hotend_Spacing /2, -8, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 			rotate([90,0,0])
 				cylinder(h = 5, d = 20);
-				
+
 				_HotendMount_LinearMount();
 			}
-			
-			
+
+
 			hull() {
 				_HotendMount_Wing();
-			
+
 				translate([-hwHA_Hotend_Spacing /2, -1, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 				rotate([90,0,0])
 					cylinder(h = 7, d1 = 15, d2 = 20);
-					
+
 				translate([-hwHA_Hotend_Spacing /2, -8, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 				rotate([90,0,0])
 					cylinder(h = 5, d = 20);
-					
+
 				translate([-hwHA_Hotend_Spacing /2, -8, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 			rotate([90,0,0])
 				cylinder(h = 5, d = 20);
-				
+
 				translate([-18, -lowerBoltOffset/2 + 1, 0])
 					_BoltBase(8, 13.5, BBStyle_Round);
 			}
-			
-			
+
+
 			hull() {
 				translate([hwHA_Hotend_Spacing /2, -1, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 				rotate([90,0,0])
 					cylinder(h = 7, d1 = 15, d2 = 20);
-				
+
 				mirror([1,0,0])
 					_HotendMount_Wing();
-					
+
 				translate([hwHA_Hotend_Spacing /2, -8, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 			rotate([90,0,0])
 				cylinder(h = 5, d = 20);
-				
+
 				translate([18, -lowerBoltOffset/2 + 1, 0])
 					_BoltBase(8, 13.5, BBStyle_Round);
 			}
-				
+
 			_HotendMount_LowerBrace();
 			mirror([1,0,0])
 				_HotendMount_LowerBrace();
-			
-			
+
+
 			hull() {
 				translate([18, -lowerBoltOffset/2 + 1, 0])
 					_BoltBase(8, 13.5, BBStyle_Round);
-		
+
 				translate([-18, -lowerBoltOffset/2 + 1, 0])
 					_BoltBase(8, 13.5, BBStyle_Round);
 			}
-			
-			
-			
-			
-			
-				
-			
-				
+
+
+
+
+
+
+
+
 		}
-		
+
 		// XC Mounting Bolts - upper
 		translate([rpXC_UpperMount_BoltSpacing / 2, 0, -38])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 50);
-			
+
 		translate([-rpXC_UpperMount_BoltSpacing / 2, 0, -38])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 50);
-			
+
 		// XC Mounting Bolts - lower
 		translate([rpXC_BeltMount_BoltSpacing / 2, -lowerBoltOffset, -38])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 50);
-			
+
 		translate([-rpXC_BeltMount_BoltSpacing / 2, -lowerBoltOffset, -38])
-			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 50);	
-			
-			
+			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 50);
+
+
 		// hotend upper
-		
+
 		translate([0,0,0]) {
 			CarveOut();
 			mirror([1,0,0]) CarveOut();
 		}
-		
+
 		// bowden tube carveout
 		translate([hwHA_Hotend_Spacing /2, 0, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 20, d = 4.6);
-		
+
 		translate([-hwHA_Hotend_Spacing /2, 0, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 20, d = 4.6);
-		
-		
+
+
 		// pushfit carveout
 		translate([-hwHA_Hotend_Spacing /2, 0, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 10, d = 9);
-		
-		
+
+
 		translate([-hwHA_Hotend_Spacing /2, 9, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 10, d = 15);
-		
-		
+
+
 		// pushfit carveout
 		translate([hwHA_Hotend_Spacing /2, 0, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 10, d = 9);
-		
+
 		translate([hwHA_Hotend_Spacing /2, 9, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 10, d = 15);
-		
+
 		translate([-50,-50,-20])
 		cube([100,100, 20]);
-		
+
 		// m3 nut and bolt carve out - right
 		translate([25, -lowerBoltOffset/2 - 3.0, -0.1])
 		rotate([0,0,15])
 				cylinder(h = 5, d1 = 8, d2 = 6.6, $fn = 6);
-	
+
 		translate([25, -lowerBoltOffset/2 - 3.0, 5.9])
 				cylinder(h = 10, d = 3.2);
-				
-		// m3 nut and bolt carve out - left		
+
+		// m3 nut and bolt carve out - left
 		translate([-25, -lowerBoltOffset/2 - 3.0, -0.1])
 		rotate([0,0,-15])
 				cylinder(h = 5, d1 = 8, d2 = 6.6, $fn = 6);
-	
+
 		translate([-25, -lowerBoltOffset/2 - 3.0, 5.9])
 				cylinder(h = 10, d = 3.2);
-				
-		// wiring carveout - right side 
-		
+
+		// wiring carveout - right side
+
 		translate([31, -6, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 2])
 		rotate([95,0,0])
 		cylinder(h = 20, d = 8);
-		
-		
-		
-		// wiring carveout - left side 
-		
+
+
+
+		// wiring carveout - left side
+
 		translate([-31, -6, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 2])
 		rotate([95,0,0])
 		cylinder(h = 20, d = 8);
-		
+
 		translate([-50,-53,13.5])
 		cube([100, 40, 20]);
-		
+
 		translate([-20,-62.35,-0.1])
 		cube([40, 40, 20]);
 
-		
+
 	}
 }
 
@@ -221,62 +221,62 @@ module _HotendMount_BoltPosts() {
 	// top left assembly bolt mount base
 	hull() {
 		translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
-			cylinder(	h = rpXC_FrontBracketThickness * 2,	
+			cylinder(	h = rpXC_FrontBracketThickness * 2,
 						d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 						d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 						$fn = gcFacetLarge);
-					
+
 		translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
-			cylinder(	h = rpXC_FrontBracketThickness,	
+			cylinder(	h = rpXC_FrontBracketThickness,
 						d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 3,
 						d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 3,
 						$fn = gcFacetLarge);
 	}
-	
+
 	// top right assembly bolt mount base
 	hull() {
 		translate([rpXC_UpperMount_BoltSpacing/2, 0, 0])
-			cylinder(	h = rpXC_FrontBracketThickness * 2,	
+			cylinder(	h = rpXC_FrontBracketThickness * 2,
 						d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 						d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 						$fn = gcFacetLarge);
-					
+
 		translate([rpXC_UpperMount_BoltSpacing/2, 0, 0])
-			cylinder(	h = rpXC_FrontBracketThickness,	
+			cylinder(	h = rpXC_FrontBracketThickness,
 						d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 3,
 						d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 3,
 						$fn = gcFacetLarge);
 	}
-	
+
 	// bottom left assembly bolt mount base
 	hull() {
 	translate([-boltSpacing/2, -lowerBoltOffset, 0])
-		cylinder(	h = rpXC_FrontBracketThickness + 3,	
+		cylinder(	h = rpXC_FrontBracketThickness + 3,
 					d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 					d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 					$fn = gcFacetLarge);
-	
+
 	translate([-boltSpacing/2, -lowerBoltOffset, 0])
-		cylinder(	h = rpXC_FrontBracketThickness,	
+		cylinder(	h = rpXC_FrontBracketThickness,
 					d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 3,
 					d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 3,
 					$fn = gcFacetLarge);
 	}
-	
+
 	// bottom right assembly bolt mount base
 	hull() {
 	translate([boltSpacing/2, -lowerBoltOffset, 0])
-		cylinder(	h = rpXC_FrontBracketThickness + 3,	
+		cylinder(	h = rpXC_FrontBracketThickness + 3,
 					d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 					d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 					$fn = gcFacetLarge);
-	
+
 	translate([boltSpacing/2, -lowerBoltOffset, 0])
-		cylinder(	h = rpXC_FrontBracketThickness,	
+		cylinder(	h = rpXC_FrontBracketThickness,
 					d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 3,
 					d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 3,
 					$fn = gcFacetLarge);
-	}				
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -310,24 +310,24 @@ module _HotendMount_LowerBrace(_yOffset = -6) {
 
 		translate([-8, _yOffset, 0])
 				cylinder(h = rpXC_FrontBracketThickness, d1 = 9, d2 = 7);
-				
+
 		translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
-			cylinder(	h = rpXC_FrontBracketThickness,	
+			cylinder(	h = rpXC_FrontBracketThickness,
 						d1 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 						d2 = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness + 2,
 						$fn = gcFacetLarge);
-						
+
 		// right bolt post
-		
+
 		translate([-18, -lowerBoltOffset/2 +1, 0])
 			_BoltBase(8, 13.5, BBStyle_Round);
-			
-		translate([-25, -lowerBoltOffset/2 - 3, 0])	
+
+		translate([-25, -lowerBoltOffset/2 - 3, 0])
 			cylinder(h = 13.5, d = 12);
-			
+
 	}
 }
-	
+
 module _HotendMount_LowerBoltConnector() {
 
 	// -- connect lower portion of the wing to lower bolt
@@ -337,13 +337,13 @@ module _HotendMount_LowerBoltConnector() {
 
 		translate([-boltSpacing/2, -lowerBoltOffset, 0])
 				cylinder(h = rpXC_FrontBracketThickness, d = 10);
-				
-		
+
+
 	}
 }
 
 // -----------------------------------------------------------------------------
-// Wing to attach the linear carriage mount to the bolt post 
+// Wing to attach the linear carriage mount to the bolt post
 // - left side, mirror to get right side
 // -----------------------------------------------------------------------------
 
@@ -356,10 +356,10 @@ module _HotendMount_Wing(_yOffset = -6) {
 
 		translate([-8, _yOffset, 0])
 				cylinder(h = rpXC_FrontBracketThickness, d1 = 5.5, d2 = 5);
-		
+
 		translate([-8, _yOffset  -2, 0])
 				cylinder(h = rpXC_FrontBracketThickness / 2, d = 10);
-	}		
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -370,7 +370,7 @@ module CarveOut() {
 	translate([0,-10,-4])
 		rotate([0,0,-90])
 		union() {
-		
+
 		// top of hotend
 		translate([hwHA_Hotend_VerticalOffset,
 					hwHA_Hotend_Spacing /2,
@@ -378,12 +378,12 @@ module CarveOut() {
 		rotate([0,90,0])
 			cylinder(h = 5,
 					 d = 17);
-					 
+
 		translate([hwHA_Hotend_VerticalOffset,
 					hwHA_Hotend_Spacing /2 - 8.5,
 					hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing])
-			cube([5, 17, 8.5], center = false);			 
-					
+			cube([5, 17, 8.5], center = false);
+
 		// hotend groovemount
 		translate([hwHA_Hotend_VerticalOffset + 4.67,
 					hwHA_Hotend_Spacing /2,
@@ -395,7 +395,7 @@ module CarveOut() {
 					hwHA_Hotend_Spacing /2 - 6.5,
 					hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing])
 			cube([4.67, 13, 6.5], center = false);
-			
+
 		// hotend lower
 		translate([hwHA_Hotend_VerticalOffset + 2 * 4.67,
 					hwHA_Hotend_Spacing /2,
@@ -403,10 +403,10 @@ module CarveOut() {
 		rotate([0,90,0])
 			cylinder(h = 40 - 2 * 4.67,
 					 d = 20);
-				 
+
 		*rotate([0,-90,0])
 			_HA_CB_BoltCarveouts();
-			
+
 		*translate([10, -25, -0.1])
 		rotate([0,0,15])
 				cylinder(h = 8, d1 = 8, d2 = 6.8, $fn = 6);
@@ -416,41 +416,41 @@ module CarveOut() {
 module Part_HA_CarriageBase() {
 	difference() {
 		union() {	// combine the sub components that make up the parts
-			
+
 			_HACB_BoltBases(BBStyle_Taper);
 			_HACB_HotendMount();
 			//_XCCB_BoltSkeleton(BBStyle_Round);
-			
+
 			hull() {
-			
+
 			translate([-hwHA_Hotend_Spacing /2, -8, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 			rotate([90,0,0])
 				cylinder(h = 5, d = 22);
-			
+
 			translate([-hwHA_Hotend_Spacing /2, -1, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 			rotate([90,0,0])
 				cylinder(h = 12, d1 = 15, d2 = 22);
-				
+
 			translate([hwHA_Hotend_Spacing /2, -8, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 			rotate([90,0,0])
 				cylinder(h = 5, d = 22);
-				
+
 			translate([hwHA_Hotend_Spacing /2, -1, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 			rotate([90,0,0])
 				cylinder(h = 12, d1 = 15, d2 = 22);
 			}
-			
+
 			// top right brace
 	hull() {
 		// top left assembly bolt mount base
 		translate([boltSpacing/2, 0, 0])
 			_BoltBase(0, 4.5, BBStyle_Round);
-		
+
 		translate([8, -7, 0])
-				_BoltBase(0, 4.5, BBStyle_Round);	
-				
-		translate([boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
-			_BoltBase(0, 4.5, BBStyle_Round);	
+				_BoltBase(0, 4.5, BBStyle_Round);
+
+		translate([boltSpacing/2, -lowerBoltOffset /2 - 3, 0])
+			_BoltBase(0, 4.5, BBStyle_Round);
 	}
 
 	// top left brace
@@ -458,83 +458,83 @@ module Part_HA_CarriageBase() {
 		// top left assembly bolt mount base
 		translate([-boltSpacing/2, 0, 0])
 			_BoltBase(0, 4.5, BBStyle_Round);
-		
+
 		translate([-8, -7, 0])
-				_BoltBase(0, 4.5, BBStyle_Round);	
-			
-		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0]) 
-			_BoltBase(0, 4.5, BBStyle_Round);	
-		
+				_BoltBase(0, 4.5, BBStyle_Round);
+
+		translate([-boltSpacing/2, -lowerBoltOffset /2 - 3, 0])
+			_BoltBase(0, 4.5, BBStyle_Round);
+
 	}
-	
+
 	hull() {
 		translate([8, -6, 0])
 			cylinder(h = 4.5, d = 8);
-				
+
 		translate([-8, -6, 0])
 			cylinder(h = 4.5, d = 8);
-			
+
 		translate([8, -6, 0])
 			cylinder(h = 17, d = 6);
-				
+
 		translate([-8, -6, 0])
-			cylinder(h = 17, d = 6);	
+			cylinder(h = 17, d = 6);
 
 	}
 		}
-		
+
 		// hotend upper
-		
+
 		translate([0,0,0]) {
 			CarveOut();
 			mirror([1,0,0]) CarveOut();
 		}
-		
+
 		// bowden tube carveout
 		translate([hwHA_Hotend_Spacing /2, 0, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 20, d = 4.6);
-		
+
 		translate([-hwHA_Hotend_Spacing /2, 0, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 20, d = 4.6);
-		
-		
+
+
 		// pushfit carveout
 		translate([-hwHA_Hotend_Spacing /2, 1, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 10, d = 9);
-		
-		
+
+
 		translate([-hwHA_Hotend_Spacing /2, 9, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 10, d = 15);
-		
-		
+
+
 		// pushfit carveout
 		translate([hwHA_Hotend_Spacing /2, 1, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 10, d = 9);
-		
+
 		translate([hwHA_Hotend_Spacing /2, 9, hwHA_Hotend_Offset - rpXC_CarriageMount_BaseWidth /2 - rpXC_CarriageMount_BaseSpacing - 4])
 		rotate([90,0,0])
 		cylinder(h = 10, d = 15);
-		
+
 		translate([-50,-50,-20])
 		cube([100,100, 20]);
-		
+
 		translate([25, -lowerBoltOffset/2 - 3.0, -0.1])
 		rotate([0,0,15])
 				cylinder(h = 8, d1 = 8, d2 = 6.6, $fn = 6);
-	
+
 		translate([25, -lowerBoltOffset/2 - 3.0, 9])
 				cylinder(h = 5, d = 3.2);
-				
-				
+
+
 		translate([-25, -lowerBoltOffset/2 - 3.0, -0.1])
 		rotate([0,0,15])
 				cylinder(h = 8, d1 = 8, d2 = 6.6, $fn = 6);
-	
+
 		translate([-25, -lowerBoltOffset/2 - 3.0, 9])
 				cylinder(h = 5, d = 3.2);
 	}
@@ -544,47 +544,47 @@ module Part_HA_CarriageBase() {
 
 module _HACB_BaseLeft() {
 
-	
+
 
 	difference() {
 		union() {
 			hull() {
 				translate([boltSpacing/2, 0, 0])
 					_BoltBase(boltDiameter - 1.5, 5, BBStyle_Round);
-					
+
 				translate([boltSpacing/2, -lowerBoltOffset, 0])
 					_BoltBase(boltDiameter - 1.5, 5, BBStyle_Round);
 			}
-			
 
-		
-		
+
+
+
 			hull() {
 				translate([25, -lowerBoltOffset/2 - 3.5, 0])
 					_BoltBase(6, 13.5, BBStyle_Round);
-		
+
 				translate([18, -lowerBoltOffset/2 +1, 0])
 					_BoltBase(8, 13.5, BBStyle_Round);
 			}
-		
+
 			hull() {
 				translate([18, -lowerBoltOffset/2 + 1, 0])
 					_BoltBase(8, 13.5, BBStyle_Round);
-		
+
 				translate([0, -lowerBoltOffset/2 + 1, 0])
 					_BoltBase(8, 13.5, BBStyle_Round);
 			}
-		
-		
-		
-	}
-	
 
-				
-			
-	
+
+
 	}
-				
+
+
+
+
+
+	}
+
 
 }
 
@@ -594,13 +594,13 @@ module _HACB_BaseLeft() {
 
 module _HACB_BoltBases(baseBBStyle) {
 
-	
+
 	mirror([1,0,0]) _HACB_BaseLeft();
 	_HACB_BaseLeft();
-	
+
 	mirror([1,0,0]) _HACB_HotendMount();
 	_HACB_HotendMount();
-	
+
 
 }
 
@@ -612,7 +612,7 @@ module _HACB_HotendMount() {
 }
 
 // -----------------------------------------------------------------------------
-// WARNING: Be very careful modifying this - the values are from the original 
+// WARNING: Be very careful modifying this - the values are from the original
 // 			version which is all sorts of a different orientation
 // -----------------------------------------------------------------------------
 
@@ -626,8 +626,8 @@ module _HA_CB_BoltCarveouts() {
 				rpXC_BeltMount_BoltOffset])
 	rotate([0,90,0])
 		Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength, 10);
-				
-		
+
+
 	// [rpXC_BeltMount_BoltDepth - rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset]
 	translate([-rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset - 12,
 				0 - (rpXC_BeltMount_BoltSpacing / 2),
@@ -645,53 +645,53 @@ module _HA_CB_BoltCarveouts() {
 		*hull() {
 			translate([boltSpacing/2, 0, 0])
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-				
-			
+
+
 			translate([switchXOffset, - rpXC_BeltMount_BoltOffset + switchYOffset + hwMicroSwitch_HoleSpacing /2, 0])
 				_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
-		
+
 		*hull() {
 			translate([0, -lowerBoltOffset, 0])
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
-				
+
 			translate([switchXOffset + 2, -lowerBoltOffset + 5, 0])
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
-		
+
 		*hull() {
 			translate([0, -lowerBoltOffset, 0])
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
-				
+
 			translate([-switchXOffset - 2, -lowerBoltOffset + 5, 0])
 				_BoltBase(boltDiameter /3, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
-		
+
 		hull() {
 			translate([boltSpacing/2, 0, 0])
 			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 			translate([0, -lowerBoltOffset, 0])
 			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
-		
+
 		hull() {
 			translate([-boltSpacing/2, 0, 0])
 			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 			translate([0, -lowerBoltOffset, 0])
 			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
-		
+
 		*hull() {
 		// top left assembly bolt mount base
 		translate([-boltSpacing/2, 0, 0])
 			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
-			
+
 		// top right assembly bolt mount base
 		translate([boltSpacing/2, 0, 0])
 			_BoltBase(boltDiameter /2, _baseThickness - rpDefaultBevel, baseBBStyle);
 		}
 
-	
+
 }*/
 
 // *****************************************************************************
@@ -702,7 +702,7 @@ module _strutBase() {
 	a = rpXC_BeltMount_BoltSpacing/2;
 	b = rpXC_CarriageMount_LowerClearance + rpXC_CarriageMount_BoltHolderDiameter + rpXC_BeltMount_BoltHolderWidth /2 -1;
 	c = sqrt(a * a + b * b) ;
-	
+
 	difference() {
 		hull() {
 			_PostBase(rpXC_BeltMount_BoltHolderWidth, 10, 2);
@@ -710,17 +710,17 @@ module _strutBase() {
 			translate([-5,0,0])
 					cube ([10, c, rpXC_BeltMount_BoltHolderWidth], center = false);
 
-			translate([0,c,0])	
+			translate([0,c,0])
 				_PostBase(rpXC_BeltMount_BoltHolderWidth, 10, 2);
 		}
-		
+
 		translate([-3,0,3])
 					#cube ([6, c, rpXC_BeltMount_BoltHolderWidth - 3], center = false);
-		
+
 	}
-	
+
 	hull() _PostBase(rpXC_BeltMount_BoltHolderWidth, 10, 2);
-	hull() translate([0,c,0])	
+	hull() translate([0,c,0])
 				_PostBase(rpXC_BeltMount_BoltHolderWidth, 10, 2);
 }
 
@@ -728,7 +728,7 @@ module _topStrut() {
 
 /*
 	D'oh ... this diagram is upside down... no worries
-	
+
 	The purpose is to create a shape which can be rotated into place rather than create
 	the shape at an angle to start with.
 	This allows for more control over and detail over the initial shape.
@@ -739,27 +739,27 @@ module _topStrut() {
   		 /	|
 	  c /	|
 	   /	|	b
-	  /		|	
+	  /		|
 	 /		|
 	/_____90|
 	A	a	C
-	
+
 	A = atan(a/b)					{ solve for a }
 	B = atan(b/a)					{ solve for b }
 	C = 90
-	
+
 	A + B + C = 180					{ all three angles total 180 degrees }
-	
+
 	a = rpXC_BeltMount_BoltSpacing /2
 	b = rpXC_CarriageMount_LowerPointSpacing
 	c = sqrt(a * a + b * b)			{ solve for length of c, to determine shape size}
-		
+
 */
-	
+
 	a = rpXC_BeltMount_BoltSpacing/2;
 	b = rpXC_CarriageMount_LowerClearance + rpXC_CarriageMount_BoltHolderDiameter + rpXC_BeltMount_BoltHolderWidth /2 -1;
 	c = sqrt(a * a + b * b) ;
-	
+
 	A = atan(a/b);
 	B = atan(b/a);
 
@@ -769,16 +769,16 @@ module _topStrut() {
 		_strutBase();
 	translate([rpXC_CarriageMount_LowerPointSpacing,0,0])
 	rotate([0,0,180 - B])
-		_strutBase();	
-	
-	
+		_strutBase();
+
+
 }
 
 
 
 module _HA_Strut() {
 	difference() {
-		union() { 
+		union() {
 			_topStrut();											// union()
 			*hull() { 											// hull()
 			// top left post location
@@ -786,47 +786,47 @@ module _HA_Strut() {
 						rpXC_BeltMount_BoltSpacing /2,
 						0])
 				_PostBase(5, 10, 2);
-	
-			// bottom post location	
+
+			// bottom post location
 			translate([	rpXC_CarriageMount_LowerPointSpacing +1,
 						0,
 						0])
 				_PostBase(5, 10, 2);
-				
+
 			*translate([	-rpXC_CarriageMount_BaseHeight,
 					rpXC_BeltMount_BoltSpacing /2 + rpXC_BeltMount_BoltHolderDiameter /4,
 					0])
 			cylinder( 	h =5,
 							d = 3);
-						
+
 			*translate([	hwHA_Hotend_VerticalOffset + 4.67 + 4.67 /2,
 						rpXC_BeltMount_BoltSpacing /2 + rpXC_BeltMount_BoltHolderDiameter /4,
 						0])
 					cylinder( 	h =12,
 								d = 3);
 			}
-			
+
 			*hull() {											// hull()
 			translate([	hwHA_Hotend_VerticalOffset + 4.67,
 						0,
 						0])
 				cube([4.67, rpXC_BeltMount_BoltSpacing /2 + rpXC_BeltMount_BoltHolderDiameter /2 - 4.67, 12]);
-				
+
 			translate([	hwHA_Hotend_VerticalOffset + 4.67 + 4.67 /2,
 						rpXC_BeltMount_BoltSpacing /2 + 4.67 /2,
 						0])
 					cylinder( 	h =12,
 								d = 4.67);
 			}
-			
+
 			hull() {
-			
+
 			translate([	-rpXC_CarriageMount_BaseHeight,
 						rpXC_BeltMount_BoltSpacing /2 + rpXC_BeltMount_BoltHolderDiameter /4,
 						0])
 				cylinder( 	h =5,
 								d = 3);
-						
+
 			translate([	hwHA_Hotend_VerticalOffset + 4.67 + 4.67 /2,
 						rpXC_BeltMount_BoltSpacing /2 + rpXC_BeltMount_BoltHolderDiameter /4,
 						0])
@@ -834,7 +834,7 @@ module _HA_Strut() {
 								d = 3);
 			}
 		}													// union()
-		
+
 		// hotend upper
 		translate([hwHA_Hotend_VerticalOffset,
 					hwHA_Hotend_Spacing /2,
@@ -849,7 +849,7 @@ module _HA_Strut() {
 		rotate([0,90,0])
 			cylinder(h = 4.67,
 					 d = 12.2);
-				
+
 		// hotend lower
 		translate([hwHA_Hotend_VerticalOffset + 2 * 4.67,
 					hwHA_Hotend_Spacing /2,
@@ -858,7 +858,7 @@ module _HA_Strut() {
 			cylinder(h = 40 - 2 * 4.67,
 					 d = 25);
 	}
-	
+
 	// hotend spacing
 	*translate([hwHA_Hotend_VerticalOffset,
 				hwHA_Hotend_Spacing /2,
@@ -866,17 +866,17 @@ module _HA_Strut() {
 	rotate([0,90,0])
 		cylinder(h = 40,
 				 d = 16);
-	
+
 
 }
 
 // -----------------------------------------------------------------------------
 module _PostBase(baseHeight, baseDiameter, baseOffset) {
 	$fn = gcFacetMedium;
-	
+
 	cylinder(		h = baseHeight,
 					d = baseDiameter - baseOffset /2);
-				
+
 	translate([0,0,0])
 		cylinder(	h = baseHeight - baseOffset,
 					d = baseDiameter);

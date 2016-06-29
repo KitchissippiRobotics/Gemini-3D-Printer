@@ -11,7 +11,7 @@
 
 include <../Dimensions.scad>
 
-// Enable multipart mode - this disables built in support material and automatic 
+// Enable multipart mode - this disables built in support material and automatic
 // rendering of the parts
 
 MultiPartMode = true;
@@ -54,19 +54,19 @@ color(colourPrimary)
 translate([rpXC_CarriageMount_BaseWidth / 2 + rpXC_FrontBracketThickness,0,10.1])
 rotate([90,0,-90])
 	Part_XC_FrontBracket();
-	
-	
+
+
 // =============================================================================
 // Render: XC_CarriageBracket_Rear
 // =============================================================================
-	
-include <XC_RearBracket.scad>	
-	
+
+include <XC_RearBracket.scad>
+
 color(colourPrimary)
 translate([-rpXC_CarriageMount_BaseWidth / 2 - rpXC_RearBracketThickness,0,10.1])
 rotate([90,0,90])
 	Part_XC_RearBracket();
-	
+
 // =============================================================================
 // Render: XC_BlowerCase
 // =============================================================================
@@ -74,7 +74,7 @@ rotate([90,0,90])
 include <XC_BlowerCase.scad>
 
 color(colourPrimary)
-translate([-11,0,-24])
+translate([-11,0,-24 - hwXC_BarSpacing])
 rotate([90,0,90])
 	Part_XC_BlowerCase();
 
@@ -98,24 +98,24 @@ rotate([90,0,90])
 // ~~ Part No. XC-CB-MB01 ~~ (M3x10)
 translate([0 - (hwLR_Carriage_BoltWidth / 2), 0 - (hwLR_Carriage_BoltLength / 2), 0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
-	
+
 // ~~ Part No. XC-CB-MB02 ~~ (M3x10)
 translate([0 + (hwLR_Carriage_BoltWidth / 2), 0 - (hwLR_Carriage_BoltLength / 2),  0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
-	
+
 // ~~ Part No. XC-CB-MB03 ~~ (M3x10)
 translate([0 - (hwLR_Carriage_BoltWidth / 2), 0 + (hwLR_Carriage_BoltLength / 2),  0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
-	
+
 // ~~ Part No. XC-CB-MB04 ~~ (M3x10)
 translate([0 + (hwLR_Carriage_BoltWidth / 2), 0 + (hwLR_Carriage_BoltLength / 2),  0 - hwLR_Carriage_BoltDepth])
 	Draw_hw_Bolt_AllenHead(rpXC_CarriageMount_BoltSize, rpXC_CarriageMount_BoltLength);
-	
-	
-	
+
+
+
 // =============================================================================
 // Render: HA_CarriageBase
-// =============================================================================	
+// =============================================================================
 
 include <XC_HotendMount.scad>
 
@@ -133,7 +133,7 @@ rotate([90,0,90])
 			-10])
 rotate([-90,180,0])
 	import("../Vitamins/microswitch.stl", convexity = 3);
-	
+
 // =============================================================================
 // Render: Print Cooling Fan
 // =============================================================================
@@ -141,10 +141,10 @@ rotate([-90,180,0])
 color("Black")
 %translate([-19,
 			5,
-			-36])
+			-36 - hwXC_BarSpacing])
 rotate([0,180,90])
 	import("../Vitamins/blower.stl", convexity = 3);
-	
+
 // =============================================================================
 // Render: XC_CarriageBeltClamp
 // =============================================================================
@@ -157,7 +157,7 @@ color(colourPrimary)
 translate([0 - (rpXC_BeltMount_BaseOffset),0,rpXC_BeltMount_BoltOffset])
 rotate([-90,0,90])
 	Part_XC_BeltClamp();
-	
+
 // Mount Bolts for belt clamp and hotend assembly
 
 // upper bolts
@@ -165,58 +165,58 @@ rotate([-90,0,90])
 translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 - (rpXC_UpperMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
 	rotate([0,-90,180])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
-		
+
 // ~~ Part No. XC_BM-MB06 ~~ (M4x40)
 translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 + (rpXC_UpperMount_BoltSpacing / 2), rpXC_BeltMount_BoltOffset])
 	rotate([0,-90,180])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
-		
+
 // lower bolts
-translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing])
+translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 - (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing - hwXC_BarSpacing])
 	rotate([0,-90,180])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
-		
-translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 + (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing])
+
+translate([- rpXC_BeltMount_BoltDepth + rpXC_BeltMount_BaseOffset, 0 + (rpXC_BeltMount_BoltSpacing / 2), -rpXC_CarriageMount_LowerPointSpacing - hwXC_BarSpacing])
 	rotate([0,-90,180])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
-		
+
 // Belt clamp covers
 
-include <XC_BeltCover.scad>	
+include <XC_BeltCover.scad>
 color(colourSecondary)
 translate([-11 - (rpXC_BeltMount_BaseOffset),13,rpXC_BeltMount_BoltOffset])
 rotate([-90,0,-90])
 	Part_XC_BeltCover();
-	
+
 color(colourSecondary)
 translate([-11 - (rpXC_BeltMount_BaseOffset),-13,rpXC_BeltMount_BoltOffset])
 rotate([-90,0,-90])
 	Part_XC_BeltCover();
-		
+
 // Mount bolts for the belt clamp covers
-		
+
 // ~~ Part No. XC_BM-MB06 ~~ (M3x10)
 translate([rpXC_BeltMount_ClampBoltDepth, 0 - (rpXC_BeltMount_ClampBoltSpacing / 2), rpXC_BeltMount_ClampBoltOffset])
 	rotate([0,-90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, rpXC_BeltMount_ClampBoltLength);
-		
+
 // ~~ Part No. XC_BM-MB07 ~~ (M3x10)
 translate([rpXC_BeltMount_ClampBoltDepth, 0 + (rpXC_BeltMount_ClampBoltSpacing / 2), rpXC_BeltMount_ClampBoltOffset])
 	rotate([0,-90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_ClampBoltSize, rpXC_BeltMount_ClampBoltLength);
-		
+
 // cover type bolts - experimental
 
 *translate([24, 0, 4])
 	rotate([0,90,0])
 		Draw_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, 10);
-		
+
 
 
 // =============================================================================
 // Placement: J Head Hotend
 // =============================================================================
-	
+
 include <../Vitamins/hotend-jhead.scad>
 
 // ~~~ Part No. XC-HA-HOTENDS.COM-01 ~~~ (J-Head from hotends.com)
@@ -225,7 +225,7 @@ include <../Vitamins/hotend-jhead.scad>
 			-hwHA_Hotend_VerticalOffset])
 rotate([0,180,0])
 	hotend_jhead();
-	
+
 // ~~~ Part No. XC-HA-HOTENDS.COM-02 ~~~ (J-Head from hotends.com)
 
 %translate([hwHA_Hotend_Offset,
@@ -233,7 +233,7 @@ rotate([0,180,0])
 			-hwHA_Hotend_VerticalOffset])
 rotate([0,180,180])
 	hotend_jhead();
-	
+
 // pushfit
 color("Gold")
 %translate([hwHA_Hotend_Offset,
@@ -248,7 +248,7 @@ color("Gold")
 			11.5])
 rotate([0,0,0])
 import("../Vitamins/pushfit.stl", convexity=3);
-	
+
 // =============================================================================
 // Placement: 40mm J Head Cooling Fan
 // =============================================================================
@@ -258,41 +258,41 @@ include <../Vitamins/parametric-fan.scad>
 // ~~ Part No. XC_CB-FAN01 ~~ (40mm fan)
 %translate([hwHA_Fan_Offset,
 			0,
-			-23])	// 50% of the fan size
+			-23 - hwHA_Fan_VertOffset])	// 50% of the fan size
 rotate([0,90,0])
 	fan(40, 10, 32);
-	
-// mount bolts for fan
-	
 
-translate([	hwHA_Fan_Offset - 7.8, 
-			16, 
-			-7])
+// mount bolts for fan
+
+
+translate([	hwHA_Fan_Offset - 7.8,
+			16,
+			-7 - hwHA_Fan_VertOffset])
 	rotate([0, 90,0])
 		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
-		
-translate([	hwHA_Fan_Offset - 7.8, 
-			-16, 
-			-7])
+
+translate([	hwHA_Fan_Offset - 7.8,
+			-16,
+			-7 - hwHA_Fan_VertOffset])
 	rotate([0, 90,0])
 		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
-		
-translate([	hwHA_Fan_Offset - 7.8, 
-			16, 
-			-39])
+
+translate([	hwHA_Fan_Offset - 7.8,
+			16,
+			-39 - hwHA_Fan_VertOffset])
 	rotate([0, 90,0])
 		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
-		
-translate([	hwHA_Fan_Offset - 7.8, 
-			-16, 
-			-39])
+
+translate([	hwHA_Fan_Offset - 7.8,
+			-16,
+			-39 - hwHA_Fan_VertOffset])
 	rotate([0, 90,0])
 		Draw_hw_Bolt_AllenHead(hwM3_Bolt_AllenHeadSize, 10);
-		
+
 include <XC_FanMount.scad>
 
 color(colourPrimary)
-translate([hwHA_Fan_Offset- 5,0,0])
+translate([hwHA_Fan_Offset- 5,0,0 - hwHA_Fan_VertOffse])
 rotate([90,0,-90])
 	Part_XC_FanMount();
 
@@ -305,14 +305,14 @@ rotate([90,0,-90])
 			0,
 			-7])
 rotate([0,0,90])
-import("../Vitamins/hiwin12-rail.stl", convexity=3);	
+import("../Vitamins/hiwin12-rail.stl", convexity=3);
 
 // hiwin carriage
 %translate([0,
 			0,
 			-4])
 rotate([0,0,90])
-import("../Vitamins/hiwin12-carriage.stl", convexity=3);	
+import("../Vitamins/hiwin12-carriage.stl", convexity=3);
 
 // flat bar
 %translate([-(19.1/2),

@@ -15,7 +15,7 @@ include <../Dimensions.scad>
 include <XC_Common.scad>
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Default Usage:	
+// Default Usage:
 // Part_XC_FrontBracket();
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -25,7 +25,7 @@ include <XC_Common.scad>
 if (MultiPartMode == undef) {
 	MultiPartMode = false;
 	EnableSupport = true;
-	
+
 	Part_XC_FrontBracket();
 } else {
 	EnableSupport = false;
@@ -42,31 +42,31 @@ module Part_XC_FrontBracket() {
 	difference() {
 		union() {
 
-			_FrontBracket_BoltPosts();	
+			_FrontBracket_BoltPosts();
 			_FrontBracket_LinearMount();
 			_FrontBracket_Wing();
 			mirror([1,0,0])
 				_FrontBracket_Wing();
-				
+
 			_FrontBracket_LowerBrace();
 			mirror([1,0,0])
 				_FrontBracket_LowerBrace();
-				
+
 		}
-		
+
 		// XC Mounting Bolts
 		translate([rpXC_UpperMount_BoltSpacing / 2, 0, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
-			
+
 		translate([-rpXC_UpperMount_BoltSpacing / 2, 0, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
-			
+
 		// XC Mounting Bolts
 		translate([rpXC_LowerMount_BoltSpacing / 2, -lowerBoltOffset, -5])
 			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
-			
+
 		translate([-rpXC_LowerMount_BoltSpacing / 2, -lowerBoltOffset, -5])
-			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);	
+			Carve_hw_Bolt_AllenHead(rpXC_BeltMount_BoltSize, rpXC_BeltMount_BoltLength);
 	}
 }
 
@@ -77,28 +77,28 @@ module Part_XC_FrontBracket() {
 module _FrontBracket_BoltPosts() {
 	// top left assembly bolt mount base
 	translate([-rpXC_UpperMount_BoltSpacing/2, 0, 0])
-		cylinder(	h = rpXC_FrontBracketThickness,	
+		cylinder(	h = rpXC_FrontBracketThickness,
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
-		
+
 	// top right assembly bolt mount base
 	translate([rpXC_UpperMount_BoltSpacing/2, 0, 0])
-		cylinder(	h = rpXC_FrontBracketThickness,	
+		cylinder(	h = rpXC_FrontBracketThickness,
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
-					
+
 	// bottom left assembly bolt mount base
 	translate([-rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset, 0])
-		cylinder(	h = rpXC_FrontBracketThickness,	
+		cylinder(	h = rpXC_FrontBracketThickness,
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
-		
+
 	// bottom right assembly bolt mount base
 	translate([rpXC_LowerMount_BoltSpacing/2, -lowerBoltOffset, 0])
-		cylinder(	h = rpXC_FrontBracketThickness,	
+		cylinder(	h = rpXC_FrontBracketThickness,
 					d = hwM4_Bolt_ShaftDiameter + gcMachineOffset + minimumThickness,
 					$fn = gcFacetLarge);
-			
+
 }
 
 // -----------------------------------------------------------------------------
@@ -145,7 +145,7 @@ module _FrontBracket_LowerBrace(_yOffset = -6) {
 }
 
 // -----------------------------------------------------------------------------
-// Wing to attach the linear carriage mount to the bolt post 
+// Wing to attach the linear carriage mount to the bolt post
 // - left side, mirror to get right side
 // -----------------------------------------------------------------------------
 
@@ -158,8 +158,8 @@ module _FrontBracket_Wing(_yOffset = -6) {
 
 		translate([-8, _yOffset, 0])
 				cylinder(h = rpXC_FrontBracketThickness, d1 = 4.5, d2 = 6);
-		
+
 		translate([-8, _yOffset  -2, 0])
 				cylinder(h = rpXC_FrontBracketThickness / 2, d = 5);
-	}		
+	}
 }
